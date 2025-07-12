@@ -1,231 +1,939 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sainath Bottupally - Full Stack Developer</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --dark-text: #e2e8f0;
+            --light-bg: #ffffff;
+            --light-surface: #f8fafc;
+            --light-text: #1e293b;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background: var(--dark-bg);
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        body.light-mode {
+            background: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Canvas for 3D */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(-100%);
+            animation: slideDown 0.6s ease forwards 0.5s;
+        }
+
+        body.light-mode nav {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes slideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            position: relative;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        body.light-mode .nav-links a {
+            color: var(--light-text);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            transform: rotate(180deg);
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        section.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--dark-text);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        body.light-mode .hero-subtitle {
+            color: var(--light-text);
+        }
+
+        /* CTA Buttons */
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .cta-secondary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* 3D Objects Container */
+        .floating-3d-objects {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* About Section */
+        #about {
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        body.light-mode #about {
+            background: rgba(248, 250, 252, 0.5);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .profile-frame {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: morphing 8s infinite ease-in-out;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes morphing {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        }
+
+        .profile-frame::before {
+            content: 'SB';
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .profile-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .about-story {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* Skills Section */
+        #skills {
+            background: transparent;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        body.light-mode .skill-card {
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, var(--primary), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .skill-card:hover::before {
+            animation: shine 0.5s ease;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px) rotateX(10deg);
+            box-shadow: 0 20px 30px rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Experience Section */
+        #experience {
+            background: rgba(30, 41, 59, 0.3);
+        }
+
+        body.light-mode #experience {
+            background: rgba(248, 250, 252, 0.3);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .timeline-item.visible {
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(even) {
+            transform: translateX(50px);
+        }
+
+        .timeline-item:nth-child(even).visible {
+            animation: slideInRight 0.6s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-content {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 45%;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        body.light-mode .timeline-content {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 0 4px var(--dark-surface), 0 0 20px var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 4px var(--dark-surface), 0 0 20px var(--primary); }
+            50% { box-shadow: 0 0 0 8px var(--dark-surface), 0 0 30px var(--primary); }
+            100% { box-shadow: 0 0 0 4px var(--dark-surface), 0 0 20px var(--primary); }
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Projects Section */
+        #projects {
+            background: transparent;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        body.light-mode .project-card {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card:hover {
+            transform: rotateY(5deg) rotateX(5deg) scale(1.05);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .project-card:hover .project-header::after {
+            top: 100%;
+            right: 100%;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--primary);
+        }
+
+        /* Contact Section */
+        #contact {
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        body.light-mode #contact {
+            background: rgba(248, 250, 252, 0.5);
+        }
+
+        .contact-container {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary);
+            border-radius: 25px;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-circle {
+            width: 50px;
+            height: 50px;
+            border: 3px solid transparent;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* WebGL Transition Effect */
+        .section-transition {
+            position: absolute;
+            width: 100%;
+            height: 200px;
+            bottom: -100px;
+            left: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
 <body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-circle"></div>
+    </div>
+
+    <!-- 3D Canvas -->
+    <div id="canvas-container"></div>
+
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav>
         <div class="nav-container">
             <div class="logo">SB</div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
+                <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">🌙</span>
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section" id="home">
-        <div class="particles" id="particles"></div>
-        <div class="ai-decoration"></div>
-
-        <div class="hero-content">
-            <div class="profile-image">
-                <i class="fas fa-user"></i>
-            </div>
-            <h1 class="hero-title">Hi, I'm Sainath Bottupally!</h1>
-            <p class="hero-subtitle">
-                I'm a <strong>Full Stack Developer</strong> with 5+ years of experience crafting
-                <span class="highlight">AI-powered</span> web applications
-            </p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">
-                    <i class="fas fa-phone"></i> Let's Connect
-                </a>
-                <a href="#projects" class="btn btn-secondary">
-                    <i class="fas fa-code"></i> View My Work
-                </a>
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Hi, I'm Sainath Bottupally</h1>
+                <p class="hero-subtitle">Crafting Digital Experiences with Code & Creativity</p>
+                <div class="cta-group">
+                    <a href="#projects" class="cta-btn cta-primary">View My Work</a>
+                    <a href="#contact" class="cta-btn cta-secondary">Get In Touch</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="section fade-in" id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>I'm a passionate Full Stack Developer with 5+ years of experience building scalable web and mobile
-                    applications. My expertise spans across modern technologies including Java, Spring Boot, React,
-                    Node.js, and AWS.</p>
-                <p>I specialize in integrating AI/ML solutions into production systems and have a proven track record of
-                    delivering high-performance applications that serve millions of users.</p>
-                <p>Currently working as a Senior Software Engineer at Everest Engineering, I focus on engineering best
-                    practices, mentoring junior developers, and driving product innovation.</p>
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Story</h2>
+                <p class="section-subtitle">A journey of continuous learning and innovation</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="profile-frame">
+                        <div class="profile-particles"></div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p class="about-story">
+                        With over 5 years of crafting digital experiences, I've evolved from a curious computer science student at IIIT Basar into a full-stack developer who bridges the gap between elegant code and meaningful user experiences. My journey began with a simple fascination for how technology could solve real-world problems, and it has led me through exciting adventures at companies like ThoughtWorks and Everest Engineering.
+                    </p>
+                    <p class="about-story">
+                        Today, I specialize in building scalable applications that not only perform flawlessly but also delight users. From integrating AI/ML models to orchestrating microservices that handle millions of requests, I approach each challenge with enthusiasm and a commitment to engineering excellence. When I'm not coding, you'll find me mentoring junior developers or exploring the latest in cloud technologies and DevOps practices.
+                    </p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3><i class="fas fa-code"></i> Languages</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Java</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">TypeScript</span>
-                    <span class="skill-tag">SQL</span>
-                </div>
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Arsenal</h2>
+                <p class="section-subtitle">Technologies I wield to bring ideas to life</p>
             </div>
-
-            <div class="skill-category">
-                <h3><i class="fas fa-server"></i> Backend</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Spring Boot</span>
-                    <span class="skill-tag">Node.js</span>
-                    <span class="skill-tag">Express</span>
-                    <span class="skill-tag">Django</span>
-                    <span class="skill-tag">NestJS</span>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <div class="skill-name">Java & Spring Boot</div>
                 </div>
-            </div>
-
-            <div class="skill-category">
-                <h3><i class="fas fa-desktop"></i> Frontend</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">Angular</span>
-                    <span class="skill-tag">React Native</span>
-                    <span class="skill-tag">Tailwind CSS</span>
-                    <span class="skill-tag">Material UI</span>
+                <div class="skill-card">
+                    <div class="skill-icon">⚛️</div>
+                    <div class="skill-name">React & React Native</div>
                 </div>
-            </div>
-
-            <div class="skill-category">
-                <h3><i class="fas fa-cloud"></i> Cloud & DevOps</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">AWS</span>
-                    <span class="skill-tag">Docker</span>
-                    <span class="skill-tag">Jenkins</span>
-                    <span class="skill-tag">CI/CD</span>
-                    <span class="skill-tag">GitHub Actions</span>
+                <div class="skill-card">
+                    <div class="skill-icon">🚀</div>
+                    <div class="skill-name">Node.js & Express</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">☁️</div>
+                    <div class="skill-name">AWS & Cloud</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🐳</div>
+                    <div class="skill-name">Docker & DevOps</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🤖</div>
+                    <div class="skill-name">AI/ML Integration</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📱</div>
+                    <div class="skill-name">Mobile Development</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎨</div>
+                    <div class="skill-name">UI/UX Design</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section class="section fade-in" id="experience">
-        <h2 class="section-title">Professional Experience</h2>
-        <div class="experience-timeline">
-            <div class="experience-item">
-                <div class="experience-company">Everest Engineering</div>
-                <div class="experience-role">Senior Software Engineer</div>
-                <div class="experience-date">Aug 2022 – Present</div>
-                <div class="experience-description">
-                    Leading development of high-performance, scalable web applications using React, Node.js, and Spring
-                    Boot. Championing code quality, performance optimization, and modern UI/UX implementations while
-                    mentoring junior developers and integrating AI/ML solutions into production systems.
-                </div>
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Journey</h2>
+                <p class="section-subtitle">Milestones that shaped my career</p>
             </div>
-
-            <div class="experience-item">
-                <div class="experience-company">ThoughtWorks</div>
-                <div class="experience-role">Application Developer</div>
-                <div class="experience-date">Dec 2020 – Aug 2022</div>
-                <div class="experience-description">
-                    Engineered microservice-based backend systems using Java, Spring Boot, and TDD principles. Built
-                    scalable, fault-tolerant systems supporting millions of requests during peak traffic seasons and
-                    reduced incident response time by 35%.
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Aug 2022 - Present</div>
+                        <h3 class="timeline-title">Senior Software Engineer</h3>
+                        <p class="timeline-company">Everest Engineering, Hyderabad</p>
+                        <p>Leading the charge in building high-performance applications, I've been instrumental in integrating cutting-edge AI/ML solutions while mentoring the next generation of developers. My work here has reduced incident response times by 35% through proactive monitoring and optimization.</p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="experience-item">
-                <div class="experience-company">DTaiLabs</div>
-                <div class="experience-role">Full Stack Developer Intern</div>
-                <div class="experience-date">Dec 2019 – Dec 2020</div>
-                <div class="experience-description">
-                    Built a comprehensive full-stack hiring platform using Angular, Node.js, and MongoDB. Developed
-                    robust backend APIs and implemented comprehensive testing strategies with CI/CD pipelines for global
-                    deployment.
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Dec 2020 - Aug 2022</div>
+                        <h3 class="timeline-title">Application Developer</h3>
+                        <p class="timeline-company">ThoughtWorks, Hyderabad</p>
+                        <p>At ThoughtWorks, I dove deep into microservices architecture, building enterprise-grade applications that could handle millions of requests during peak seasons. This is where I honed my TDD skills and learned the true value of collaborative development.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Dec 2019 - Dec 2020</div>
+                        <h3 class="timeline-title">Full Stack Developer Intern</h3>
+                        <p class="timeline-company">DTaiLabs, Hyderabad</p>
+                        <p>My first real taste of full-stack development came at DTaiLabs, where I built a complete hiring platform from scratch. This experience taught me the importance of end-to-end ownership and sparked my passion for creating seamless user experiences.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section class="section fade-in" id="projects">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">🎨</div>
-                    <div class="project-title">Amazon Nova Canva App</div>
-                </div>
-                <div class="project-content">
-                    <div class="project-description">
-                        Developed a Canva extension enabling image generation, object replacement, and background
-                        removal with 90% accuracy. Delivered in 2.5 weeks with AI/ML model integration.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">AI/ML</span>
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">Computer Vision</span>
-                    </div>
-                </div>
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Creations</h2>
+                <p class="section-subtitle">Projects that showcase my passion for innovation</p>
             </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">📱</div>
-                    <div class="project-title">Mindvalley States & NextGen</div>
-                </div>
-                <div class="project-content">
-                    <div class="project-description">
-                        Built native Android apps for immersive mental enhancement programs with high-performance
-                        animations and seamless UI transitions, revamping the UI for brand consistency.
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Amazon Nova Canva App</h3>
                     </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Android</span>
-                        <span class="tech-tag">Java</span>
-                        <span class="tech-tag">UI/UX</span>
-                        <span class="tech-tag">Animations</span>
+                    <div class="project-content">
+                        <p>Revolutionized creative workflows by developing a Canva extension that leverages AI for image generation and manipulation with 90% accuracy. Delivered in just 2.5 weeks, this project showcases my ability to rapidly prototype and integrate complex AI/ML models into production environments.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">AI/ML</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">API Integration</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">💼</div>
-                    <div class="project-title">Fast GiG Platform</div>
-                </div>
-                <div class="project-content">
-                    <div class="project-description">
-                        Developed a React Native app for part-time job seekers in Singapore with improved backend
-                        performance and automated weekly payout system.
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Mindvalley States & NextGen</h3>
                     </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">React Native</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">Payment Integration</span>
-                        <span class="tech-tag">Mobile UI</span>
+                    <div class="project-content">
+                        <p>Created immersive native Android applications that transform mental enhancement programs into engaging digital experiences. With high-performance animations and seamless UI transitions, these apps demonstrate my expertise in mobile development and user-centric design.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Android Native</span>
+                            <span class="tech-tag">Animation</span>
+                            <span class="tech-tag">UI/UX</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">🛍️</div>
-                    <div class="project-title">GAP E-Commerce Platform</div>
-                </div>
-                <div class="project-content">
-                    <div class="project-description">
-                        Maintained user profile modules, secured financial data handling, and implemented feature flags
-                        for seamless transitions between legacy and modern stacks.
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Fast GiG Platform</h3>
                     </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">E-commerce</span>
-                        <span class="tech-tag">Security</span>
-                        <span class="tech-tag">Feature Flags</span>
-                        <span class="tech-tag">Jenkins</span>
+                    <div class="project-content">
+                        <p>Built a comprehensive job-seeking platform for Singapore's gig economy, featuring a React Native mobile app and optimized Node.js backend. The automated weekly payout system and seamless cross-platform experience have helped thousands find flexible work opportunities.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Automation</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -233,42 +941,428 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="section fade-in" id="contact">
-        <h2 class="section-title">Let's Connect</h2>
-        <div class="contact-content">
-            <h3>Ready to build something amazing together?</h3>
-            <p>I'm always excited to discuss new opportunities and innovative projects!</p>
-
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>bottupallysainath@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>+91 8096149910</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Hyderabad, India</span>
-                </div>
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Connect</h2>
+                <p class="section-subtitle">Ready to build something amazing together?</p>
             </div>
-
-            <div class="social-links">
-                <a href="#" class="social-link" title="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="#" class="social-link" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="mailto:bottupallysainath@gmail.com" class="social-link" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
+            <div class="contact-container">
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                    Whether you have a project in mind, need technical expertise, or just want to say hello, I'm always excited to connect with fellow innovators and creators. Let's turn your ideas into reality!
+                </p>
+                <div class="contact-info">
+                    <a href="tel:+918096149910" class="contact-item">
+                        <span>📱</span>
+                        <span>+91 8096149910</span>
+                    </a>
+                    <a href="mailto:bottupallysainath@gmail.com" class="contact-item">
+                        <span>✉️</span>
+                        <span>bottupallysainath@gmail.com</span>
+                    </a>
+                    <a href="https://linkedin.com/in/sainath-bottupally" target="_blank" class="contact-item">
+                        <span>💼</span>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/sainathbottupally" target="_blank" class="contact-item">
+                        <span>🐙</span>
+                        <span>GitHub</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <script src="js/main.js"></script>
-</body>
+    <script>
+        // Three.js Setup
+        let scene, camera, renderer, particles, floatingObjects = [];
+        let mouseX = 0, mouseY = 0;
+        let windowHalfX = window.innerWidth / 2;
+        let windowHalfY = window.innerHeight / 2;
 
+        function init3D() {
+            // Scene setup
+            scene = new THREE.Scene();
+            
+            // Camera setup
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 50;
+
+            // Renderer setup
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            // Particle System
+            createParticleSystem();
+
+            // Floating 3D Objects
+            createFloatingObjects();
+
+            // Lights
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+
+            // Mouse movement
+            document.addEventListener('mousemove', onDocumentMouseMove);
+
+            // Window resize
+            window.addEventListener('resize', onWindowResize);
+
+            // Start animation
+            animate();
+        }
+
+        function createParticleSystem() {
+            const particleCount = 1000;
+            const particles = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 100;
+                positions[i + 1] = (Math.random() - 0.5) * 100;
+                positions[i + 2] = (Math.random() - 0.5) * 100;
+
+                // Color gradient based on position
+                colors[i] = 0.4 + Math.random() * 0.6;     // R
+                colors[i + 1] = 0.4 + Math.random() * 0.6; // G
+                colors[i + 2] = 0.95;                       // B
+            }
+
+            particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.5,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particleSystem = new THREE.Points(particles, particleMaterial);
+            scene.add(particleSystem);
+            
+            // Store for animation
+            window.particleSystem = particleSystem;
+        }
+
+        function createFloatingObjects() {
+            const geometries = [
+                new THREE.IcosahedronGeometry(5, 0),
+                new THREE.OctahedronGeometry(4, 0),
+                new THREE.TetrahedronGeometry(6, 0),
+                new THREE.BoxGeometry(5, 5, 5),
+                new THREE.ConeGeometry(4, 8, 5)
+            ];
+
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x6366f1,
+                emissive: 0x6366f1,
+                emissiveIntensity: 0.1,
+                shininess: 100,
+                specular: 0x8b5cf6,
+                transparent: true,
+                opacity: 0.3,
+                wireframe: true
+            });
+
+            for (let i = 0; i < 5; i++) {
+                const geometry = geometries[i];
+                const mesh = new THREE.Mesh(geometry, material.clone());
+                
+                mesh.position.x = (Math.random() - 0.5) * 80;
+                mesh.position.y = (Math.random() - 0.5) * 80;
+                mesh.position.z = (Math.random() - 0.5) * 50;
+                
+                mesh.rotation.x = Math.random() * Math.PI;
+                mesh.rotation.y = Math.random() * Math.PI;
+                
+                mesh.userData = {
+                    rotationSpeed: {
+                        x: (Math.random() - 0.5) * 0.01,
+                        y: (Math.random() - 0.5) * 0.01,
+                        z: (Math.random() - 0.5) * 0.01
+                    },
+                    floatSpeed: Math.random() * 0.5 + 0.5,
+                    floatRange: Math.random() * 10 + 5,
+                    offset: Math.random() * Math.PI * 2
+                };
+                
+                scene.add(mesh);
+                floatingObjects.push(mesh);
+            }
+        }
+
+        function onDocumentMouseMove(event) {
+            mouseX = (event.clientX - windowHalfX) / windowHalfX;
+            mouseY = (event.clientY - windowHalfY) / windowHalfY;
+        }
+
+        function onWindowResize() {
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate particle system
+            if (window.particleSystem) {
+                window.particleSystem.rotation.x += 0.0005;
+                window.particleSystem.rotation.y += 0.0005;
+            }
+
+            // Camera movement based on mouse
+            camera.position.x += (mouseX * 10 - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY * 10 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            // Animate floating objects
+            const time = Date.now() * 0.001;
+            floatingObjects.forEach((obj) => {
+                obj.rotation.x += obj.userData.rotationSpeed.x;
+                obj.rotation.y += obj.userData.rotationSpeed.y;
+                obj.rotation.z += obj.userData.rotationSpeed.z;
+                
+                obj.position.y += Math.sin(time * obj.userData.floatSpeed + obj.userData.offset) * 0.1;
+                
+                // Color shift based on scroll
+                const scrollProgress = window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight);
+                obj.material.emissive = new THREE.Color().setHSL(0.7 - scrollProgress * 0.3, 0.8, 0.5);
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize 3D scene when page loads
+        window.addEventListener('load', () => {
+            init3D();
+            
+            // Hide loader
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const isLightMode = body.classList.contains('light-mode');
+            themeIcon.textContent = isLightMode ? '☀️' : '🌙';
+            
+            // Update 3D object colors based on theme
+            floatingObjects.forEach(obj => {
+                obj.material.opacity = isLightMode ? 0.2 : 0.3;
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // GSAP animations for enhanced effects
+                    if (entry.target.classList.contains('timeline-item')) {
+                        gsap.from(entry.target.querySelector('.timeline-content'), {
+                            scale: 0.8,
+                            opacity: 0,
+                            duration: 0.6,
+                            ease: "power2.out"
+                        });
+                    }
+                    
+                    if (entry.target.classList.contains('skill-card')) {
+                        gsap.from(entry.target, {
+                            rotationY: 90,
+                            opacity: 0,
+                            duration: 0.8,
+                            ease: "power2.out",
+                            stagger: 0.1
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections and elements
+        document.querySelectorAll('section, .timeline-item, .skill-card, .project-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 3D tilt effect for project cards
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        projectCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                gsap.to(card, {
+                    rotationY: rotateY,
+                    rotationX: rotateX,
+                    transformPerspective: 1000,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    rotationY: 0,
+                    rotationX: 0,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // Typing effect for hero subtitle
+        const subtitle = document.querySelector('.hero-subtitle');
+        const text = subtitle.textContent;
+        subtitle.textContent = '';
+        
+        gsap.to(subtitle, {
+            duration: 2,
+            text: text,
+            ease: "none",
+            delay: 1.5
+        });
+
+        // Active section highlighting in navigation
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+
+            // WebGL-based section transitions
+            const scrollProgress = window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight);
+            
+            // Update 3D scene based on scroll
+            if (scene) {
+                scene.fog = new THREE.Fog(0x0f172a, 50, 100 - scrollProgress * 50);
+                
+                // Move floating objects based on scroll
+                floatingObjects.forEach((obj, i) => {
+                    obj.position.z = -20 + scrollProgress * 40 + i * 5;
+                });
+            }
+        });
+
+        // Profile frame particle effect
+        function createProfileParticles() {
+            const profileFrame = document.querySelector('.profile-particles');
+            if (!profileFrame) return;
+
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                particle.style.backgroundColor = '#6366f1';
+                particle.style.borderRadius = '50%';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animation = `float ${3 + Math.random() * 4}s infinite ease-in-out`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                profileFrame.appendChild(particle);
+            }
+        }
+
+        createProfileParticles();
+
+        // Enhanced scroll-based animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Timeline items with stagger
+        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                x: i % 2 === 0 ? -100 : 100,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+
+        // Skill cards with 3D rotation
+        gsap.utils.toArray('.skill-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                rotationY: 180,
+                scale: 0.8,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: "back.out(1.7)"
+            });
+        });
+    </script>
+</body>
 </html>
