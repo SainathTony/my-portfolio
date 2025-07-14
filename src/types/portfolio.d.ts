@@ -1,8 +1,8 @@
-declare module 'portfolio-data' {
+declare module "portfolio-data" {
   export interface Skill {
     name: string;
     level: number;
-    category: 'frontend' | 'backend' | 'devops' | 'tools' | 'design';
+    category: "frontend" | "backend" | "devops" | "tools" | "design";
     icon?: string;
   }
 
@@ -24,7 +24,7 @@ declare module 'portfolio-data' {
     company: string;
     location: string;
     startDate: string;
-    endDate: string | 'Present';
+    endDate: string | "Present";
     description: string[];
     technologies: string[];
     logo?: string;

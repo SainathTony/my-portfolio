@@ -7,7 +7,7 @@
 
 /* Visual indicators for full width */
 .debug-layout::before {
-  content: 'Layout Debug: Full Width Active';
+  content: "Layout Debug: Full Width Active";
   position: fixed;
   top: 0;
   left: 0;

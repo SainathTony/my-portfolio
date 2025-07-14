@@ -3,7 +3,9 @@
 /* Touch-friendly interaction sizes */
 @media (max-width: 768px) {
   /* Minimum touch target size of 44px */
-  button, a, .interactive {
+  button,
+  a,
+  .interactive {
     min-height: 44px;
     min-width: 44px;
   }
@@ -16,12 +18,14 @@
   }
 
   /* Optimize text sizes for mobile readability */
-  .text-5xl, .text-6xl {
+  .text-5xl,
+  .text-6xl {
     font-size: 2.5rem !important;
     line-height: 1.2 !important;
   }
 
-  .text-xl, .text-2xl {
+  .text-xl,
+  .text-2xl {
     font-size: 1.25rem !important;
     line-height: 1.4 !important;
   }
@@ -81,13 +85,17 @@
   }
 
   /* Mobile-optimized cards */
-  .project-card, .skill-card, .experience-card {
+  .project-card,
+  .skill-card,
+  .experience-card {
     padding: 1rem !important;
     border-radius: 1rem !important;
   }
 
   /* Touch-friendly form elements */
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     font-size: 16px !important; /* Prevents zoom on iOS */
     padding: 0.75rem !important;
     min-height: 44px !important;
@@ -149,11 +157,13 @@
 
 /* Small mobile devices */
 @media (max-width: 480px) {
-  .text-5xl, .text-6xl {
+  .text-5xl,
+  .text-6xl {
     font-size: 2rem !important;
   }
 
-  .text-xl, .text-2xl {
+  .text-xl,
+  .text-2xl {
     font-size: 1.125rem !important;
   }
 

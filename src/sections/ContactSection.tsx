@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Mail, 
-  Phone, 
-  Github, 
-  Linkedin, 
+import React, { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  Github,
+  Linkedin,
   Twitter,
-  Send, 
-  MapPin, 
-  Clock, 
+  Send,
+  MapPin,
+  Clock,
   Globe,
   MessageCircle,
   Calendar,
@@ -17,12 +17,12 @@ import {
   ExternalLink,
   Copy,
   Heart,
-  Coffee
-} from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Section from '../components/Section';
-import type { VisibleElements } from '../types/common';
+  Coffee,
+} from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Section from "../components/Section";
+import type { VisibleElements } from "../types/common";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,13 +31,16 @@ interface ContactSectionProps {
   visibleElements: VisibleElements;
 }
 
-const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElements }) => {
+const ContactSection: React.FC<ContactSectionProps> = ({
+  darkMode,
+  visibleElements,
+}) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -46,182 +49,195 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
 
   const contactMethods = [
     {
-      id: 'email',
+      id: "email",
       icon: <Mail className="w-6 h-6" />,
-      title: 'Email',
-      value: 'bottupallysainath@gmail.com',
-      description: 'Drop me a line for project discussions',
-      action: 'Send Email',
-      gradient: 'from-blue-500 to-cyan-500',
-      bgGradient: 'from-blue-500/10 to-cyan-500/10',
-      borderColor: 'border-blue-500/20'
+      title: "Email",
+      value: "bottupallysainath@gmail.com",
+      description: "Drop me a line for project discussions",
+      action: "Send Email",
+      gradient: "from-blue-500 to-cyan-500",
+      bgGradient: "from-blue-500/10 to-cyan-500/10",
+      borderColor: "border-blue-500/20",
     },
     {
-      id: 'phone',
+      id: "phone",
       icon: <Phone className="w-6 h-6" />,
-      title: 'Phone',
-      value: '+91 8096149910',
-      description: 'Let\'s have a quick conversation',
-      action: 'Schedule Call',
-      gradient: 'from-green-500 to-emerald-500',
-      bgGradient: 'from-green-500/10 to-emerald-500/10',
-      borderColor: 'border-green-500/20'
+      title: "Phone",
+      value: "+91 8096149910",
+      description: "Let's have a quick conversation",
+      action: "Schedule Call",
+      gradient: "from-green-500 to-emerald-500",
+      bgGradient: "from-green-500/10 to-emerald-500/10",
+      borderColor: "border-green-500/20",
     },
     {
-      id: 'location',
+      id: "location",
       icon: <MapPin className="w-6 h-6" />,
-      title: 'Location',
-      value: 'Hyderabad, India',
-      description: 'Available for remote collaboration',
-      action: 'View Map',
-      gradient: 'from-purple-500 to-pink-500',
-      bgGradient: 'from-purple-500/10 to-pink-500/10',
-      borderColor: 'border-purple-500/20'
+      title: "Location",
+      value: "Hyderabad, India",
+      description: "Available for remote collaboration",
+      action: "View Map",
+      gradient: "from-purple-500 to-pink-500",
+      bgGradient: "from-purple-500/10 to-pink-500/10",
+      borderColor: "border-purple-500/20",
     },
     {
-      id: 'timezone',
+      id: "timezone",
       icon: <Clock className="w-6 h-6" />,
-      title: 'Timezone',
-      value: 'UTC+5:30 (IST)',
-      description: 'Best time to reach: 9 AM - 6 PM',
-      action: 'Check Time',
-      gradient: 'from-orange-500 to-red-500',
-      bgGradient: 'from-orange-500/10 to-red-500/10',
-      borderColor: 'border-orange-500/20'
-    }
+      title: "Timezone",
+      value: "UTC+5:30 (IST)",
+      description: "Best time to reach: 9 AM - 6 PM",
+      action: "Check Time",
+      gradient: "from-orange-500 to-red-500",
+      bgGradient: "from-orange-500/10 to-red-500/10",
+      borderColor: "border-orange-500/20",
+    },
   ];
 
   const socialLinks = [
     {
-      name: 'GitHub',
+      name: "GitHub",
       icon: <Github className="w-6 h-6" />,
-      url: 'https://github.com/sainath',
-      username: '@sainath',
-      description: 'Check out my code',
-      color: 'hover:text-gray-900 dark:hover:text-white',
-      bgColor: 'hover:bg-gray-100 dark:hover:bg-gray-800'
+      url: "https://github.com/sainath",
+      username: "@sainath",
+      description: "Check out my code",
+      color: "hover:text-gray-900 dark:hover:text-white",
+      bgColor: "hover:bg-gray-100 dark:hover:bg-gray-800",
     },
     {
-      name: 'LinkedIn',
+      name: "LinkedIn",
       icon: <Linkedin className="w-6 h-6" />,
-      url: 'https://linkedin.com/in/sainath-bottupally',
-      username: 'sainath-bottupally',
-      description: 'Connect professionally',
-      color: 'hover:text-blue-600',
-      bgColor: 'hover:bg-blue-50 dark:hover:bg-blue-900/20'
+      url: "https://linkedin.com/in/sainath-bottupally",
+      username: "sainath-bottupally",
+      description: "Connect professionally",
+      color: "hover:text-blue-600",
+      bgColor: "hover:bg-blue-50 dark:hover:bg-blue-900/20",
     },
     {
-      name: 'Twitter',
+      name: "Twitter",
       icon: <Twitter className="w-6 h-6" />,
-      url: 'https://twitter.com/sainath',
-      username: '@sainath',
-      description: 'Follow for updates',
-      color: 'hover:text-sky-500',
-      bgColor: 'hover:bg-sky-50 dark:hover:bg-sky-900/20'
-    }
+      url: "https://twitter.com/sainath",
+      username: "@sainath",
+      description: "Follow for updates",
+      color: "hover:text-sky-500",
+      bgColor: "hover:bg-sky-50 dark:hover:bg-sky-900/20",
+    },
   ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Contact cards animation
-      gsap.utils.toArray('.contact-card').forEach((card, index) => {
-        gsap.fromTo(card, {
-          y: 80,
-          opacity: 0,
-          scale: 0.8
-        }, {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 1,
-          delay: index * 0.2,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          }
-        });
+      gsap.utils.toArray(".contact-card").forEach((card, index) => {
+        gsap.fromTo(
+          card,
+          {
+            y: 80,
+            opacity: 0,
+            scale: 0.8,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            delay: index * 0.2,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          },
+        );
       });
 
       // Form animation
-      gsap.fromTo('.contact-form', {
-        x: 100,
-        opacity: 0
-      }, {
-        x: 0,
-        opacity: 1,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: '.contact-form',
-          start: "top 85%",
-          toggleActions: "play none none none",
-        }
-      });
+      gsap.fromTo(
+        ".contact-form",
+        {
+          x: 100,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".contact-form",
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        },
+      );
 
       // Social links animation
-      gsap.utils.toArray('.social-link').forEach((link, index) => {
-        gsap.fromTo(link, {
-          y: 30,
-          opacity: 0
-        }, {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          delay: 1 + index * 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: link,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          }
-        });
+      gsap.utils.toArray(".social-link").forEach((link, index) => {
+        gsap.fromTo(
+          link,
+          {
+            y: 30,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            delay: 1 + index * 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: link,
+              start: "top 90%",
+              toggleActions: "play none none none",
+            },
+          },
+        );
       });
-
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     setIsSubmitting(false);
     setSubmitted(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    
+    setFormData({ name: "", email: "", subject: "", message: "" });
+
     // Reset success message after 5 seconds
     setTimeout(() => setSubmitted(false), 5000);
   };
 
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText('bottupallysainath@gmail.com');
+      await navigator.clipboard.writeText("bottupallysainath@gmail.com");
       setCopiedEmail(true);
       setTimeout(() => setCopiedEmail(false), 2000);
     } catch (err) {
-      console.error('Failed to copy email:', err);
+      console.error("Failed to copy email:", err);
     }
   };
 
   return (
-    <Section 
+    <Section
       ref={sectionRef}
-      id="contact" 
+      id="contact"
       className="section section-5 py-20 bg-gradient-to-br from-rose-50/30 via-white to-indigo-50/20 dark:from-rose-900/10 dark:via-gray-900 dark:to-indigo-900/10"
     >
-      <div className="w-full px-4">
-        <div className="w-full">
+      <div className="form-container">
+        <div className="w-full max-w-5xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
             <motion.div
@@ -235,11 +251,14 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
                 Let's Connect
               </span>
               <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-                Start Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600">Journey</span>
+                Start Your{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600">
+                  Journey
+                </span>
               </h2>
             </motion.div>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -247,7 +266,11 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
               className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed"
             >
               Ready to bring your ideas to life? Let's collaborate and create
-              <span className="text-rose-600 dark:text-rose-400 font-medium"> something extraordinary</span> together.
+              <span className="text-rose-600 dark:text-rose-400 font-medium">
+                {" "}
+                something extraordinary
+              </span>{" "}
+              together.
             </motion.p>
           </div>
 
@@ -266,8 +289,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
                   Get In Touch
                 </h3>
                 <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Whether you have a project in mind, want to discuss opportunities, 
-                  or just want to say hello, I'd love to hear from you!
+                  Whether you have a project in mind, want to discuss
+                  opportunities, or just want to say hello, I'd love to hear
+                  from you!
                 </p>
               </motion.div>
 
@@ -284,9 +308,13 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
                     onMouseEnter={() => setActiveContact(method.id)}
                     onMouseLeave={() => setActiveContact(null)}
                   >
-                    <div className={`relative p-6 rounded-2xl bg-gradient-to-r ${method.bgGradient} backdrop-blur-sm border ${method.borderColor} hover:shadow-xl transition-all duration-300`}>
+                    <div
+                      className={`relative p-6 rounded-2xl bg-gradient-to-r ${method.bgGradient} backdrop-blur-sm border ${method.borderColor} hover:shadow-xl transition-all duration-300`}
+                    >
                       <div className="flex items-center space-x-4">
-                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${method.gradient} p-3 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <div
+                          className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${method.gradient} p-3 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                        >
                           {method.icon}
                         </div>
                         <div className="flex-1">
@@ -300,7 +328,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
                             <span className="font-semibold text-gray-900 dark:text-white">
                               {method.value}
                             </span>
-                            {method.id === 'email' && (
+                            {method.id === "email" && (
                               <button
                                 onClick={copyEmail}
                                 className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -312,7 +340,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
                           </div>
                         </div>
                         <div className="hidden sm:block">
-                          <button className={`px-4 py-2 rounded-xl bg-gradient-to-r ${method.gradient} text-white font-medium hover:shadow-lg transition-all duration-300 transform hover:scale-105`}>
+                          <button
+                            className={`px-4 py-2 rounded-xl bg-gradient-to-r ${method.gradient} text-white font-medium hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
+                          >
                             {method.action}
                           </button>
                         </div>
@@ -383,7 +413,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
                         Message Sent!
                       </h4>
                       <p className="text-gray-600 dark:text-gray-400 mb-6">
-                        Thank you for reaching out. I'll get back to you within 24 hours.
+                        Thank you for reaching out. I'll get back to you within
+                        24 hours.
                       </p>
                       <button
                         onClick={() => setSubmitted(false)}
@@ -499,7 +530,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
               Connect on Social Media
             </h3>
-            
+
             <div className="flex flex-wrap justify-center gap-6">
               {socialLinks.map((social, index) => (
                 <motion.a
@@ -512,7 +543,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
                   whileTap={{ scale: 0.95 }}
                 >
                   <div className="text-center">
-                    <div className={`text-gray-600 dark:text-gray-400 ${social.color} transition-colors duration-300 mb-3 flex justify-center`}>
+                    <div
+                      className={`text-gray-600 dark:text-gray-400 ${social.color} transition-colors duration-300 mb-3 flex justify-center`}
+                    >
                       {social.icon}
                     </div>
                     <h4 className="font-bold text-gray-900 dark:text-white mb-1">
@@ -525,7 +558,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
                       {social.description}
                     </p>
                   </div>
-                  
+
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <ExternalLink className="w-4 h-4 text-gray-400" />
                   </div>
@@ -544,31 +577,37 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
           >
             <div className="relative max-w-4xl mx-auto p-8 md:p-12 rounded-3xl bg-gradient-to-br from-rose-500/10 via-purple-500/10 to-indigo-500/10 border border-white/20 dark:border-gray-700/50 backdrop-blur-sm">
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-rose-500/5 to-indigo-500/5 blur-xl"></div>
-              
+
               <div className="relative z-10">
                 <div className="flex items-center justify-center space-x-2 mb-6">
                   <Coffee className="w-8 h-8 text-rose-500" />
                   <Heart className="w-6 h-6 text-red-500" />
                 </div>
-                
+
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  Let's Create Something <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-indigo-600">Amazing</span>
+                  Let's Create Something{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-indigo-600">
+                    Amazing
+                  </span>
                 </h3>
-                
+
                 <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto">
-                  Ready to turn your vision into reality? I'm here to help you build innovative solutions that make a difference.
+                  Ready to turn your vision into reality? I'm here to help you
+                  build innovative solutions that make a difference.
                 </p>
-                
+
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.button
                     className="px-8 py-4 bg-gradient-to-r from-rose-600 to-indigo-600 text-white font-semibold rounded-2xl hover:shadow-xl transition-all duration-300"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    onClick={() =>
+                      window.scrollTo({ top: 0, behavior: "smooth" })
+                    }
                   >
                     Back to Top
                   </motion.button>
-                  
+
                   <motion.button
                     className="px-8 py-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 font-semibold rounded-2xl hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300"
                     whileHover={{ scale: 1.05, y: -2 }}

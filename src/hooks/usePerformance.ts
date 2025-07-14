@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
 interface PerformanceMetrics {
-  deviceType: 'high' | 'medium' | 'low';
+  deviceType: "high" | "medium" | "low";
   prefersReducedMotion: boolean;
   isTouchDevice: boolean;
   supportedFeatures: {
@@ -17,67 +17,84 @@ interface PerformanceMetrics {
   };
 }
 
-const detectDevicePerformance = (): 'high' | 'medium' | 'low' => {
+const detectDevicePerformance = (): "high" | "medium" | "low" => {
   // Check WebGL capability
-  const canvas = document.createElement('canvas');
-  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl') as WebGLRenderingContext | null;
-  
-  if (!gl) return 'low';
-  
-  const renderer = gl.getParameter(gl.RENDERER) || '';
+  const canvas = document.createElement("canvas");
+  const gl =
+    canvas.getContext("webgl") ||
+    (canvas.getContext("experimental-webgl") as WebGLRenderingContext | null);
+
+  if (!gl) return "low";
+
+  const renderer = gl.getParameter(gl.RENDERER) || "";
   // const vendor = gl.getParameter(gl.VENDOR) || '';
-  
+
   // High-performance indicators
-  const hasHighPerformanceGPU = /nvidia|amd|intel iris|apple m1|apple m2/i.test(renderer.toLowerCase());
+  const hasHighPerformanceGPU = /nvidia|amd|intel iris|apple m1|apple m2/i.test(
+    renderer.toLowerCase(),
+  );
   const memoryInfo = (performance as any).memory;
-  const hasEnoughMemory = !memoryInfo || memoryInfo.usedJSHeapSize < 100 * 1024 * 1024; // 100MB
+  const hasEnoughMemory =
+    !memoryInfo || memoryInfo.usedJSHeapSize < 100 * 1024 * 1024; // 100MB
   const hasMultipleCores = navigator.hardwareConcurrency >= 4;
-  
+
   // Connection speed (if available)
   const connection = (navigator as any).connection;
-  const hasGoodConnection = !connection || connection.effectiveType === '4g' || connection.downlink > 10;
-  
-  if (hasHighPerformanceGPU && hasEnoughMemory && hasMultipleCores && hasGoodConnection) {
-    return 'high';
+  const hasGoodConnection =
+    !connection ||
+    connection.effectiveType === "4g" ||
+    connection.downlink > 10;
+
+  if (
+    hasHighPerformanceGPU &&
+    hasEnoughMemory &&
+    hasMultipleCores &&
+    hasGoodConnection
+  ) {
+    return "high";
   } else if (hasEnoughMemory && navigator.hardwareConcurrency >= 2) {
-    return 'medium';
+    return "medium";
   }
-  
-  return 'low';
+
+  return "low";
 };
 
 const checkSupportedFeatures = () => ({
   webgl: !!window.WebGLRenderingContext,
-  intersectionObserver: 'IntersectionObserver' in window,
-  resizeObserver: 'ResizeObserver' in window,
-  requestIdleCallback: 'requestIdleCallback' in window
+  intersectionObserver: "IntersectionObserver" in window,
+  resizeObserver: "ResizeObserver" in window,
+  requestIdleCallback: "requestIdleCallback" in window,
 });
 
 const getMemoryInfo = () => {
   const memoryInfo = (performance as any).memory;
-  return memoryInfo ? {
-    usedJSHeapSize: memoryInfo.usedJSHeapSize,
-    totalJSHeapSize: memoryInfo.totalJSHeapSize,
-    jsHeapSizeLimit: memoryInfo.jsHeapSizeLimit
-  } : undefined;
+  return memoryInfo
+    ? {
+        usedJSHeapSize: memoryInfo.usedJSHeapSize,
+        totalJSHeapSize: memoryInfo.totalJSHeapSize,
+        jsHeapSizeLimit: memoryInfo.jsHeapSizeLimit,
+      }
+    : undefined;
 };
 
 export const usePerformance = (): PerformanceMetrics => {
   const [metrics, setMetrics] = useState<PerformanceMetrics>(() => ({
-    deviceType: 'medium',
+    deviceType: "medium",
     prefersReducedMotion: false,
     isTouchDevice: false,
     supportedFeatures: checkSupportedFeatures(),
-    memoryInfo: getMemoryInfo()
+    memoryInfo: getMemoryInfo(),
   }));
 
   const updateMetrics = useCallback(() => {
     setMetrics({
       deviceType: detectDevicePerformance(),
-      prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      isTouchDevice: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+      prefersReducedMotion: window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches,
+      isTouchDevice: "ontouchstart" in window || navigator.maxTouchPoints > 0,
       supportedFeatures: checkSupportedFeatures(),
-      memoryInfo: getMemoryInfo()
+      memoryInfo: getMemoryInfo(),
     });
   }, []);
 
@@ -85,11 +102,11 @@ export const usePerformance = (): PerformanceMetrics => {
     updateMetrics();
 
     // Listen for changes in motion preferences
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const handleChange = () => updateMetrics();
-    
+
     if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handleChange);
+      mediaQuery.addEventListener("change", handleChange);
     } else {
       // Fallback for older browsers
       mediaQuery.addListener(handleChange);
@@ -99,13 +116,13 @@ export const usePerformance = (): PerformanceMetrics => {
     const memoryInterval = setInterval(() => {
       const newMemoryInfo = getMemoryInfo();
       if (newMemoryInfo) {
-        setMetrics(prev => ({ ...prev, memoryInfo: newMemoryInfo }));
+        setMetrics((prev) => ({ ...prev, memoryInfo: newMemoryInfo }));
       }
     }, 30000);
 
     return () => {
       if (mediaQuery.removeEventListener) {
-        mediaQuery.removeEventListener('change', handleChange);
+        mediaQuery.removeEventListener("change", handleChange);
       } else {
         mediaQuery.removeListener(handleChange);
       }
@@ -117,7 +134,10 @@ export const usePerformance = (): PerformanceMetrics => {
 };
 
 // Animation configuration based on device performance
-export const getAnimationConfig = (deviceType: 'high' | 'medium' | 'low', prefersReducedMotion: boolean) => {
+export const getAnimationConfig = (
+  deviceType: "high" | "medium" | "low",
+  prefersReducedMotion: boolean,
+) => {
   if (prefersReducedMotion) {
     return {
       enableAnimations: false,
@@ -125,12 +145,12 @@ export const getAnimationConfig = (deviceType: 'high' | 'medium' | 'low', prefer
       stagger: 0,
       particles: false,
       blur: false,
-      shadows: false
+      shadows: false,
     };
   }
 
   switch (deviceType) {
-    case 'high':
+    case "high":
       return {
         enableAnimations: true,
         duration: 1,
@@ -138,10 +158,10 @@ export const getAnimationConfig = (deviceType: 'high' | 'medium' | 'low', prefer
         particles: true,
         blur: true,
         shadows: true,
-        quality: 'high'
+        quality: "high",
       };
-    
-    case 'medium':
+
+    case "medium":
       return {
         enableAnimations: true,
         duration: 0.8,
@@ -149,10 +169,10 @@ export const getAnimationConfig = (deviceType: 'high' | 'medium' | 'low', prefer
         particles: true,
         blur: false,
         shadows: true,
-        quality: 'medium'
+        quality: "medium",
       };
-    
-    case 'low':
+
+    case "low":
     default:
       return {
         enableAnimations: true,
@@ -161,7 +181,7 @@ export const getAnimationConfig = (deviceType: 'high' | 'medium' | 'low', prefer
         particles: false,
         blur: false,
         shadows: false,
-        quality: 'low'
+        quality: "low",
       };
   }
 };

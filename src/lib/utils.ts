@@ -4,45 +4,52 @@
  * @returns A single string of combined class names
  */
 export function mergeClasses(...classes: (string | undefined)[]): string {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 /**
  * A tiny (228B) utility for constructing `className` strings conditionally.
  * Inspired by clsx and classnames.
  */
-type ClassValue = string | number | boolean | undefined | null | Record<string, boolean> | ClassValue[];
+type ClassValue =
+  | string
+  | number
+  | boolean
+  | undefined
+  | null
+  | Record<string, boolean>
+  | ClassValue[];
 
 function cn(...inputs: ClassValue[]): string {
   let i = 0;
-  let str = '';
-  
+  let str = "";
+
   while (i < inputs.length) {
     const arg = inputs[i];
-    
+
     if (arg) {
-      if (typeof arg === 'string' || typeof arg === 'number') {
-        str && (str += ' ');
+      if (typeof arg === "string" || typeof arg === "number") {
+        str && (str += " ");
         str += arg;
       } else if (Array.isArray(arg) && arg.length) {
         const inner = cn(...arg);
         if (inner) {
-          str && (str += ' ');
+          str && (str += " ");
           str += inner;
         }
-      } else if (typeof arg === 'object') {
+      } else if (typeof arg === "object") {
         for (const key in arg) {
           if (arg[key as keyof typeof arg] && key) {
-            str && (str += ' ');
+            str && (str += " ");
             str += key;
           }
         }
       }
     }
-    
+
     i++;
   }
-  
+
   return str;
 }
 
@@ -54,9 +61,9 @@ export { cn };
  * @returns Formatted string
  */
 export function formatNumber(num: number): string {
-  return new Intl.NumberFormat('en-US', {
-    notation: 'compact',
-    maximumFractionDigits: 1
+  return new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: 1,
   }).format(num);
 }
 
@@ -78,7 +85,7 @@ export function randomInRange(min: number, max: number): number {
  */
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
-  wait: number
+  wait: number,
 ): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout;
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
@@ -95,7 +102,7 @@ export function debounce<T extends (...args: any[]) => any>(
  */
 export function throttle<T extends (...args: any[]) => any>(
   func: T,
-  limit: number
+  limit: number,
 ): (...args: Parameters<T>) => void {
   let inThrottle: boolean;
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
@@ -113,7 +120,7 @@ export function throttle<T extends (...args: any[]) => any>(
  */
 export const isMobile = (): boolean => {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
+    navigator.userAgent,
   );
 };
 
@@ -126,6 +133,6 @@ export const copyToClipboard = async (text: string): Promise<void> => {
   try {
     await navigator.clipboard.writeText(text);
   } catch (err) {
-    console.error('Failed to copy text: ', err);
+    console.error("Failed to copy text: ", err);
   }
 };
