@@ -337,7 +337,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               </span>
             </motion.button>
           </div>
-
+ 
           {/* Info Section */}
           <div className="flex flex-col md:flex-row gap-8 justify-center items-center max-w-3xl mx-auto">
             {/* Location */}

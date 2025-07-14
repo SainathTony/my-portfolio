@@ -8,7 +8,6 @@ import PerformanceMonitor from "./components/PerformanceMonitor";
 import HeroSection from "./sections/HeroSection";
 
 // Lazy-loaded components for better performance
-const ThreeJSBackground = lazy(() => import("./components/ThreeJSBackground"));
 const CursorTrail = lazy(() => import("./components/CursorTrail"));
 const AboutSection = lazy(() => import("./sections/AboutSection"));
 const SkillsSection = lazy(() => import("./sections/SkillsSection"));
@@ -45,7 +44,7 @@ function App() {
   // Performance and responsive hooks
   const responsive = useResponsive();
   const performance = usePerformance();
-  const animationConfig = getAnimationConfig(
+  getAnimationConfig(
     performance.deviceType,
     performance.prefersReducedMotion,
   );
@@ -55,8 +54,7 @@ function App() {
   const { visibleElements } = useIntersectionObserver();
   const { scrollTo } = useSmoothScroll();
   useScrollAnimations();
-
-  const scrollMetrics = useScrollHandler(setActiveSection, mouseState);
+  useScrollHandler(setActiveSection, mouseState);
 
   // Adaptive loading based on device performance
   const enableAdvancedFeatures =
@@ -197,7 +195,6 @@ function App() {
           }
         >
           <SkillsSection
-            darkMode={darkMode}
             skills={skills}
             visibleElements={visibleElements}
           />

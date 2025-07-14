@@ -1,18 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Code,
-  Server,
-  Database,
-  Cloud,
-  Cpu,
-  Smartphone,
-  Palette,
-  Settings,
-  ChevronRight,
-  Star,
-  TrendingUp,
-} from "lucide-react";
+import { Code, Server, Cpu, Star, TrendingUp } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Section from "../components/Section";
@@ -28,15 +16,12 @@ interface Skill {
 }
 
 interface SkillsSectionProps {
-  darkMode: boolean;
   skills: Skill[];
   visibleElements: VisibleElements;
 }
 
 const SkillsSection: React.FC<SkillsSectionProps> = ({
-  darkMode,
   skills,
-  visibleElements,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -48,7 +33,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
       name: "Frontend",
       icon: <Code className="w-6 h-6" />,
       color: "from-blue-500 to-cyan-500",
-      description: "User Interface & Experience",
+      description: "User Interface & Experience"
     },
     {
       id: "backend",
@@ -59,10 +44,10 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
     },
     {
       id: "tools",
-      name: "Tools & DevOps",
-      icon: <Settings className="w-6 h-6" />,
-      color: "from-purple-500 to-pink-500",
-      description: "Development Tools & Cloud",
+      name: "Tools",
+      icon: <Code className="w-6 h-6" />,
+      color: "from-amber-500 to-orange-500",
+      description: "Development Tools & Platforms"
     },
     {
       id: "other",
@@ -225,7 +210,8 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Skill cards stagger animation
-      gsap.utils.toArray(".skill-card").forEach((card, index) => {
+      const skillCardElements = gsap.utils.toArray<HTMLElement>(".skill-card");
+      skillCardElements.forEach((card, index) => {
         gsap.fromTo(
           card,
           {
@@ -245,19 +231,18 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
               start: "top 85%",
               toggleActions: "play none none none",
             },
-          },
+          }
         );
       });
 
       // Progress bars animation
-      gsap.utils.toArray(".skill-progress").forEach((progress) => {
-        const level = (progress as HTMLElement).getAttribute("data-level");
+      const progressBars = gsap.utils.toArray<HTMLElement>(".skill-progress");
+      progressBars.forEach((progress) => {
+        const level = progress.getAttribute("data-level") || "0";
 
         gsap.fromTo(
           progress,
-          {
-            width: "0%",
-          },
+          { width: "0%" },
           {
             width: `${level}%`,
             duration: 2,
@@ -267,33 +252,25 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
               start: "top 85%",
               toggleActions: "play none none none",
             },
-          },
+          }
         );
       });
 
       // 3D hover effect for skill cards
-      gsap.utils.toArray(".skill-card").forEach((card) => {
-        const element = card as HTMLElement;
-
-        element.addEventListener("mouseenter", () => {
-          gsap.to(card, {
-            rotationY: 10,
-            rotationX: 5,
-            z: 50,
-            duration: 0.3,
-            ease: "power2.out",
-          });
+      const skillCards = document.querySelectorAll<HTMLElement>('.skill-card');
+      const hoverAnimation = (element: HTMLElement, isHovered: boolean) => {
+        gsap.to(element, {
+          rotationY: isHovered ? 10 : 0,
+          rotationX: isHovered ? 5 : 0,
+          z: isHovered ? 50 : 0,
+          duration: 0.3,
+          ease: "power2.out"
         });
+      };
 
-        element.addEventListener("mouseleave", () => {
-          gsap.to(card, {
-            rotationY: 0,
-            rotationX: 0,
-            z: 0,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
+      skillCards.forEach((card) => {
+        card.addEventListener("mouseenter", () => hoverAnimation(card, true));
+        card.addEventListener("mouseleave", () => hoverAnimation(card, false));
       });
     }, sectionRef);
 
