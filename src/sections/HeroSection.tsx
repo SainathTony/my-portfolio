@@ -196,10 +196,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
       </div>
 
       {/* Main Content */}
-      <div className="hero-content relative z-10 py-10 md:py-28 lg:py-18">
+      <div className="hero-content relative z-10 pt-4 md:pt-8 lg:pt-12">
         <div className="hero-container">
           {/* Greeting Badge */}
-          <div className="mb-12">
+          <div className="mb-4">
             <motion.span
               className="inline-flex items-center px-6 py-2 rounded-full text-base font-medium bg-gradient-to-r from-emerald-500/20 to-blue-500/20 backdrop-blur-sm border border-white/20 text-emerald-700 dark:text-emerald-300 hover:shadow-lg transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
@@ -241,7 +241,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Subtitle */}
-          <div className="mb-5">
+          <div className="mb-4">
             <h2
               ref={subtitleRef}
               className="text-2xl md:text-3xl lg:text-4xl text-gray-600 dark:text-gray-300 font-light opacity-0"
@@ -262,7 +262,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
             delay={500}
             direction="up"
             appearOnMount={true}
-            className="mb-12"
+            className="mb-4"
           >
             <div className="flex flex-wrap justify-center gap-4 py-10">
               {techStack.map((tech, index) => (
@@ -286,7 +286,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </RevealAnimation>
 
           {/* Description */}
-          <div className="mb-12">
+          <div className="mb-10">
             <p
               ref={descriptionRef}
               className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed opacity-0"
@@ -310,7 +310,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           {/* CTA Buttons */}
           <div
             ref={ctaRef}
-            className="flex flex-col sm:flex-row justify-center gap-8 mb-20 opacity-0"
+            className="flex flex-col sm:flex-row justify-center gap-8 mb-6 opacity-0"
           >
             <motion.button
               onClick={() => scrollToSection(1)}
@@ -433,7 +433,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Scroll Indicator */}
-          <div className="mt-16">
+          <div className="mt-0">
             <motion.button
               onClick={() => scrollToSection(1)}
               className="group flex flex-col items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-300"
