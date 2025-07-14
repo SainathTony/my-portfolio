@@ -94,6 +94,10 @@ export const experiences: Experience[] = [
     ],
     technologies: ["React", "Node.js", "Spring Boot", "AI/ML"],
     logo: "/images/companies/everest.png",
+    achievements: [],
+    period: "Aug 2022 - Present",
+    color: "from-blue-500 to-cyan-500",
+    icon: "",
   },
   {
     id: "thoughtworks",
@@ -110,6 +114,10 @@ export const experiences: Experience[] = [
     ],
     technologies: ["Java", "Spring Boot", "Splunk", "Grafana", "CI/CD"],
     logo: "/images/companies/thoughtworks.png",
+    achievements: [],
+    period: "Dec 2020 - Aug 2022",
+    color: "from-green-500 to-emerald-500",
+    icon: "",
   },
   {
     id: "dtailabs",
@@ -125,6 +133,10 @@ export const experiences: Experience[] = [
     ],
     technologies: ["Angular", "Node.js", "MongoDB", "PrimeNG"],
     logo: "/images/companies/dtailabs.png",
+    achievements: [],
+    period: "Dec 2019 - Dec 2020",
+    color: "from-blue-500 to-cyan-500",
+    icon: "",
   },
   {
     id: "qualzz",
@@ -140,6 +152,10 @@ export const experiences: Experience[] = [
     ],
     technologies: ["Angular", "Spring Boot", "MongoDB", "AWS"],
     logo: "/images/companies/qualzz.png",
+    achievements: [],
+    period: "Oct 2018 - Jun 2019",
+    color: "from-blue-500 to-cyan-500",
+    icon: "",
   },
 ];
 

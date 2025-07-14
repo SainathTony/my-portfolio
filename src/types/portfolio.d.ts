@@ -29,7 +29,11 @@ declare module "portfolio-data" {
     endDate: string | "Present";
     description: string[];
     technologies: string[];
+    achievements: string[];
     logo?: string;
+    period: string;
+    color: string;
+    icon?: string;
   }
 
   export const skills: Skill[];

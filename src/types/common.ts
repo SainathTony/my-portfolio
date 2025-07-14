@@ -43,14 +43,3 @@ export interface Project {
   icon: string;
   gradient: string;
 }
-
-export interface Experience {
-  title: string;
-  company: string;
-  location: string;
-  period: string;
-  description: string;
-  achievements: string[];
-  icon: string;
-  color: string;
-}

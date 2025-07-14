@@ -177,7 +177,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
     <section
       ref={heroRef}
       id="home"
-      className="section relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-4 sm:px-6"
+      className="section relative min-h-screen flex items-center justify-center overflow-hidden pt-5 px-4 sm:px-6"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -221,7 +221,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
             >
               Hi, I'm{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 animate-gradient-x">
-                Sainath
+                Sainath Bottupally
               </span>
               <motion.span
                 className="inline-block ml-6"

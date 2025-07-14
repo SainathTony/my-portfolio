@@ -5,24 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Section from '../components/Section';
 import type { VisibleElements } from '../types/common';
 import { Award, Code, TrendingUp } from 'lucide-react';
+import type { Experience } from 'portfolio-data';
 
 gsap.registerPlugin(ScrollTrigger);
-
-interface Experience {
-  title: string;
-  company: string;
-  location: string;
-  period: string;
-  description: string;
-  achievements: string[];
-  icon: string;
-  color: string;
-  technologies?: string[];
-  highlights?: string[];
-  companyLogo?: string;
-  duration?: string;
-  type?: string;
-}
 
 interface ExperienceSectionProps {
   darkMode?: boolean;
@@ -30,72 +15,14 @@ interface ExperienceSectionProps {
   visibleElements?: VisibleElements;
 }
 
-const defaultExperiences: Experience[] = [
-  {
-    title: 'Senior Full Stack Developer',
-    company: 'Tech Innovations Inc.',
-    location: 'Hyderabad, India',
-    period: '2022 - Present',
-    duration: '2+ years',
-    type: 'Full-time',
-    description: 'Leading development of scalable web applications and mentoring junior developers in modern technologies. Architecting cloud-native solutions with focus on performance and user experience.',
-    achievements: [
-      'Led development of microservices architecture reducing system latency by 40%',
-      'Mentored 5+ junior developers in React, Node.js, and cloud technologies',
-      'Implemented CI/CD pipelines reducing deployment time from hours to minutes',
-      'Designed and built real-time analytics dashboard processing 1M+ events/day',
-    ],
-    technologies: ['React', 'Node.js', 'TypeScript', 'AWS', 'Docker', 'PostgreSQL'],
-    icon: '🚀',
-    color: 'from-blue-500 to-cyan-500',
-  },
-  {
-    title: 'Full Stack Developer',
-    company: 'Digital Solutions Ltd.',
-    location: 'Hyderabad, India',
-    period: '2020 - 2022',
-    duration: '2 years',
-    type: 'Full-time',
-    description: 'Developed and maintained multiple client-facing applications using modern web technologies. Collaborated with cross-functional teams to deliver high-quality software solutions.',
-    achievements: [
-      'Built responsive web applications serving 10K+ daily active users',
-      'Integrated third-party APIs and payment gateways for e-commerce platforms',
-      'Implemented automated testing reducing bug reports by 60%',
-      'Optimized database queries improving application performance by 35%',
-    ],
-    technologies: ['JavaScript', 'Python', 'Django', 'React', 'MongoDB', 'Redis'],
-    icon: '💡',
-    color: 'from-green-500 to-emerald-500',
-  },
-  {
-    title: 'Software Developer Intern',
-    company: 'StartupHub Technologies',
-    location: 'Hyderabad, India',
-    period: '2019 - 2020',
-    duration: '1 year',
-    type: 'Internship',
-    description: 'Gained hands-on experience in software development lifecycle. Contributed to various projects and learned industry best practices in agile development environment.',
-    achievements: [
-      'Developed REST APIs for mobile application backend',
-      'Created responsive UI components using modern CSS frameworks',
-      'Participated in code reviews and agile development processes',
-      'Built automated scripts for data migration and processing',
-    ],
-    technologies: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Express', 'MySQL'],
-    icon: '🌱',
-    color: 'from-purple-500 to-pink-500',
-  },
-];
-
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   darkMode = false,
-  experiences = defaultExperiences,
+  experiences = [],
   visibleElements = {},
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const gsapContext = useRef<gsap.Context | null>(null);
-
   // GSAP animations setup
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -156,88 +83,6 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     setHoveredCard(isHovered ? index : null);
   }, []);
 
-  // const renderExperienceCard = (exp: Experience, index: number) => {
-  //   const isHovered = hoveredCard === index;
-    
-  //   return (
-  //     <div
-  //       key={index}
-  //       className={`experience-card experience-card-${index} relative mb-12`}
-  //       onMouseEnter={() => handleCardHover(index, true)}
-  //       onMouseLeave={() => handleCardHover(index, false)}
-  //     >
-  //       <div className="relative p-8 rounded-3xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500">
-  //         <AnimatePresence>
-  //           {isHovered && (
-  //             <motion.div
-  //               initial={{ opacity: 0 }}
-  //               animate={{ opacity: 1 }}
-  //               exit={{ opacity: 0 }}
-  //               className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${exp.color} opacity-5 pointer-events-none`}
-  //             />
-  //           )}
-  //         </AnimatePresence>
-
-  //         <div className="relative">
-  //           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-  //             <div className="flex items-center space-x-4">
-  //               <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${exp.color} p-4 text-white text-2xl flex items-center justify-center shadow-lg`}>
-  //                 {exp.icon}
-  //               </div>
-  //               <div>
-  //                 <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.title}</h3>
-  //                 <p className="text-gray-600 dark:text-gray-300">{exp.company}</p>
-  //               </div>
-  //             </div>
-  //             <div className="text-left md:text-right">
-  //               <p className="text-sm text-gray-500 dark:text-gray-400">{exp.period}</p>
-  //               <p className="text-sm text-gray-500 dark:text-gray-400">{exp.location}</p>
-  //             </div>
-  //           </div>
-
-  //           <p className="text-gray-700 dark:text-gray-300 mb-6">{exp.description}</p>
-
-  //           {exp.achievements?.length > 0 && (
-  //             <div className="mt-6">
-  //               <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-  //                 <TrendingUp className="w-5 h-5 mr-2 text-emerald-500" />
-  //                 Key Achievements
-  //               </h4>
-  //               <ul className="space-y-2">
-  //                 {exp.achievements.map((achievement, idx) => (
-  //                   <li key={idx} className="flex items-start">
-  //                     <Award className="w-4 h-4 mt-1 mr-2 text-emerald-500 flex-shrink-0" />
-  //                     <span className="text-gray-700 dark:text-gray-300">{achievement}</span>
-  //                   </li>
-  //                 ))}
-  //               </ul>
-  //             </div>
-  //           )}
-
-  //           {exp.technologies && exp.technologies.length > 0 && (
-  //             <div className="mt-6">
-  //               <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
-  //                 <Code className="w-5 h-5 mr-2 text-blue-500" />
-  //                 Technologies Used
-  //               </h4>
-  //               <div className="flex flex-wrap gap-2">
-  //                 {exp.technologies.map((tech, idx) => (
-  //                   <span
-  //                     key={idx}
-  //                     className="px-3 py-1 text-sm rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300"
-  //                   >
-  //                     {tech}
-  //                   </span>
-  //                 ))}
-  //               </div>
-  //             </div>
-  //           )}
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
   const renderExperienceCard = (exp: Experience, index: number) => {
     const isHovered = hoveredCard === index;
     
@@ -267,7 +112,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   {exp.icon}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.title}</h3>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.role}</h3>
                   <p className="text-gray-600 dark:text-gray-300">{exp.company}</p>
                 </div>
               </div>
