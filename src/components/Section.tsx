@@ -80,7 +80,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(({
       } ${className}`}
       {...props}
     >
-      <div className={`container mx-auto px-4 sm:px-6 lg:px-8 h-full ${
+      <div className={`w-full h-full ${
         withPadding ? 'px-4 sm:px-6 lg:px-8' : ''
       }`}>
         {(title || subtitle) && (

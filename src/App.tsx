@@ -34,6 +34,7 @@ import './styles/base.css';
 import './styles/animations.css';
 import './styles/component.css';
 import './styles/mobile.css';
+import './styles/layout-debug.css';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);

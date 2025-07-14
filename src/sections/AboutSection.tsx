@@ -102,8 +102,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({ darkMode, visibleElements }
       id="about" 
       className="section section-1 py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20"
     >
-      <div className="container mx-auto px-4">
-        <div className="max-w-7xl mx-auto">
+      <div className="w-full px-4">
+        <div className="w-full">
           {/* Section Header */}
           <div className="text-center mb-20">
             <motion.div

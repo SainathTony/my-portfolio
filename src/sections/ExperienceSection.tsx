@@ -199,8 +199,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ darkMode, experie
       id="experience" 
       className="section section-3 py-20 bg-gradient-to-br from-purple-50/30 via-white to-emerald-50/20 dark:from-purple-900/10 dark:via-gray-900 dark:to-emerald-900/10"
     >
-      <div className="container mx-auto px-4">
-        <div className="max-w-7xl mx-auto">
+      <div className="w-full px-4">
+        <div className="w-full">
           {/* Section Header */}
           <div className="text-center mb-20">
             <motion.div

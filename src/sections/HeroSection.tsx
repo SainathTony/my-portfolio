@@ -138,8 +138,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
       </div>
 
       {/* Main Content */}
-      <div className="hero-content container mx-auto px-4 py-16 md:py-24 lg:py-32 relative z-10">
-        <div className="max-w-5xl mx-auto text-center">
+      <div className="hero-content w-full px-4 py-16 md:py-24 lg:py-32 relative z-10">
+        <div className="w-full text-center">
           {/* Greeting Badge */}
           <div className="mb-8">
             <motion.span 
@@ -266,7 +266,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Info Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full justify-items-center">
             {/* Location */}
             <RevealAnimation 
               delay={800}

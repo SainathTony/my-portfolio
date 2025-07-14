@@ -198,8 +198,8 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ darkMode, skills, visible
       id="skills" 
       className="section section-2 py-20 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/10"
     >
-      <div className="container mx-auto px-4">
-        <div className="max-w-7xl mx-auto">
+      <div className="w-full px-4">
+        <div className="w-full">
           {/* Section Header */}
           <div className="text-center mb-20">
             <motion.div

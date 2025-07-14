@@ -220,8 +220,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({ darkMode, visibleElemen
       id="contact" 
       className="section section-5 py-20 bg-gradient-to-br from-rose-50/30 via-white to-indigo-50/20 dark:from-rose-900/10 dark:via-gray-900 dark:to-indigo-900/10"
     >
-      <div className="container mx-auto px-4">
-        <div className="max-w-7xl mx-auto">
+      <div className="w-full px-4">
+        <div className="w-full">
           {/* Section Header */}
           <div className="text-center mb-20">
             <motion.div

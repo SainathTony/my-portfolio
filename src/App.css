@@ -110,4 +110,83 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
+.app-container {
+  width: 100vw;
+  min-height: 100vh;
+}
+
+/* Full width layout system */
+.app-container,
+.app-container * {
+  box-sizing: border-box;
+}
+
+.app-container {
+  overflow-x: hidden;
+}
+
+.section {
+  width: 100vw !important;
+  max-width: none !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+}
+
+main {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Override any Tailwind container constraints */
+.container {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 2rem !important;
+}
+
+/* Override any max-width constraints in content */
+.max-w-7xl,
+.max-w-6xl,
+.max-w-5xl,
+.max-w-4xl,
+.max-w-3xl,
+.max-w-2xl {
+  max-width: none !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+/* Responsive padding adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem !important;
+  }
+  
+  .section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.75rem !important;
+  }
+  
+  .section {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
 }
