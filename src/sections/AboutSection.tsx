@@ -91,7 +91,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Stats counter animation
-      gsap.utils.toArray(".stat-number").forEach((element) => {
+      const stats = gsap.utils.toArray<HTMLDivElement>(".stat-number");
+      stats.forEach((element) => {
         const target =
           (element as HTMLElement).textContent?.replace(/\D/g, "") || "0";
         const targetNum = parseInt(target);
@@ -123,7 +124,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       });
 
       // Floating animation for value cards
-      gsap.utils.toArray(".value-card").forEach((card, index) => {
+      const valueCards = gsap.utils.toArray<HTMLDivElement>(".value-card");
+      valueCards.forEach((card, index) => {
         gsap.to(card, {
           y: "-10px",
           duration: 2 + index * 0.1,
@@ -214,7 +216,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 </div>
 
                 <div className="space-y-6 text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                  <div className="relative pl-6 border-l-2 border-blue-500/30">
+                  <div className="relative pl-6 border-l-2 border-blue-500/30 mb-0">
                     <div className="absolute -left-2 top-2 w-4 h-4 bg-blue-500 rounded-full"></div>
                     <p>
                       My story began at{" "}
@@ -231,7 +233,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                     </p>
                   </div>
 
-                  <div className="relative pl-6 border-l-2 border-purple-500/30">
+                  <div className="relative pl-6 border-l-2 border-purple-500/30 mb-0">
                     <div className="absolute -left-2 top-2 w-4 h-4 bg-purple-500 rounded-full"></div>
                     <p>
                       Through years of building{" "}

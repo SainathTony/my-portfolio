@@ -1,90 +1,148 @@
-import type { Skill, Project, Experience } from "../types/common";
+import type { Experience, Project, Skill } from "portfolio-data";
+
 
 export const skills: Skill[] = [
-  // Frontend
-  { name: "React", level: 90, category: "frontend", icon: "react" },
-  { name: "TypeScript", level: 85, category: "frontend", icon: "typescript" },
-  { name: "JavaScript", level: 90, category: "frontend", icon: "javascript" },
-  { name: "HTML5", level: 90, category: "frontend", icon: "html5" },
-  { name: "CSS3", level: 85, category: "frontend", icon: "css3" },
-  { name: "Tailwind CSS", level: 85, category: "frontend", icon: "tailwind" },
-  { name: "SASS/SCSS", level: 80, category: "frontend", icon: "sass" },
-
-  // Backend
-  { name: "Node.js", level: 85, category: "backend", icon: "nodejs" },
-  { name: "Express", level: 80, category: "backend", icon: "express" },
-  { name: "Python", level: 80, category: "backend", icon: "python" },
-  { name: "Django", level: 75, category: "backend", icon: "django" },
-
-  // Tools (moved DevOps to tools)
-  { name: "Docker", level: 80, category: "tools", icon: "docker" },
-  { name: "Git", level: 85, category: "tools", icon: "git" },
-  { name: "GitHub Actions", level: 75, category: "tools", icon: "github" },
-
-  // More tools
-  { name: "VS Code", level: 90, category: "tools", icon: "vscode" },
-  { name: "Figma", level: 80, category: "tools", icon: "figma" },
-  { name: "Postman", level: 80, category: "tools", icon: "postman" },
-
-  // Design skills moved to other
-  { name: "UI/UX Design", level: 80, category: "other", icon: "uiux" },
-  {
-    name: "Responsive Design",
-    level: 85,
-    category: "other",
-    icon: "responsive",
-  },
+  { name: "Java", level: 90, category: "backend" },
+  { name: "Spring Boot", level: 90, category: "backend" },
+  { name: "Node.js", level: 85, category: "backend" },
+  { name: "React", level: 90, category: "frontend" },
+  { name: "TypeScript", level: 80, category: "frontend" },
+  { name: "JavaScript", level: 90, category: "frontend" },
+  { name: "Tailwind CSS", level: 85, category: "design" },
+  { name: "AWS", level: 80, category: "devops" },
+  { name: "Docker", level: 75, category: "devops" },
+  { name: "GitHub Actions", level: 70, category: "devops" },
+  { name: "MongoDB", level: 80, category: "tools" },
+  { name: "MySQL", level: 75, category: "tools" },
+  { name: "Redis", level: 70, category: "tools" },
+  { name: "Jenkins", level: 70, category: "devops" },
+  { name: "Postman", level: 80, category: "tools" },
 ];
 
 export const projects: Project[] = [
   {
-    title: "Portfolio Website",
+    id: "amazon-nova-canva",
+    title: "Amazon Nova Canva App",
     description:
-      "A modern and responsive portfolio website built with React and TypeScript.",
-    tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    icon: "project1",
-    gradient: "from-blue-500 to-purple-600",
+      "A Canva extension for image generation, object replacement, and background removal with AI/ML support. Delivered with 90% object manipulation accuracy in 2.5 weeks.",
+    technologies: ["React", "AI/ML", "Canva SDK"],
+    imageUrl: "/images/projects/amazon-nova-canva.jpg",
+    githubUrl: undefined,
+    liveUrl: undefined,
+    featured: true,
+    tags: ["AI", "Design Tool", "Canva"],
+    gradient: "from-blue-500 to-cyan-500",
+    icon: "",
   },
   {
-    title: "E-commerce Platform",
+    id: "mindvalley-nextgen",
+    title: "Mindvalley States & NextGen",
     description:
-      "A full-stack e-commerce platform with user authentication and payment processing.",
-    tech: ["Node.js", "Express", "MongoDB", "React", "Redux"],
-    icon: "project2",
-    gradient: "from-green-500 to-blue-600",
+      "Built a native Android app for immersive mental enhancement programs with advanced animation and transitions. Revamped the UI to align with brand guidelines.",
+    technologies: ["Android", "Java", "UI Animation"],
+    imageUrl: "/images/projects/mindvalley-nextgen.jpg",
+    githubUrl: undefined,
+    liveUrl: undefined,
+    featured: true,
+    tags: ["Android", "UI", "Wellness"],
+    gradient: "from-pink-500 to-indigo-500",
+    icon: "",
+  },
+  {
+    id: "fastgig",
+    title: "Fast GiG – Web & Mobile Platform",
+    description:
+      "A React Native platform for part-time job seekers in Singapore. Included backend optimization and weekly payout automation.",
+    technologies: ["React Native", "Node.js", "MongoDB"],
+    imageUrl: "/images/projects/fastgig.jpg",
+    githubUrl: undefined,
+    liveUrl: undefined,
+    featured: true,
+    tags: ["Jobs", "Mobile", "Singapore"],
+    gradient: "from-green-500 to-emerald-500",
+    icon: "",
+  },
+  {
+    id: "gap-ecommerce",
+    title: "GAP E-Commerce Platform",
+    description:
+      "Maintained user profile module, secured financial data, and facilitated legacy-to-modern migration using feature flags and CI/CD.",
+    technologies: ["Java", "Spring Boot", "Jenkins"],
+    imageUrl: "/images/projects/gap-ecommerce.jpg",
+    githubUrl: undefined,
+    liveUrl: undefined,
+    featured: false,
+    tags: ["E-Commerce", "Spring Boot", "CI/CD"],
+    gradient: "from-yellow-500 to-orange-500",
+    icon: "",
   },
 ];
 
 export const experiences: Experience[] = [
   {
-    title: "Senior Frontend Developer",
-    company: "Tech Innovations Inc.",
-    location: "San Francisco, CA",
-    period: "2020 - Present",
-    description: "Leading frontend development efforts",
-    achievements: [
-      "Implemented new features using React and TypeScript",
-      "Improved application performance by 40%",
-      "Mentored junior developers",
+    id: "everest",
+    role: "Senior Software Engineer",
+    company: "Everest Engineering",
+    location: "Hyderabad, India",
+    startDate: "Aug 2022",
+    endDate: "Present",
+    description: [
+      "Developed scalable web applications using React, Node.js, and Spring Boot.",
+      "Led performance optimization, modern UI/UX implementation, and AI/ML integration.",
+      "Mentored junior developers and performed code reviews.",
+      "Enhanced system reliability and observability.",
     ],
-    icon: "tech-innovations",
-    color: "text-blue-600",
+    technologies: ["React", "Node.js", "Spring Boot", "AI/ML"],
+    logo: "/images/companies/everest.png",
   },
   {
-    title: "Full Stack Developer",
-    company: "Web Solutions LLC",
-    location: "New York, NY",
-    period: "2018 - 2020",
-    description: "Developed and maintained web applications",
-    achievements: [
-      "Built RESTful APIs with Node.js and Express",
-      "Designed and implemented database schemas",
-      "Improved application security",
+    id: "thoughtworks",
+    role: "Application Developer",
+    company: "ThoughtWorks",
+    location: "Hyderabad, India",
+    startDate: "Dec 2020",
+    endDate: "Aug 2022",
+    description: [
+      "Built microservice-based backend systems with Spring Boot using TDD.",
+      "Worked on enterprise-grade apps with CI pipelines and fault-tolerant architecture.",
+      "Used Splunk, Grafana, and New Relic for monitoring.",
+      "Participated in on-call rotations, reducing incident response time by 35%.",
     ],
-    icon: "web-solutions",
-    color: "text-green-600",
+    technologies: ["Java", "Spring Boot", "Splunk", "Grafana", "CI/CD"],
+    logo: "/images/companies/thoughtworks.png",
+  },
+  {
+    id: "dtailabs",
+    role: "Full Stack Developer Intern",
+    company: "DTaiLabs",
+    location: "Hyderabad, India",
+    startDate: "Dec 2019",
+    endDate: "Dec 2020",
+    description: [
+      "Built a full-stack hiring platform with Angular, Node.js, and MongoDB.",
+      "Designed UI using PrimeNG and responsive design principles.",
+      "Deployed on Vercel using CI/CD pipelines.",
+    ],
+    technologies: ["Angular", "Node.js", "MongoDB", "PrimeNG"],
+    logo: "/images/companies/dtailabs.png",
+  },
+  {
+    id: "qualzz",
+    role: "Remote Full Stack Developer Intern",
+    company: "Qualzz",
+    location: "Canada (Remote)",
+    startDate: "Oct 2018",
+    endDate: "Jun 2019",
+    description: [
+      "Designed a feedback analytics platform with real-time data visualization.",
+      "Used Angular for frontend and Spring Boot + MongoDB for backend.",
+      "Deployed with auto-scaling on AWS and setup monitoring.",
+    ],
+    technologies: ["Angular", "Spring Boot", "MongoDB", "AWS"],
+    logo: "/images/companies/qualzz.png",
   },
 ];
+
 
 export const aboutMe = {
   name: "Your Name",

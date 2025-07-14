@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ExternalLink,
-  Github,
   Play,
   Code,
   Star,
-  Eye,
   Calendar,
   Users,
   Zap,
@@ -15,21 +12,15 @@ import {
   Monitor,
   Smartphone,
   Globe,
+  Github,
 } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Section from "../components/Section";
 import type { VisibleElements } from "../types/common";
+import type { Project } from "portfolio-data";
 
 gsap.registerPlugin(ScrollTrigger);
-
-interface Project {
-  title: string;
-  description: string;
-  tech: string[];
-  icon: string;
-  gradient: string;
-}
 
 interface ProjectsSectionProps {
   darkMode: boolean;
@@ -46,208 +37,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   const [activeProject, setActiveProject] = useState<number | null>(null);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-
-  const enhancedProjects = [
-    {
-      title: "E-Commerce Platform",
-      description:
-        "A comprehensive full-stack e-commerce solution with real-time inventory management, secure payment processing, and advanced analytics. Built for scalability and performance.",
-      detailedDescription:
-        "Advanced e-commerce platform featuring microservices architecture, real-time notifications, AI-powered recommendations, and comprehensive admin dashboard.",
-      tech: ["React", "Node.js", "TypeScript", "PostgreSQL", "AWS", "Docker"],
-      category: "full-stack",
-      duration: "6 months",
-      teamSize: "4 developers",
-      role: "Lead Developer",
-      features: [
-        "Real-time inventory tracking",
-        "Secure payment gateway integration",
-        "AI-powered product recommendations",
-        "Advanced analytics dashboard",
-        "Multi-vendor support",
-        "Mobile-responsive design",
-      ],
-      metrics: {
-        users: "10K+",
-        performance: "98%",
-        uptime: "99.9%",
-      },
-      icon: "🛒",
-      gradient: "from-blue-500 to-cyan-500",
-      images: ["project1-1.jpg", "project1-2.jpg"],
-      liveUrl: "https://ecommerce-demo.com",
-      githubUrl: "https://github.com/sainath/ecommerce",
-      status: "live",
-      awards: ["Best E-commerce Solution 2023"],
-    },
-    {
-      title: "AI-Powered Analytics Dashboard",
-      description:
-        "Interactive dashboard leveraging machine learning for predictive analytics and business intelligence. Features real-time data visualization and automated reporting.",
-      detailedDescription:
-        "Comprehensive analytics platform with ML-driven insights, automated reporting, and interactive data visualization for enterprise decision-making.",
-      tech: ["React", "Python", "TensorFlow", "D3.js", "FastAPI", "Redis"],
-      category: "ai-ml",
-      duration: "4 months",
-      teamSize: "3 developers",
-      role: "Full Stack Developer",
-      features: [
-        "Predictive analytics with ML models",
-        "Real-time data processing",
-        "Interactive chart library",
-        "Automated report generation",
-        "Custom alert system",
-        "Multi-tenant architecture",
-      ],
-      metrics: {
-        dataPoints: "1M+",
-        accuracy: "94%",
-        responseTime: "<100ms",
-      },
-      icon: "📊",
-      gradient: "from-purple-500 to-pink-500",
-      images: ["project2-1.jpg", "project2-2.jpg"],
-      liveUrl: "https://analytics-demo.com",
-      githubUrl: "https://github.com/sainath/analytics",
-      status: "live",
-      awards: ["Innovation Award 2023"],
-    },
-    {
-      title: "Social Media Management Tool",
-      description:
-        "Comprehensive social media management platform for scheduling posts, analyzing engagement, and managing multiple accounts from a unified dashboard.",
-      detailedDescription:
-        "All-in-one social media management solution with advanced scheduling, analytics, team collaboration, and automated content optimization.",
-      tech: ["Next.js", "Node.js", "MongoDB", "Socket.io", "AWS S3", "GraphQL"],
-      category: "web-app",
-      duration: "5 months",
-      teamSize: "5 developers",
-      role: "Frontend Lead",
-      features: [
-        "Multi-platform post scheduling",
-        "Advanced analytics and insights",
-        "Team collaboration tools",
-        "Content calendar management",
-        "Automated hashtag suggestions",
-        "Performance tracking",
-      ],
-      metrics: {
-        accounts: "50K+",
-        postsScheduled: "500K+",
-        engagement: "+150%",
-      },
-      icon: "📱",
-      gradient: "from-green-500 to-emerald-500",
-      images: ["project3-1.jpg", "project3-2.jpg"],
-      liveUrl: "https://socialmedia-demo.com",
-      githubUrl: "https://github.com/sainath/social-media",
-      status: "live",
-      awards: ["Best SaaS Product 2023"],
-    },
-    {
-      title: "Smart Home IoT Dashboard",
-      description:
-        "Real-time IoT device management system with automated controls, energy monitoring, and intelligent scheduling for smart home ecosystems.",
-      detailedDescription:
-        "Comprehensive IoT platform for smart home automation with real-time monitoring, intelligent controls, and energy optimization algorithms.",
-      tech: ["Vue.js", "Express", "MQTT", "InfluxDB", "Docker", "Raspberry Pi"],
-      category: "iot",
-      duration: "3 months",
-      teamSize: "2 developers",
-      role: "Solo Developer",
-      features: [
-        "Real-time device monitoring",
-        "Automated scheduling system",
-        "Energy consumption tracking",
-        "Mobile app integration",
-        "Voice control support",
-        "Security system integration",
-      ],
-      metrics: {
-        devices: "100+",
-        energySaved: "30%",
-        responseTime: "<50ms",
-      },
-      icon: "🏠",
-      gradient: "from-orange-500 to-red-500",
-      images: ["project4-1.jpg", "project4-2.jpg"],
-      liveUrl: "https://smarthome-demo.com",
-      githubUrl: "https://github.com/sainath/smart-home",
-      status: "development",
-      awards: [],
-    },
-    {
-      title: "Blockchain Voting System",
-      description:
-        "Secure and transparent voting platform built on blockchain technology with cryptographic verification and real-time result tracking.",
-      detailedDescription:
-        "Decentralized voting system ensuring transparency, security, and immutability through blockchain technology and smart contracts.",
-      tech: ["React", "Solidity", "Web3.js", "Ethereum", "IPFS", "MetaMask"],
-      category: "blockchain",
-      duration: "4 months",
-      teamSize: "3 developers",
-      role: "Blockchain Developer",
-      features: [
-        "Cryptographic vote verification",
-        "Smart contract integration",
-        "Real-time result tracking",
-        "Voter anonymity protection",
-        "Transparent audit trail",
-        "Mobile wallet support",
-      ],
-      metrics: {
-        votes: "25K+",
-        security: "100%",
-        transparency: "Full",
-      },
-      icon: "🗳️",
-      gradient: "from-indigo-500 to-purple-500",
-      images: ["project5-1.jpg", "project5-2.jpg"],
-      liveUrl: "https://blockchain-voting-demo.com",
-      githubUrl: "https://github.com/sainath/blockchain-voting",
-      status: "live",
-      awards: ["Blockchain Innovation Award 2023"],
-    },
-    {
-      title: "Portfolio Website",
-      description:
-        "Modern, interactive portfolio showcasing professional work with advanced animations, 3D elements, and responsive design.",
-      detailedDescription:
-        "Professional portfolio website featuring advanced animations, 3D graphics, and storytelling design to showcase development skills.",
-      tech: [
-        "React",
-        "TypeScript",
-        "Three.js",
-        "Framer Motion",
-        "GSAP",
-        "Tailwind CSS",
-      ],
-      category: "portfolio",
-      duration: "2 months",
-      teamSize: "1 developer",
-      role: "Designer & Developer",
-      features: [
-        "Interactive 3D backgrounds",
-        "Smooth scroll animations",
-        "Responsive design",
-        "Dark/light mode toggle",
-        "Performance optimized",
-        "SEO friendly",
-      ],
-      metrics: {
-        pageSpeed: "98/100",
-        accessibility: "100/100",
-        performance: "A+",
-      },
-      icon: "💼",
-      gradient: "from-teal-500 to-blue-500",
-      images: ["portfolio-1.jpg", "portfolio-2.jpg"],
-      liveUrl: "https://sainath-portfolio.com",
-      githubUrl: "https://github.com/sainath/portfolio",
-      status: "live",
-      awards: [],
-    },
-  ];
 
   const categories = [
     { id: "all", name: "All Projects", icon: <Globe className="w-4 h-4" /> },
@@ -266,7 +55,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     },
   ];
 
-  const displayProjects = projects.length > 0 ? projects : enhancedProjects;
+  const displayProjects = projects.length > 0 ? projects : [];
   const filteredProjects =
     selectedCategory === "all"
       ? displayProjects
@@ -277,7 +66,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Project cards animation
-      gsap.utils.toArray(".project-card").forEach((card, index) => {
+      const cards = gsap.utils.toArray<HTMLElement>('.project-card');
+      cards.forEach((card, index) => {
         gsap.fromTo(
           card,
           {
@@ -304,7 +94,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       });
 
       // Project card hover effects
-      gsap.utils.toArray(".project-card").forEach((card, index) => {
+      cards.forEach((card, index) => {
         const element = card as HTMLElement;
 
         element.addEventListener("mouseenter", () => {
@@ -529,7 +319,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                     {/* Technologies */}
                     <div className="mb-8">
                       <div className="flex flex-wrap gap-3">
-                        {project.tech.map((tech, techIndex) => (
+                        {project.technologies.map((tech, techIndex) => (
                           <span
                             key={techIndex}
                             className={`px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r ${project.gradient} text-white shadow-sm group-hover:scale-105 transition-transform duration-200`}

@@ -16,6 +16,8 @@ declare module "portfolio-data" {
     githubUrl?: string;
     featured: boolean;
     tags: string[];
+    gradient: string;
+    icon:? string;
   }
 
   export interface Experience {
