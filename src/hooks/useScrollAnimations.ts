@@ -4,135 +4,179 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Helper function to safely query elements with proper type narrowing
+const safeQueryAll = (selector: string, context: Document | HTMLElement | Element = document): HTMLElement[] => {
+  try {
+    const elements = context.querySelectorAll<HTMLElement>(selector);
+    return Array.from(elements);
+  } catch (error) {
+    console.warn(`Could not find elements with selector: ${selector}`, error);
+    return [];
+  }
+};
+
 export const useScrollAnimations = () => {
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const ctx = useRef<gsap.Context | null>(null);
 
   useEffect(() => {
-    // Create main timeline
-    const tl = gsap.timeline();
-    timelineRef.current = tl;
+    // Create a GSAP context for easier cleanup
+    ctx.current = gsap.context(() => {
+      // Create main timeline
+      const tl = gsap.timeline();
+      timelineRef.current = tl;
 
-    // Hero section animations
-    gsap.set(".hero-content > *", { y: 100, opacity: 0 });
+      // Hero section animations
+      const heroElements = safeQueryAll(".hero-content > *");
+      if (heroElements.length > 0) {
+        gsap.set(heroElements, { y: 100, opacity: 0 });
 
-    tl.to(".hero-content > *", {
-      y: 0,
-      opacity: 1,
-      duration: 1.2,
-      stagger: 0.15,
-      ease: "power3.out",
-      delay: 0.5,
-    });
-
-    // Section reveal animations
-    gsap.utils.toArray<HTMLElement>(".section").forEach((section, index) => {
-      const isEven = index % 2 === 0;
-
-      gsap.fromTo(
-        section.querySelectorAll(".animate-on-scroll"),
-        {
-          y: 80,
-          opacity: 0,
-          x: isEven ? -50 : 50,
-        },
-        {
+        tl.to(heroElements, {
           y: 0,
           opacity: 1,
-          x: 0,
-          duration: 1.5,
-          stagger: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-    });
-
-    // Floating elements parallax
-    gsap.utils.toArray<HTMLElement>(".parallax-element").forEach((element) => {
-      gsap.to(element, {
-        y: "-20%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: element,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    });
-
-    // Skills progress bars animation
-    gsap.utils.toArray<HTMLElement>(".skill-progress").forEach((progress) => {
-      const level = progress.getAttribute("data-level");
-
-      gsap.fromTo(
-        progress,
-        {
-          width: "0%",
-        },
-        {
-          width: `${level}%`,
-          duration: 2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: progress,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        },
-      );
-    });
-
-    // Project cards stagger animation
-    gsap.utils.toArray<HTMLElement>(".project-card").forEach((card, index) => {
-      gsap.fromTo(
-        card,
-        {
-          y: 100,
-          opacity: 0,
-          scale: 0.8,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
           duration: 1.2,
-          delay: index * 0.15,
-          ease: "back.out(1.7)",
+          stagger: 0.15,
+          ease: "power3.out",
+          delay: 0.5,
+        });
+      }
+
+      // Section reveal animations
+      safeQueryAll(".section").forEach((section, index) => {
+        const isEven = index % 2 === 0;
+        const animatedElements = safeQueryAll(".animate-on-scroll", section);
+        
+        if (animatedElements.length > 0) {
+          gsap.fromTo(animatedElements,
+            {
+              y: 80,
+              opacity: 0,
+              x: isEven ? -50 : 50,
+            },
+            {
+              y: 0,
+              opacity: 1,
+              x: 0,
+              duration: 1.5,
+              stagger: 0.2,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse",
+                invalidateOnRefresh: true
+              },
+            }
+          );
+        }
+      });
+
+      // Floating elements parallax
+      safeQueryAll(".parallax-element").forEach((element) => {
+        gsap.to(element, {
+          y: "-20%",
+          ease: "none",
           scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none none",
+            trigger: element,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+            invalidateOnRefresh: true
           },
-        },
-      );
+        });
+      });
+
+      // Skills progress bars animation
+      safeQueryAll(".skill-progress").forEach((progress) => {
+        const level = progress.getAttribute("data-level");
+        if (!level) return;
+
+        gsap.fromTo(progress,
+          { width: "0%" },
+          {
+            width: `${level}%`,
+            duration: 2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: progress,
+              start: "top 85%",
+              toggleActions: "play none none none",
+              invalidateOnRefresh: true
+            },
+          }
+        );
+      });
+
+      // Project cards stagger animation
+      safeQueryAll(".project-card").forEach((card) => {
+        gsap.fromTo(card,
+          {
+            y: 100,
+            opacity: 0,
+            scale: 0.8,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "back.out(1.2)",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 90%",
+              toggleActions: "play none none none",
+              invalidateOnRefresh: true
+            },
+          }
+        );
+      });
+
+      // Contact form animations
+      const contactForm = document.querySelector(".contact-form");
+      if (contactForm) {
+        const formElements = safeQueryAll("input, textarea, button", contactForm);
+        if (formElements.length > 0) {
+          gsap.fromTo(formElements,
+            { y: 30, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              stagger: 0.1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: contactForm,
+                start: "top 85%",
+                toggleActions: "play none none none",
+                invalidateOnRefresh: true
+              },
+            }
+          );
+        }
+      }
     });
 
     // Timeline items animation
-    gsap.utils.toArray<HTMLElement>(".timeline-item").forEach((item, index) => {
-      const isLeft = index % 2 === 0;
-
+    safeQueryAll(".timeline-item").forEach((item, index) => {
       gsap.fromTo(
         item,
         {
-          x: isLeft ? -100 : 100,
+          y: 100,
           opacity: 0,
         },
         {
-          x: 0,
+          y: 0,
           opacity: 1,
-          duration: 1,
-          ease: "power3.out",
+          duration: 0.8,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: item,
-            start: "top 80%",
+            start: "top 85%",
             toggleActions: "play none none none",
+            invalidateOnRefresh: true
           },
+          delay: index * 0.1,
         },
       );
     });
@@ -167,10 +211,13 @@ export const useScrollAnimations = () => {
       );
     });
 
-    // Cleanup
+    // Cleanup function
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      tl.kill();
+      if (ctx.current) {
+        ctx.current.revert(); // This will kill all GSAP animations and ScrollTriggers
+        ctx.current = null;
+      }
+      timelineRef.current = null;
     };
   }, []);
 

@@ -1,5 +1,22 @@
-import React, { useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useEffect, useRef, useCallback, useMemo, useLayoutEffect } from "react";
 import * as THREE from "three";
+
+// Types
+type SceneRefs = {
+  scene: THREE.Scene | null;
+  renderer: THREE.WebGLRenderer | null;
+  camera: THREE.PerspectiveCamera | null;
+  particles: THREE.Points | null;
+  particleMaterial: THREE.PointsMaterial | null;
+  shapes: THREE.Group | null;
+  waves: THREE.Mesh | null;
+  animationFrameId: number | null;
+};
+
+interface ShapeConfig {
+  geometry: THREE.BufferGeometry;
+  position: [number, number, number];
+}
 
 interface ThreeJSBackgroundProps {
   darkMode: boolean;
@@ -10,16 +27,21 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
   darkMode,
   scrollProgress = 0,
 }) => {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const particlesRef = useRef<THREE.Points | null>(null);
-  const geometricShapesRef = useRef<THREE.Group | null>(null);
-  const wavesRef = useRef<THREE.Mesh | null>(null);
-  const animationFrameId = useRef<number>(0);
-  const sceneRefValue = useRef<THREE.Scene | null>(null);
-  const particleMaterialRef = useRef<THREE.PointsMaterial | null>(null);
+  // Refs
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sceneRefs = useRef<SceneRefs>({
+    scene: null,
+    renderer: null,
+    camera: null,
+    particles: null,
+    particleMaterial: null,
+    shapes: null,
+    waves: null,
+    animationFrameId: null,
+  });
   const timeRef = useRef<number>(0);
+  const originalPosArrayRef = useRef<Float32Array | null>(null);
+  const isMounted = useRef<boolean>(false);
 
   // Create wave geometry
   const createWaveGeometry = useMemo(() => {
@@ -38,43 +60,48 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
 
   // Handle window resize
   const handleResize = useCallback(() => {
-    if (cameraRef.current && rendererRef.current) {
-      cameraRef.current.aspect = window.innerWidth / window.innerHeight;
-      cameraRef.current.updateProjectionMatrix();
-      rendererRef.current.setSize(window.innerWidth, window.innerHeight);
+    const { camera, renderer } = sceneRefs.current;
+    if (camera && renderer) {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     }
   }, []);
 
   // Animation loop
-  const animate = useCallback(() => {
-    animationFrameId.current = requestAnimationFrame(animate);
+  const updateAnimation = useCallback(() => {
+    if (!isMounted.current) return;
+
+    timeRef.current = timeRef.current || 0;
     timeRef.current += 0.01;
 
-    // Animate particles with more sophisticated motion
-    if (particlesRef.current) {
-      const positions = particlesRef.current.geometry.attributes.position
-        .array as Float32Array;
-      const originalPositions = particlesRef.current.userData
-        .originalPositions as Float32Array;
+    const { particles, shapes, waves, camera, renderer, scene } = sceneRefs.current;
 
-      for (let i = 0; i < positions.length; i += 3) {
-        const x = originalPositions[i];
-        const y = originalPositions[i + 1];
-        const z = originalPositions[i + 2];
+    // Animate particles
+    if (particles?.geometry) {
+      const positions = particles.geometry.attributes.position.array as Float32Array;
+      const originalPositions = originalPosArrayRef.current;
 
-        // Create wave-like motion
-        positions[i] = x + Math.sin(timeRef.current + x * 0.01) * 0.5;
-        positions[i + 1] = y + Math.cos(timeRef.current + y * 0.01) * 0.3;
-        positions[i + 2] = z + Math.sin(timeRef.current + z * 0.01) * 0.2;
+      if (originalPositions) {
+        for (let i = 0; i < positions.length; i += 3) {
+          const x = originalPositions[i];
+          const y = originalPositions[i + 1];
+          const z = originalPositions[i + 2];
+
+          positions[i] = x + Math.sin(timeRef.current + x * 0.01) * 0.5;
+          positions[i + 1] = y + Math.cos(timeRef.current + y * 0.01) * 0.3;
+          positions[i + 2] = z + Math.sin(timeRef.current + z * 0.01) * 0.2;
+        }
+
+        particles.geometry.attributes.position.needsUpdate = true;
+        particles.rotation.y = timeRef.current * 0.1;
       }
-
-      particlesRef.current.geometry.attributes.position.needsUpdate = true;
-      particlesRef.current.rotation.y = timeRef.current * 0.1;
     }
 
     // Animate geometric shapes
-    if (geometricShapesRef.current) {
-      geometricShapesRef.current.children.forEach((child, index) => {
+    if (shapes) {
+      shapes.children.forEach((child, index) => {
         child.rotation.x = timeRef.current * (0.5 + index * 0.1);
         child.rotation.y = timeRef.current * (0.3 + index * 0.05);
         child.position.y = Math.sin(timeRef.current + index) * 0.5;
@@ -82,108 +109,99 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
     }
 
     // Animate wave geometry
-    if (wavesRef.current) {
-      const geometry = wavesRef.current.geometry as THREE.PlaneGeometry;
-      const positions = geometry.attributes.position.array as Float32Array;
-
-      for (let i = 0; i < positions.length; i += 3) {
-        const x = positions[i];
-        const y = positions[i + 1];
-        positions[i + 2] =
-          Math.sin(x * 0.1 + timeRef.current) *
-          Math.cos(y * 0.1 + timeRef.current) *
-          1.5;
+    if (waves?.geometry) {
+      const { position } = waves.geometry.attributes;
+      if (position) {
+        const posArray = position.array as Float32Array;
+        for (let i = 0; i < posArray.length; i += 3) {
+          const x = posArray[i];
+          const y = posArray[i + 1];
+          posArray[i + 2] = Math.sin(x * 0.1 + timeRef.current) * 
+                           Math.cos(y * 0.1 + timeRef.current) * 1.5;
+        }
+        position.needsUpdate = true;
       }
-
-      geometry.attributes.position.needsUpdate = true;
-      wavesRef.current.rotation.z = timeRef.current * 0.05;
+      waves.rotation.z = timeRef.current * 0.05;
     }
 
     // Camera parallax based on scroll
-    if (cameraRef.current) {
-      cameraRef.current.position.y = scrollProgress * 10;
-      cameraRef.current.rotation.x = scrollProgress * 0.1;
+    if (camera) {
+      camera.position.y = scrollProgress * 10;
+      camera.rotation.x = scrollProgress * 0.1;
     }
 
-    if (rendererRef.current && cameraRef.current && sceneRefValue.current) {
-      rendererRef.current.render(sceneRefValue.current, cameraRef.current);
+    // Render the scene
+    if (renderer && camera && scene) {
+      renderer.render(scene, camera);
     }
+
+    // Continue the animation loop
+    sceneRefs.current.animationFrameId = requestAnimationFrame(updateAnimation);
   }, [scrollProgress]);
 
   // Initialize Three.js scene
   useEffect(() => {
-    if (!sceneRef.current) return;
-
-    // Initialize scene
+    if (!containerRef.current) return;
+    isMounted.current = true;
+    
+    // Initialize Three.js scene
     const scene = new THREE.Scene();
-    sceneRefValue.current = scene;
-
     const camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000,
+      1000
     );
-    camera.position.z = 5;
+    camera.position.z = 15;
 
-    const renderer = new THREE.WebGLRenderer({
+    const renderer = new THREE.WebGLRenderer({ 
+      antialias: true, 
       alpha: true,
-      antialias: true,
+      powerPreference: 'high-performance',
     });
-
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0);
-    sceneRef.current.innerHTML = ""; // Clear any existing canvas
-    sceneRef.current.appendChild(renderer.domElement);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Store refs
-    rendererRef.current = renderer;
-    cameraRef.current = camera;
+    // Clear container and append renderer
+    const container = containerRef.current;
+    container.innerHTML = '';
+    container.appendChild(renderer.domElement);
 
-    // Create enhanced particle system
+    // Create particle system
     const particleGeometry = new THREE.BufferGeometry();
     const particleCount = 200;
     const posArray = new Float32Array(particleCount * 3);
     const originalPosArray = new Float32Array(particleCount * 3);
 
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      const x = (Math.random() - 0.5) * 30;
-      const y = (Math.random() - 0.5) * 30;
-      const z = (Math.random() - 0.5) * 30;
-
-      posArray[i] = x;
-      posArray[i + 1] = y;
-      posArray[i + 2] = z;
-
-      originalPosArray[i] = x;
-      originalPosArray[i + 1] = y;
-      originalPosArray[i + 2] = z;
+    for (let i = 0; i < particleCount * 3; i++) {
+      const value = (Math.random() - 0.5) * 20;
+      posArray[i] = value;
+      originalPosArray[i] = value;
     }
 
     particleGeometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(posArray, 3),
+      'position',
+      new THREE.BufferAttribute(new Float32Array(posArray), 3)
     );
 
     const particleMaterial = new THREE.PointsMaterial({
-      size: 0.03,
+      size: 0.02,
       color: darkMode ? 0x6366f1 : 0x3b82f6,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.8,
       blending: THREE.AdditiveBlending,
     });
 
     const particles = new THREE.Points(particleGeometry, particleMaterial);
-    particles.userData.originalPositions = originalPosArray;
+    originalPosArrayRef.current = originalPosArray;
     scene.add(particles);
-    particlesRef.current = particles;
-    particleMaterialRef.current = particleMaterial;
 
     // Add geometric shapes
     const shapesGroup = new THREE.Group();
+    scene.add(shapesGroup);
 
     // Create floating geometric shapes
-    const shapes = [
+    const shapeConfigs: ShapeConfig[] = [
       {
         geometry: new THREE.IcosahedronGeometry(0.5, 0),
         position: [-10, 5, -5],
@@ -198,116 +216,152 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
       },
       {
         geometry: new THREE.DodecahedronGeometry(0.4, 0),
-        position: [12, 8, -6],
+        position: [8, 4, -12],
       },
     ];
 
-    shapes.forEach((shape) => {
+    shapeConfigs.forEach((shape) => {
       const material = new THREE.MeshBasicMaterial({
         color: darkMode ? 0x6366f1 : 0x3b82f6,
-        transparent: true,
-        opacity: 0.1,
         wireframe: true,
+        transparent: true,
+        opacity: 0.5,
       });
-
       const mesh = new THREE.Mesh(shape.geometry, material);
-      mesh.position.set(
-        shape.position[0],
-        shape.position[1],
-        shape.position[2],
-      );
+      mesh.position.set(...shape.position);
       shapesGroup.add(mesh);
     });
 
-    scene.add(shapesGroup);
-    geometricShapesRef.current = shapesGroup;
-
-    // Add animated wave plane
+    // Add wave geometry
     const waveMaterial = new THREE.MeshBasicMaterial({
-      color: darkMode ? 0x1e1e2e : 0xf0f0f0,
-      transparent: true,
-      opacity: 0.03,
+      color: darkMode ? 0x4f46e5 : 0x2563eb,
       wireframe: true,
+      transparent: true,
+      opacity: 0.3,
     });
-
     const waveMesh = new THREE.Mesh(createWaveGeometry, waveMaterial);
     waveMesh.rotation.x = -Math.PI / 4;
     waveMesh.position.z = -15;
     scene.add(waveMesh);
-    wavesRef.current = waveMesh;
 
-    // Start animation loop
-    animate();
+    // Store references
+    sceneRefs.current = {
+      scene,
+      renderer,
+      camera,
+      particles,
+      particleMaterial,
+      shapes: shapesGroup,
+      waves: waveMesh,
+      animationFrameId: null,
+    };
 
-    // Add window resize listener
-    window.addEventListener("resize", handleResize);
+    // Start animation
+    updateAnimation();
+
+    // Handle window resize
+    window.addEventListener('resize', handleResize);
 
     // Cleanup function
     return () => {
+      isMounted.current = false;
+      
       // Cancel animation frame
-      cancelAnimationFrame(animationFrameId.current);
-
-      // Remove event listener
-      window.removeEventListener("resize", handleResize);
-
-      // Clean up Three.js resources
-      if (renderer) {
-        if (sceneRef.current && renderer.domElement) {
-          sceneRef.current.removeChild(renderer.domElement);
-        }
-        renderer.dispose();
+      if (sceneRefs.current.animationFrameId !== null) {
+        cancelAnimationFrame(sceneRefs.current.animationFrameId);
       }
-
-      if (particles) {
-        scene.remove(particles);
-        particleGeometry.dispose();
-        particleMaterial.dispose();
+      
+      // Remove event listeners
+      window.removeEventListener('resize', handleResize);
+      
+      // Cleanup Three.js resources
+      const { scene: currentScene, renderer: currentRenderer } = sceneRefs.current;
+      
+      if (currentRenderer) {
+        currentRenderer.dispose();
       }
-
-      // Clear refs
-      rendererRef.current = null;
-      cameraRef.current = null;
-      particlesRef.current = null;
-      particleMaterialRef.current = null;
-      geometricShapesRef.current = null;
-      wavesRef.current = null;
+      
+      if (currentScene) {
+        // Dispose all geometries and materials
+        currentScene.traverse((object) => {
+          if (object instanceof THREE.Mesh || object instanceof THREE.Points) {
+            if (object.geometry) {
+              object.geometry.dispose();
+            }
+            if (object.material) {
+              if (Array.isArray(object.material)) {
+                object.material.forEach(material => material.dispose());
+              } else {
+                object.material.dispose();
+              }
+            }
+          }
+        });
+      }
+      
+      // Clear the container
+      if (containerRef.current) {
+        containerRef.current.innerHTML = '';
+      }
+      
+      // Reset refs
+      sceneRefs.current = {
+        scene: null,
+        renderer: null,
+        camera: null,
+        particles: null,
+        particleMaterial: null,
+        shapes: null,
+        waves: null,
+        animationFrameId: null,
+      };
     };
-  }, [darkMode, animate, handleResize]);
+  }, [darkMode, handleResize, updateAnimation, createWaveGeometry]);
 
   // Update colors when darkMode changes
   useEffect(() => {
-    if (particleMaterialRef.current) {
-      particleMaterialRef.current.color.set(darkMode ? 0x6366f1 : 0x3b82f6);
+    const { particleMaterial, shapes, waves } = sceneRefs.current;
+    const color = darkMode ? 0x6366f1 : 0x3b82f6;
+    const waveColor = darkMode ? 0x1e1e2e : 0xf0f0f0;
+
+    if (particleMaterial) {
+      particleMaterial.color.set(color);
     }
 
-    if (geometricShapesRef.current) {
-      geometricShapesRef.current.children.forEach((child) => {
-        const mesh = child as THREE.Mesh;
-        const material = mesh.material as THREE.MeshBasicMaterial;
-        material.color.set(darkMode ? 0x6366f1 : 0x3b82f6);
+    if (shapes) {
+      shapes.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshBasicMaterial) {
+          child.material.color.set(color);
+        }
       });
     }
 
-    if (wavesRef.current) {
-      const material = wavesRef.current.material as THREE.MeshBasicMaterial;
-      material.color.set(darkMode ? 0x1e1e2e : 0xf0f0f0);
+    if (waves?.material) {
+      const material = waves.material as THREE.MeshBasicMaterial;
+      material.color.set(waveColor);
     }
   }, [darkMode]);
 
   return (
     <div
-      ref={sceneRef}
-      className="fixed inset-0 w-screen h-screen -z-10 pointer-events-none"
+      ref={containerRef}
+      className="fixed inset-0 -z-10 pointer-events-none"
       style={{
-        position: "fixed",
+        position: 'fixed',
         top: 0,
         left: 0,
-        width: "100vw",
-        height: "100vh",
+        width: '100vw',
+        height: '100vh',
         zIndex: -1,
+        overflow: 'hidden',
       }}
     />
   );
 };
 
-export default React.memo(ThreeJSBackground);
+// Memoize the component to prevent unnecessary re-renders
+export default React.memo(ThreeJSBackground, (prevProps, nextProps) => {
+  // Only re-render if darkMode changes
+  return prevProps.darkMode === nextProps.darkMode && 
+         Math.abs((prevProps.scrollProgress || 0) - (nextProps.scrollProgress || 0)) < 0.01;
+});

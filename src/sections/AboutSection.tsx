@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
-  Book,
   Code,
-  Coffee,
-  Heart,
   Lightbulb,
   Target,
   Award,
@@ -150,7 +147,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       <div className="content-container">
         <div className="w-full max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-24">
+          <div className="text-center mb-32">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -174,7 +171,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed"
+              className="w-full text-center text-xl md:text-2xl text-gray-600 dark:text-gray-400 mx-auto leading-relaxed"
             >
               From curious beginner to seasoned developer, my journey has been
               shaped by
@@ -325,7 +322,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 >
                   <div className="flex items-center space-x-6">
                     <BookOpen className="w-10 h-10 text-blue-500" />
-                    <div>
+                    <div className="pl-4">
                       <div className="font-bold text-xl text-gray-900 dark:text-white mb-2">
                         IIIT Basar
                       </div>

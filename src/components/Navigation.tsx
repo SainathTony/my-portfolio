@@ -81,7 +81,7 @@ const Navigation: React.FC<NavigationProps> = memo(
                   onKeyDown={(e) => handleKeyDown(e, index)}
                   className={`
                   w-12 h-12 rounded-xl flex items-center justify-center text-xl transition-all duration-300
-                  focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900/80
+                  focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900/80 bg-transparent
                   ${
                     isActive
                       ? "text-white"

@@ -1,29 +1,42 @@
-import { useEffect, useRef } from "react";
-import Lenis from "lenis";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useCallback } from 'react';
+import { useLenis } from '@studio-freight/react-lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+type ScrollToOptions = {
+  offset?: number;
+  duration?: number;
+  easing?: (t: number) => number;
+  immediate?: boolean;
+  lock?: boolean;
+  force?: boolean;
+  onComplete?: () => void;
+};
+
 export const useSmoothScroll = () => {
-  const lenisRef = useRef<Lenis | null>(null);
+  // Initialize Lenis with options
+  const lenis = useLenis({
+    duration: 1.2,
+    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    syncTouch: false,
+    touchMultiplier: 2,
+  });
 
+  // Setup GSAP ScrollTrigger integration
   useEffect(() => {
-    // Initialize Lenis smooth scroll
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      gestureDirection: "vertical",
-      smooth: true,
-      smoothTouch: false,
-      touchMultiplier: 2,
-    });
+    if (!lenis) return;
 
-    lenisRef.current = lenis;
+    // Update ScrollTrigger on scroll
+    const onScroll = () => {
+      ScrollTrigger.update();
+    };
 
-    // GSAP ScrollTrigger integration
-    lenis.on("scroll", ScrollTrigger.update);
+    lenis.on('scroll', onScroll);
 
+    // Setup GSAP ticker
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
@@ -32,18 +45,27 @@ export const useSmoothScroll = () => {
 
     // Cleanup
     return () => {
-      lenis.destroy();
+      lenis.off('scroll', onScroll);
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000);
       });
     };
-  }, []);
+  }, [lenis]);
 
-  const scrollTo = (target: string | number, options?: any) => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(target, options);
+  // Scroll to target function
+  const scrollTo = useCallback((target: string | HTMLElement | number, options?: ScrollToOptions) => {
+    if (!lenis) return;
+    
+    // Convert string selector to HTMLElement if needed
+    if (typeof target === 'string') {
+      const element = document.querySelector(target);
+      if (element && element instanceof HTMLElement) {
+        lenis.scrollTo(element, options);
+      }
+    } else {
+      lenis.scrollTo(target, options);
     }
-  };
+  }, [lenis]);
 
-  return { scrollTo };
+  return { scrollTo, lenis };
 };

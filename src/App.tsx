@@ -122,10 +122,10 @@ function App() {
               <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900"></div>
             }
           >
-            <ThreeJSBackground
+            {/* <ThreeJSBackground
               darkMode={darkMode}
               scrollProgress={scrollMetrics?.scrollProgress || 0}
-            />
+            /> */}
           </Suspense>
         </div>
       )}

@@ -264,7 +264,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
             appearOnMount={true}
             className="mb-12"
           >
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4 py-10">
               {techStack.map((tech, index) => (
                 <motion.div
                   key={tech.name}
