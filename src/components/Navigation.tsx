@@ -23,6 +23,12 @@ const sections = [
   { id: "contact", label: "Contact", icon: <Mail size={20} /> },
 ];
 
+const springConfig = {
+  type: "spring",
+  stiffness: 300,
+  damping: 30,
+};
+
 const Navigation: React.FC<NavigationProps> = memo(
   ({ activeSection, scrollToSection }) => {
     const [isHovered, setIsHovered] = useState<number | null>(null);
@@ -54,11 +60,11 @@ const Navigation: React.FC<NavigationProps> = memo(
 
     return (
       <motion.nav
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 p-2 rounded-2xl 
+        className={`fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-2 p-2 rounded-2xl 
         bg-gray-900/80 backdrop-blur-xl border border-white/10 shadow-xl transition-all duration-300
         hover:shadow-2xl hover:bg-gray-900/90 ${isScrolling ? "opacity-40 hover:opacity-100" : "opacity-100"}`}
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ x: 80, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         aria-label="Page navigation"
         onMouseEnter={() => setIsHovered(null)}
@@ -133,7 +139,7 @@ const Navigation: React.FC<NavigationProps> = memo(
 
                 {isActive && (
                   <motion.span
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-primary-400 to-accent-400 rounded-full"
+                    className="absolute right-0 w-1 h-1/2 bg-gradient-to-b from-primary-400 to-accent-400 rounded-full"
                     layoutId="activeIndicator"
                     transition={{
                       type: "spring",

@@ -196,12 +196,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
       </div>
 
       {/* Main Content */}
-      <div className="hero-content relative z-10 py-20 md:py-28 lg:py-36">
+      <div className="hero-content relative z-10 py-10 md:py-28 lg:py-18">
         <div className="hero-container">
           {/* Greeting Badge */}
           <div className="mb-12">
             <motion.span
-              className="inline-flex items-center px-8 py-4 rounded-full text-base font-medium bg-gradient-to-r from-emerald-500/20 to-blue-500/20 backdrop-blur-sm border border-white/20 text-emerald-700 dark:text-emerald-300 hover:shadow-lg transition-all duration-300"
+              className="inline-flex items-center px-6 py-2 rounded-full text-base font-medium bg-gradient-to-r from-emerald-500/20 to-blue-500/20 backdrop-blur-sm border border-white/20 text-emerald-700 dark:text-emerald-300 hover:shadow-lg transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -214,7 +214,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Main Heading */}
-          <div className="mb-12">
+          <div className="mb-4">
             <h1
               ref={titleRef}
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 dark:text-white leading-tight opacity-0"
@@ -241,7 +241,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Subtitle */}
-          <div className="mb-10">
+          <div className="mb-5">
             <h2
               ref={subtitleRef}
               className="text-2xl md:text-3xl lg:text-4xl text-gray-600 dark:text-gray-300 font-light opacity-0"
@@ -250,7 +250,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 font-semibold">
                 Full Stack Developer
               </span>{" "}
-              & <br className="hidden md:block" />
+              & {" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600 font-medium">
                 AI/ML Engineer
               </span>
