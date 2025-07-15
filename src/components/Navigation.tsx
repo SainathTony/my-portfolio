@@ -23,12 +23,6 @@ const sections = [
   { id: "contact", label: "Contact", icon: <Mail size={20} /> },
 ];
 
-const springConfig = {
-  type: "spring",
-  stiffness: 300,
-  damping: 30,
-};
-
 const Navigation: React.FC<NavigationProps> = memo(
   ({ activeSection, scrollToSection }) => {
     const [isHovered, setIsHovered] = useState<number | null>(null);
@@ -48,7 +42,7 @@ const Navigation: React.FC<NavigationProps> = memo(
       const handleScroll = () => {
         setIsScrolling(true);
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => setIsScrolling(false), 100);
+        timeoutId = setTimeout(() => setIsScrolling(false), 150);
       };
 
       window.addEventListener("scroll", handleScroll);
@@ -59,43 +53,44 @@ const Navigation: React.FC<NavigationProps> = memo(
     }, []);
 
     return (
-      <motion.nav
-        className={`fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-2 p-2 rounded-2xl 
-        bg-gray-900/80 backdrop-blur-xl border border-white/10 shadow-xl transition-all duration-300
-        hover:shadow-2xl hover:bg-gray-900/90 ${isScrolling ? "opacity-40 hover:opacity-100" : "opacity-100"}`}
-        initial={{ x: 80, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        aria-label="Page navigation"
-        onMouseEnter={() => setIsHovered(null)}
-      >
-        {sections.map((section, index) => {
-          const isActive = activeSection === index;
-          const isHoveredItem = isHovered === index;
+      <>
+        {/* Desktop Navigation - Right Side Vertical */}
+        <motion.nav
+          className={`fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-3 p-3 rounded-2xl 
+          bg-white/10 bg-white/90 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl transition-all duration-300
+          hover:shadow-2xl hover:bg-white/20 hover:bg-white/95 ${
+            isScrolling ? "opacity-60 hover:opacity-100" : "opacity-100"
+          }`}
+          initial={{ x: 80, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          aria-label="Page navigation"
+        >
+          {sections.map((section, index) => {
+            const isActive = activeSection === index;
+            const isHoveredItem = isHovered === index;
 
-          return (
-            <div
-              key={section.id}
-              className="relative group"
-              role="presentation"
-              onMouseEnter={() => setIsHovered(index)}
-              onMouseLeave={() => setIsHovered(null)}
-            >
-              <div className="relative py-2 px-1">
+            return (
+              <div
+                key={section.id}
+                className="relative group"
+                onMouseEnter={() => setIsHovered(index)}
+                onMouseLeave={() => setIsHovered(null)}
+              >
                 <motion.button
                   onClick={() => scrollToSection(index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
                   className={`
-                  w-12 h-12 rounded-xl flex items-center justify-center text-xl transition-all duration-300
-                  focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900/80 bg-transparent
+                  relative w-12 h-12 rounded-xl flex items-center justify-center text-lg transition-all duration-300
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent
                   ${
                     isActive
-                      ? "text-white"
-                      : "text-gray-300 hover:text-white hover:bg-white/10"
+                      ? "text-white bg-blue-500 shadow-lg scale-110"
+                      : "text-gray-700 text-gray-700 hover:text-white hover:bg-blue-500/80 hover:text-white hover:bg-blue-500/80 hover:scale-105"
                   }`}
                   aria-label={`Go to ${section.label} section`}
                   aria-current={isActive ? "page" : undefined}
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: isActive ? 1.1 : 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <span className="sr-only">{section.label}</span>
@@ -108,38 +103,33 @@ const Navigation: React.FC<NavigationProps> = memo(
                   </span>
                 </motion.button>
 
+                {/* Tooltip - appears to the left */}
                 <AnimatePresence>
-                  {(isHoveredItem || isActive) && (
-                    <motion.span
-                      className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap 
-                      bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-xl"
-                      initial={{ opacity: 0, y: -5, pointerEvents: "none" }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                        pointerEvents: "auto",
-                      }}
-                      exit={{
-                        opacity: 0,
-                        y: -5,
-                        pointerEvents: "none",
-                      }}
+                  {isHoveredItem && !isActive && (
+                    <motion.div
+                      className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap 
+                      bg-gray-800/95 text-white shadow-xl border border-white/10 z-[60]"
+                      initial={{ opacity: 0, x: 10, scale: 0.8 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: 10, scale: 0.8 }}
                       transition={{
                         type: "spring",
-                        stiffness: 300,
+                        stiffness: 400,
                         damping: 25,
-                        duration: 0.2,
+                        duration: 0.15,
                       }}
                     >
                       {section.label}
-                      <span className="absolute left-1/2 -translate-x-1/2 -top-1.5 w-3 h-3 rotate-45 bg-gray-800"></span>
-                    </motion.span>
+                      {/* Arrow pointing to button */}
+                      <span className="absolute left-full top-1/2 -translate-y-1/2 -ml-0.5 w-2 h-2 rotate-45 bg-gray-800/95 border-r border-b border-white/10"></span>
+                    </motion.div>
                   )}
                 </AnimatePresence>
 
+                {/* Active indicator */}
                 {isActive && (
-                  <motion.span
-                    className="absolute right-0 w-1 h-1/2 bg-gradient-to-b from-primary-400 to-accent-400 rounded-full"
+                  <motion.div
+                    className="absolute -right-2 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full shadow-lg"
                     layoutId="activeIndicator"
                     transition={{
                       type: "spring",
@@ -149,10 +139,61 @@ const Navigation: React.FC<NavigationProps> = memo(
                   />
                 )}
               </div>
-            </div>
-          );
-        })}
-      </motion.nav>
+            );
+          })}
+        </motion.nav>
+
+        {/* Mobile Navigation - Bottom Horizontal */}
+        <motion.nav
+          className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-50 md:hidden flex items-center gap-2 px-4 py-3 rounded-2xl 
+          bg-white/10 bg-white/95 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl transition-all duration-300
+          ${isScrolling ? "opacity-60" : "opacity-100"}`}
+          initial={{ y: 80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          aria-label="Page navigation"
+        >
+          {sections.map((section, index) => {
+            const isActive = activeSection === index;
+
+            return (
+              <motion.button
+                key={section.id}
+                onClick={() => scrollToSection(index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                className={`
+                relative min-w-[44px] min-h-[44px] w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all duration-300
+                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1
+                ${
+                  isActive
+                    ? "text-white bg-blue-500 shadow-lg scale-110"
+                    : "text-gray-700 text-gray-700 hover:text-white hover:bg-blue-500/80 dark:hover:text-white active:bg-blue-500/80"
+                }`}
+                aria-label={`Go to ${section.label} section`}
+                aria-current={isActive ? "page" : undefined}
+                whileHover={{ scale: isActive ? 1.1 : 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="sr-only">{section.label}</span>
+                {section.icon}
+
+                {/* Mobile active indicator */}
+                {isActive && (
+                  <motion.div
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-0.5 bg-white rounded-full"
+                    layoutId="activeMobileIndicator"
+                    transition={{
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 30,
+                    }}
+                  />
+                )}
+              </motion.button>
+            );
+          })}
+        </motion.nav>
+      </>
     );
   },
 );

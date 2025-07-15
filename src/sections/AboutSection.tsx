@@ -144,12 +144,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     <Section
       ref={sectionRef}
       id="about"
-      className="section section-1 py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20"
+      className="section section-1 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20"
     >
       <div className="content-container">
         <div className="w-full max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-32">
+          <div className="text-center mb-6">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -196,8 +196,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           </div>
 
           {/* Personal Story */}
-          <div ref={storyRef} className="mb-20">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div ref={storyRef} className="mb-6">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -262,19 +262,19 @@ const AboutSection: React.FC<AboutSectionProps> = ({
 
                 {/* Contact Info */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
-                  <div className="flex items-center space-x-4 p-5 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-300">
+                  <div className="flex items-center space-x-4 p-5 rounded-xl bg-white/90 backdrop-blur-sm hover:bg-white/95 transition-all duration-300">
                     <Mail className="w-6 h-6 text-blue-500" />
                     <span className="text-base font-medium">
                       bottupallysainath@gmail.com
                     </span>
                   </div>
-                  <div className="flex items-center space-x-4 p-5 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-300">
+                  <div className="flex items-center space-x-4 p-5 rounded-xl bg-white/90 backdrop-blur-sm hover:bg-white/95 transition-all duration-300">
                     <Phone className="w-6 h-6 text-green-500" />
                     <span className="text-base font-medium">
                       +91 8096149910
                     </span>
                   </div>
-                  <div className="flex items-center space-x-4 p-5 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-300">
+                  <div className="flex items-center space-x-4 p-5 rounded-xl bg-white/90 backdrop-blur-sm hover:bg-white/95 transition-all duration-300">
                     <MapPin className="w-6 h-6 text-purple-500" />
                     <span className="text-base font-medium">
                       Hyderabad, India
@@ -299,7 +299,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="text-center p-8 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-300"
+                      className="text-center p-8 rounded-2xl bg-white/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:bg-white/95 transition-all duration-300"
                     >
                       <div className="text-blue-600 dark:text-blue-400 mb-4 flex justify-center">
                         {stat.icon}
@@ -320,7 +320,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.4 }}
-                  className="mt-16 p-10 rounded-3xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-300"
+                  className="mt-16 p-10 rounded-3xl bg-white/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:bg-white/95 transition-all duration-300"
                 >
                   <div className="flex items-center space-x-6">
                     <BookOpen className="w-10 h-10 text-blue-500" />
@@ -346,7 +346,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           </div>
 
           {/* Core Values */}
-          <div ref={valuesRef} className="mb-24">
+          <div ref={valuesRef} className="mb-4">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -366,7 +366,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {coreValues.map((value, index) => (
                 <motion.div
                   key={value.title}
@@ -374,7 +374,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.15 }}
-                  className="value-card group relative p-8 rounded-3xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300 hover:shadow-xl"
+                  className="value-card group relative p-8 rounded-3xl bg-white/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:bg-white/95 transition-all duration-300 hover:shadow-xl"
                 >
                   <div
                     className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
@@ -434,7 +434,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                   </motion.button>
 
                   <motion.button
-                    className="px-12 py-5 bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 font-semibold rounded-2xl hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 text-lg"
+                    className="px-12 py-5 bg-white/30 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 font-semibold rounded-2xl hover:bg-white/40 transition-all duration-300 text-lg"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >

@@ -44,10 +44,7 @@ function App() {
   // Performance and responsive hooks
   const responsive = useResponsive();
   const performance = usePerformance();
-  getAnimationConfig(
-    performance.deviceType,
-    performance.prefersReducedMotion,
-  );
+  getAnimationConfig(performance.deviceType, performance.prefersReducedMotion);
 
   // Custom hooks with performance considerations
   const { cursorTrail, mouseState } = useMouseTracking();
@@ -194,10 +191,7 @@ function App() {
             </div>
           }
         >
-          <SkillsSection
-            skills={skills}
-            visibleElements={visibleElements}
-          />
+          <SkillsSection skills={skills} visibleElements={visibleElements} />
         </Suspense>
 
         <Suspense

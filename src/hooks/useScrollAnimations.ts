@@ -5,7 +5,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 // Helper function to safely query elements with proper type narrowing
-const safeQueryAll = (selector: string, context: Document | HTMLElement | Element = document): HTMLElement[] => {
+const safeQueryAll = (
+  selector: string,
+  context: Document | HTMLElement | Element = document,
+): HTMLElement[] => {
   try {
     const elements = context.querySelectorAll<HTMLElement>(selector);
     return Array.from(elements);
@@ -45,9 +48,10 @@ export const useScrollAnimations = () => {
       safeQueryAll(".section").forEach((section, index) => {
         const isEven = index % 2 === 0;
         const animatedElements = safeQueryAll(".animate-on-scroll", section);
-        
+
         if (animatedElements.length > 0) {
-          gsap.fromTo(animatedElements,
+          gsap.fromTo(
+            animatedElements,
             {
               y: 80,
               opacity: 0,
@@ -65,9 +69,9 @@ export const useScrollAnimations = () => {
                 start: "top 80%",
                 end: "bottom 20%",
                 toggleActions: "play none none reverse",
-                invalidateOnRefresh: true
+                invalidateOnRefresh: true,
               },
-            }
+            },
           );
         }
       });
@@ -82,7 +86,7 @@ export const useScrollAnimations = () => {
             start: "top bottom",
             end: "bottom top",
             scrub: true,
-            invalidateOnRefresh: true
+            invalidateOnRefresh: true,
           },
         });
       });
@@ -92,7 +96,8 @@ export const useScrollAnimations = () => {
         const level = progress.getAttribute("data-level");
         if (!level) return;
 
-        gsap.fromTo(progress,
+        gsap.fromTo(
+          progress,
           { width: "0%" },
           {
             width: `${level}%`,
@@ -102,15 +107,16 @@ export const useScrollAnimations = () => {
               trigger: progress,
               start: "top 85%",
               toggleActions: "play none none none",
-              invalidateOnRefresh: true
+              invalidateOnRefresh: true,
             },
-          }
+          },
         );
       });
 
       // Project cards stagger animation
       safeQueryAll(".project-card").forEach((card) => {
-        gsap.fromTo(card,
+        gsap.fromTo(
+          card,
           {
             y: 100,
             opacity: 0,
@@ -126,18 +132,22 @@ export const useScrollAnimations = () => {
               trigger: card,
               start: "top 90%",
               toggleActions: "play none none none",
-              invalidateOnRefresh: true
+              invalidateOnRefresh: true,
             },
-          }
+          },
         );
       });
 
       // Contact form animations
       const contactForm = document.querySelector(".contact-form");
       if (contactForm) {
-        const formElements = safeQueryAll("input, textarea, button", contactForm);
+        const formElements = safeQueryAll(
+          "input, textarea, button",
+          contactForm,
+        );
         if (formElements.length > 0) {
-          gsap.fromTo(formElements,
+          gsap.fromTo(
+            formElements,
             { y: 30, opacity: 0 },
             {
               y: 0,
@@ -149,9 +159,9 @@ export const useScrollAnimations = () => {
                 trigger: contactForm,
                 start: "top 85%",
                 toggleActions: "play none none none",
-                invalidateOnRefresh: true
+                invalidateOnRefresh: true,
               },
-            }
+            },
           );
         }
       }
@@ -174,7 +184,7 @@ export const useScrollAnimations = () => {
             trigger: item,
             start: "top 85%",
             toggleActions: "play none none none",
-            invalidateOnRefresh: true
+            invalidateOnRefresh: true,
           },
           delay: index * 0.1,
         },

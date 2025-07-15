@@ -17,7 +17,7 @@ declare module "portfolio-data" {
     featured: boolean;
     tags: string[];
     gradient: string;
-    icon:? string;
+    icon: ?string;
   }
 
   export interface Experience {
@@ -34,6 +34,7 @@ declare module "portfolio-data" {
     period: string;
     color: string;
     icon?: string;
+    highlights: string[];
   }
 
   export const skills: Skill[];

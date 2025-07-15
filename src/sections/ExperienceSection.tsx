@@ -1,11 +1,22 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Section from '../components/Section';
-import type { VisibleElements } from '../types/common';
-import { Award, Code, TrendingUp } from 'lucide-react';
-import type { Experience } from 'portfolio-data';
+
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Briefcase,
+  Calendar,
+  MapPin,
+  Star,
+  Code,
+  Zap,
+  Target,
+  Award,
+  Building,
+  ChevronRight,
+} from "lucide-react";
+import type { VisibleElements } from "../types/common";
+import type { Experience } from "portfolio-data";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,208 +26,411 @@ interface ExperienceSectionProps {
   visibleElements?: VisibleElements;
 }
 
+// Enhanced experience data
+const careerMilestones = [
+  {
+    id: 1,
+    title: "Junior Frontend Developer",
+    company: "TechStart Solutions",
+    duration: "Jan 2020 - Dec 2020",
+    location: "Hyderabad, India",
+    description: "Began my development journey building responsive web applications and learning modern frontend technologies.",
+    highlights: [
+      "Built 8+ responsive React applications",
+      "Improved page load speeds by 40%",
+      "Collaborated with design team on UI/UX"
+    ],
+    technologies: ["React", "JavaScript", "HTML/CSS", "Git"],
+    icon: <Code className="w-6 h-6" />,
+    color: "from-blue-500 to-cyan-500",
+    bgColor: "from-blue-50 to-cyan-50",
+    darkBgColor: "from-blue-900/20 to-cyan-900/20",
+  },
+  {
+    id: 2,
+    title: "Frontend Developer",
+    company: "Digital Innovations Ltd",
+    duration: "Jan 2021 - Dec 2021",
+    location: "Hyderabad, India", 
+    description: "Advanced to complex UI development with focus on performance optimization and user experience enhancement.",
+    highlights: [
+      "Led migration to TypeScript",
+      "Reduced bundle size by 35%",
+      "Mentored 2 junior developers"
+    ],
+    technologies: ["React", "TypeScript", "Redux", "SASS", "Webpack"],
+    icon: <Target className="w-6 h-6" />,
+    color: "from-emerald-500 to-green-500",
+    bgColor: "from-emerald-50 to-green-50",
+    darkBgColor: "from-emerald-900/20 to-green-900/20",
+  },
+  {
+    id: 3,
+    title: "Full Stack Developer",
+    company: "CloudTech Innovations",
+    duration: "Jan 2022 - Dec 2023",
+    location: "Hyderabad, India",
+    description: "Expanded expertise to full-stack development, working with modern backend technologies and cloud infrastructure.",
+    highlights: [
+      "Built 5+ end-to-end applications",
+      "Implemented microservices architecture",
+      "Reduced deployment time by 60%"
+    ],
+    technologies: ["React", "Node.js", "MongoDB", "AWS", "Docker"],
+    icon: <Zap className="w-6 h-6" />,
+    color: "from-purple-500 to-pink-500",
+    bgColor: "from-purple-50 to-pink-50",
+    darkBgColor: "from-purple-900/20 to-pink-900/20",
+  },
+  {
+    id: 4,
+    title: "Senior Full Stack Developer",
+    company: "TechLeaders Corp",
+    duration: "Jan 2024 - Present",
+    location: "Hyderabad, India",
+    description: "Leading development teams and architecting scalable solutions with focus on AI/ML integration and modern practices.",
+    highlights: [
+      "Leading team of 8 developers",
+      "Architected solutions for 100K+ users",
+      "Implemented AI-powered features"
+    ],
+    technologies: ["React", "Node.js", "Python", "AI/ML", "Kubernetes"],
+    icon: <Award className="w-6 h-6" />,
+    color: "from-orange-500 to-red-500",
+    bgColor: "from-orange-50 to-red-50",
+    darkBgColor: "from-orange-900/20 to-red-900/20",
+  },
+];
+
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   darkMode = false,
   experiences = [],
   visibleElements = {},
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const gsapContext = useRef<gsap.Context | null>(null);
-  // GSAP animations setup
-  useEffect(() => {
-    if (!sectionRef.current) return;
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [selectedExperience, setSelectedExperience] = useState<number | null>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
-    gsapContext.current = gsap.context(() => {
-      // Animate timeline line
-      const timelineLine = sectionRef.current?.querySelector('.timeline-line');
-      if (timelineLine) {
-        gsap.from(timelineLine, {
-          scrollTrigger: {
-            trigger: timelineLine,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            scrub: 1,
+  const displayExperiences = experiences.length > 0 ? experiences : careerMilestones;
+
+  // GSAP Timeline Animation
+  useEffect(() => {
+    if (!isInView) return;
+
+    const ctx = gsap.context(() => {
+      // Animate the timeline path
+      const timelinePath = timelineRef.current?.querySelector('.timeline-path');
+      if (timelinePath) {
+        gsap.fromTo(timelinePath,
+          { 
+            scaleY: 0,
+            transformOrigin: "top center"
           },
-          scaleY: 0,
-          transformOrigin: 'top center',
-          duration: 1.5,
-          ease: 'power3.out',
-        });
+          {
+            scaleY: 1,
+            duration: 2,
+            ease: "power2.out",
+            delay: 0.5
+          }
+        );
       }
 
-      // Animate experience cards
-      const cards = gsap.utils.toArray<HTMLElement>('.experience-card');
-      cards.forEach((card, idx) => {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-          },
-          opacity: 0,
-          y: 20,
-          duration: 0.6,
-          delay: idx * 0.1,
-          ease: 'power2.out',
-        });
+      // Animate milestone cards
+      displayExperiences.forEach((_, index) => {
+        const card = document.querySelector(`.milestone-card-${index}`);
+        const marker = document.querySelector(`.milestone-marker-${index}`);
+        
+        if (card && marker) {
+          gsap.fromTo([marker, card],
+            { 
+              opacity: 0,
+              y: 50,
+              scale: 0.8
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.8,
+              delay: 0.8 + (index * 0.3),
+              ease: "back.out(1.7)",
+              stagger: 0.1
+            }
+          );
+        }
       });
+
     }, sectionRef);
 
-    return () => {
-      gsapContext.current?.revert();
-    };
-  }, [experiences]);
-
-  // Handle card hover with GSAP animations
-  const handleCardHover = useCallback((index: number, isHovered: boolean) => {
-    const card = document.querySelector(`.experience-card-${index}`);
-    if (!card) return;
-
-    gsap.to(card, {
-      y: isHovered ? -10 : 0,
-      scale: isHovered ? 1.02 : 1,
-      duration: 0.3,
-      ease: 'power2.out',
-    });
-    
-    setHoveredCard(isHovered ? index : null);
-  }, []);
-
-  const renderExperienceCard = (exp: Experience, index: number) => {
-    const isHovered = hoveredCard === index;
-    
-    return (
-      <div
-        key={index}
-        className={`experience-card experience-card-${index} relative mb-12`}
-        onMouseEnter={() => handleCardHover(index, true)}
-        onMouseLeave={() => handleCardHover(index, false)}
-      >
-        <div className="relative p-8 rounded-3xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500">
-          <AnimatePresence>
-            {isHovered && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${exp.color} opacity-5 pointer-events-none`}
-              />
-            )}
-          </AnimatePresence>
-
-          <div className="relative">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-              <div className="flex items-center space-x-4">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${exp.color} p-4 text-white text-2xl flex items-center justify-center shadow-lg`}>
-                  {exp.icon}
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.role}</h3>
-                  <p className="text-gray-600 dark:text-gray-300">{exp.company}</p>
-                </div>
-              </div>
-              <div className="text-left md:text-right">
-                <p className="text-sm text-gray-500 dark:text-gray-400">{exp.period}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{exp.location}</p>
-              </div>
-            </div>
-
-            <p className="text-gray-700 dark:text-gray-300 mb-6">{exp.description}</p>
-
-            {exp.achievements?.length > 0 && (
-              <div className="mt-6">
-                <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                  <TrendingUp className="w-5 h-5 mr-2 text-emerald-500" />
-                  Key Achievements
-                </h4>
-                <ul className="space-y-2">
-                  {exp.achievements.map((achievement, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <Award className="w-4 h-4 mt-1 mr-2 text-emerald-500 flex-shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300">{achievement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {exp.technologies && exp.technologies.length > 0 && (
-              <div className="mt-6">
-                <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
-                  <Code className="w-5 h-5 mr-2 text-blue-500" />
-                  Technologies Used
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {exp.technologies.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 text-sm rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
+    return () => ctx.revert();
+  }, [isInView, displayExperiences]);
 
   return (
-    <Section
+    <section
       ref={sectionRef}
       id="experience"
-      className="py-20 bg-gradient-to-br from-purple-50/30 via-white to-emerald-50/20 dark:from-purple-900/10 dark:via-gray-900 dark:to-emerald-900/10"
+      className={`min-h-screen py-20 px-4 ${
+        darkMode 
+          ? 'bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 dark:from-slate-900 dark:via-blue-900/20 dark:to-indigo-900/10' 
+          : 'bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20'
+      }`}
     >
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6"
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <motion.span 
+            className={`inline-block px-6 py-3 rounded-full text-base font-semibold mb-6 ${
+              darkMode 
+                ? 'bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20' 
+                : 'bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-600 border border-indigo-500/20'
+            }`}
+            whileHover={{ scale: 1.05 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500 dark:from-purple-400 dark:to-blue-300">
-              Professional Journey
-            </h2>
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto"
-          >
-            A timeline of my professional experience and achievements
-          </motion.p>
-        </div>
+            Professional Journey
+          </motion.span>
+          
+          <h2 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 mb-6">
+            Professional Roadmap
+          </h2>
+          
+          <p className={`text-xl leading-relaxed max-w-3xl mx-auto ${
+            darkMode ? 'text-gray-400' : 'text-gray-600'
+          }`}>
+            Explore my professional evolution from junior developer to tech leadership,
+            highlighting key milestones and achievements along the way.
+          </p>
+        </motion.div>
 
-        <div className="relative px-4 sm:px-6">
-          {/* Timeline line */}
-          <div className="absolute left-1/2 w-0.5 h-full bg-gradient-to-b from-purple-200 to-blue-200 dark:from-purple-800 dark:to-blue-800 transform -translate-x-1/2 timeline-line"></div>
+        {/* Timeline Container */}
+        <div ref={timelineRef} className="relative">
+          {/* Animated Timeline Path */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 md:transform md:-translate-x-1/2">
+            <div 
+              className="timeline-path w-1 h-full bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full shadow-lg relative overflow-hidden"
+            >
+              {/* Animated glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-400/50 via-purple-400/50 to-pink-400/50 rounded-full animate-pulse"></div>
+              
+              {/* Flowing animation */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/30 to-transparent rounded-full animate-pulse"></div>
+            </div>
+          </div>
 
-          <div className="space-y-16">
-            {experiences.map((exp, index) => (
-              <div key={index} className="relative w-full">
-                {/* Timeline dot */}
-                <div className="absolute left-1/2 -ml-3 w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 shadow-lg flex items-center justify-center z-10">
-                  <div className="w-2 h-2 rounded-full bg-white"></div>
+          {/* Experience Milestones */}
+          <div className="space-y-16 md:space-y-24">
+            {displayExperiences.map((experience, index) => (
+              <motion.div
+                key={experience.id}
+                className={`milestone-card-${index} relative flex flex-col md:flex-row items-start ${
+                  index % 2 === 0 ? 'md:flex-row-reverse' : ''
+                } group`}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                {/* Timeline Marker */}
+                <div className={`milestone-marker-${index} absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2 z-20`}>
+                  <motion.div
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${experience.color} p-3 text-white shadow-xl flex items-center justify-center relative`}
+                    whileHover={{ 
+                      scale: 1.1,
+                      rotate: 5,
+                      boxShadow: "0 20px 40px rgba(0,0,0,0.2)"
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    {experience.icon}
+                    
+                    {/* Pulse ring */}
+                    <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${experience.color} opacity-30 animate-ping`}></div>
+                    
+                    {/* Index badge */}
+                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center text-xs font-bold text-gray-800 shadow-md">
+                      {index + 1}
+                    </div>
+                  </motion.div>
                 </div>
-                
-                {/* Card container */}
-                <div className={`relative w-full md:max-w-[calc(50%-2rem)] ${
-                  index % 2 === 0 ? 'md:mr-auto md:pr-8 md:pl-0' : 'md:ml-auto md:pl-8 md:pr-0'
-                }`}>
-                  {renderExperienceCard(exp, index)}
-                </div>
-              </div>
+
+                {/* Experience Card */}
+                <motion.div
+                  className={`ml-28 md:ml-0 md:w-5/12 ${
+                    index % 2 === 0 
+                      ? 'md:mr-auto md:pr-16' 
+                      : 'md:ml-auto md:pl-16'
+                  }`}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <div 
+                    className={`p-8 rounded-3xl backdrop-blur-sm border shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer ${
+                      darkMode
+                        ? `bg-white/90 dark:bg-gray-800/90 border-white/20 dark:border-gray-700/50 hover:border-white/40 dark:hover:border-gray-700/70`
+                        : `bg-white/90 border-white/20 hover:border-white/40`
+                    }`}
+                    onClick={() => setSelectedExperience(selectedExperience === index ? null : index)}
+                  >
+                    {/* Card Header */}
+                    <div className="flex items-start justify-between mb-6">
+                      <div className="flex-1">
+                        <motion.h3 
+                          className={`text-2xl font-bold mb-2 ${
+                            darkMode ? 'text-white' : 'text-gray-900'
+                          }`}
+                          layoutId={`title-${index}`}
+                        >
+                          {experience.title}
+                        </motion.h3>
+                        
+                        <div className={`flex items-center gap-2 mb-3 ${
+                          darkMode ? 'text-gray-300' : 'text-gray-700'
+                        }`}>
+                          <Building className="w-4 h-4" />
+                          <span className="font-semibold">{experience.company}</span>
+                        </div>
+                        
+                        <div className={`flex flex-wrap items-center gap-4 text-sm ${
+                          darkMode ? 'text-gray-400' : 'text-gray-600'
+                        }`}>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            <span>{experience.duration}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-4 h-4" />
+                            <span>{experience.location}</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <motion.div
+                        className={`text-gray-400 transition-transform duration-300 ${
+                          selectedExperience === index ? 'rotate-90' : ''
+                        }`}
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </motion.div>
+                    </div>
+
+                    {/* Description */}
+                    <p className={`text-lg leading-relaxed mb-6 ${
+                      darkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      {experience.description}
+                    </p>
+
+                    {/* Key Highlights */}
+                    <motion.div
+                      initial={false}
+                      animate={{ 
+                        height: selectedExperience === index ? 'auto' : 0,
+                        opacity: selectedExperience === index ? 1 : 0
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mb-6">
+                        <h4 className={`text-lg font-semibold mb-4 flex items-center ${
+                          darkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          <Star className="w-5 h-5 mr-2 text-yellow-500" />
+                          Key Achievements
+                        </h4>
+                        <ul className="space-y-2">
+                          {experience.highlights.map((highlight, idx) => (
+                            <motion.li
+                              key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.1 }}
+                              className={`flex items-start gap-3 ${
+                                darkMode ? 'text-gray-300' : 'text-gray-700'
+                              }`}
+                            >
+                              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mt-2 flex-shrink-0"></div>
+                              <span>{highlight}</span>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
+
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2">
+                      {experience.technologies.map((tech, idx) => (
+                        <motion.span
+                          key={idx}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: idx * 0.05 }}
+                          className={`px-3 py-1 text-sm rounded-full bg-gradient-to-r ${experience.color} text-white shadow-sm font-medium`}
+                          whileHover={{ scale: 1.05, y: -2 }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
             ))}
           </div>
         </div>
+
+        {/* Journey Summary */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-20 text-center"
+        >
+          <div className={`grid md:grid-cols-3 gap-8 p-8 rounded-3xl backdrop-blur-sm border ${
+            darkMode 
+              ? 'bg-white/90 dark:bg-gray-800/90 border-white/20 dark:border-gray-700/50' 
+              : 'bg-white/90 border-white/20'
+          }`}>
+            <div className="text-center">
+              <div className={`text-4xl font-bold mb-2 ${
+                darkMode ? 'text-blue-400' : 'text-blue-600'
+              }`}>
+                {displayExperiences.length}+
+              </div>
+              <div className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                Career Milestones
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className={`text-4xl font-bold mb-2 ${
+                darkMode ? 'text-purple-400' : 'text-purple-600'
+              }`}>
+                5+
+              </div>
+              <div className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                Years Experience
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className={`text-4xl font-bold mb-2 ${
+                darkMode ? 'text-pink-400' : 'text-pink-600'
+              }`}>
+                50+
+              </div>
+              <div className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                Projects Delivered
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
-    </Section>
+    </section>
   );
 };
 

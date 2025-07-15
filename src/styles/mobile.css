@@ -242,11 +242,11 @@
 /* Dark mode mobile optimizations */
 @media (max-width: 768px) {
   .dark .backdrop-blur-sm {
-    background-color: rgba(17, 24, 39, 0.8) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
   }
 
   .dark .backdrop-blur-md {
-    background-color: rgba(17, 24, 39, 0.85) !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
   }
 
   /* Better contrast for mobile dark mode */
@@ -282,6 +282,6 @@
 
   .mobile-no-blur.dark .backdrop-blur-sm,
   .mobile-no-blur.dark .backdrop-blur-md {
-    background-color: rgba(17, 24, 39, 0.9) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
   }
 }

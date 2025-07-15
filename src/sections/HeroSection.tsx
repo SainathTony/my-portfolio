@@ -177,7 +177,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
     <section
       ref={heroRef}
       id="home"
-      className="section relative min-h-screen flex items-center justify-center overflow-hidden pt-5 px-4 sm:px-6"
+      className="section relative flex items-center justify-center overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -196,7 +196,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
       </div>
 
       {/* Main Content */}
-      <div className="hero-content relative z-10 pt-4 md:pt-8 lg:pt-12">
+      <div className="hero-content relative z-10">
         <div className="hero-container">
           {/* Greeting Badge */}
           <div className="mb-4">
@@ -250,7 +250,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 font-semibold">
                 Full Stack Developer
               </span>{" "}
-              & {" "}
+              &{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600 font-medium">
                 AI/ML Engineer
               </span>
@@ -264,11 +264,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
             appearOnMount={true}
             className="mb-4"
           >
-            <div className="flex flex-wrap justify-center gap-4 py-10">
+            <div className="flex flex-wrap justify-center gap-4 py-6">
               {techStack.map((tech, index) => (
                 <motion.div
                   key={tech.name}
-                  className="flex items-center px-6 py-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-sm text-base font-medium text-gray-700 dark:text-gray-200"
+                  className="flex items-center px-6 py-3 rounded-full bg-white/90 backdrop-blur-sm shadow-sm text-base font-medium text-gray-700 dark:text-gray-200 border border-white/20"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + index * 0.1 }}
@@ -286,7 +286,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </RevealAnimation>
 
           {/* Description */}
-          <div className="mb-10">
+          <div className="mb-6">
             <p
               ref={descriptionRef}
               className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed opacity-0"
@@ -310,7 +310,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           {/* CTA Buttons */}
           <div
             ref={ctaRef}
-            className="flex flex-col sm:flex-row justify-center gap-8 mb-6 opacity-0"
+            className="flex flex-col sm:flex-row justify-center gap-6 mb-4 opacity-0"
           >
             <motion.button
               onClick={() => scrollToSection(1)}
@@ -337,9 +337,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               </span>
             </motion.button>
           </div>
- 
+
           {/* Info Section */}
-          <div className="flex flex-col md:flex-row gap-8 justify-center items-center max-w-3xl mx-auto">
+          <div className="flex flex-col md:flex-row gap-6 justify-center items-center max-w-3xl mx-auto">
             {/* Location */}
             <RevealAnimation
               delay={800}
@@ -348,7 +348,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               className="flex items-center justify-center"
             >
               <motion.div
-                className="flex items-center p-4 rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all min-w-[240px]"
+                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all min-w-[240px] border border-white/20"
                 whileHover={{
                   y: -5,
                   boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
@@ -376,7 +376,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               className="flex items-center justify-center"
             >
               <motion.div
-                className="flex items-center p-4 rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all min-w-[240px]"
+                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all min-w-[240px] border border-white/20"
                 whileHover={{
                   y: -5,
                   boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
@@ -404,7 +404,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Social Links */}
-          <div ref={socialRef} className="mt-12 opacity-0">
+          <div ref={socialRef} className="mt-8 opacity-0">
             <div className="flex justify-center space-x-6">
               {socialLinks.map((link, index) => (
                 <motion.a
@@ -433,7 +433,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Scroll Indicator */}
-          <div className="mt-0">
+          <div className="mt-4">
             <motion.button
               onClick={() => scrollToSection(1)}
               className="group flex flex-col items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-300"

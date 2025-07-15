@@ -1,6 +1,5 @@
 import type { Experience, Project, Skill } from "portfolio-data";
 
-
 export const skills: Skill[] = [
   { name: "Java", level: 90, category: "backend" },
   { name: "Spring Boot", level: 90, category: "backend" },
@@ -98,6 +97,7 @@ export const experiences: Experience[] = [
     period: "Aug 2022 - Present",
     color: "from-blue-500 to-cyan-500",
     icon: "",
+    highlights: []
   },
   {
     id: "thoughtworks",
@@ -118,6 +118,7 @@ export const experiences: Experience[] = [
     period: "Dec 2020 - Aug 2022",
     color: "from-green-500 to-emerald-500",
     icon: "",
+    highlights: []
   },
   {
     id: "dtailabs",
@@ -137,6 +138,7 @@ export const experiences: Experience[] = [
     period: "Dec 2019 - Dec 2020",
     color: "from-blue-500 to-cyan-500",
     icon: "",
+    highlights: []
   },
   {
     id: "qualzz",
@@ -156,9 +158,9 @@ export const experiences: Experience[] = [
     period: "Oct 2018 - Jun 2019",
     color: "from-blue-500 to-cyan-500",
     icon: "",
+    highlights: []
   },
 ];
-
 
 export const aboutMe = {
   name: "Your Name",

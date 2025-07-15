@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useCallback, useMemo, useLayoutEffect } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  useLayoutEffect,
+} from "react";
 import * as THREE from "three";
 
 // Types
@@ -76,11 +82,13 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
     timeRef.current = timeRef.current || 0;
     timeRef.current += 0.01;
 
-    const { particles, shapes, waves, camera, renderer, scene } = sceneRefs.current;
+    const { particles, shapes, waves, camera, renderer, scene } =
+      sceneRefs.current;
 
     // Animate particles
     if (particles?.geometry) {
-      const positions = particles.geometry.attributes.position.array as Float32Array;
+      const positions = particles.geometry.attributes.position
+        .array as Float32Array;
       const originalPositions = originalPosArrayRef.current;
 
       if (originalPositions) {
@@ -116,8 +124,10 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
         for (let i = 0; i < posArray.length; i += 3) {
           const x = posArray[i];
           const y = posArray[i + 1];
-          posArray[i + 2] = Math.sin(x * 0.1 + timeRef.current) * 
-                           Math.cos(y * 0.1 + timeRef.current) * 1.5;
+          posArray[i + 2] =
+            Math.sin(x * 0.1 + timeRef.current) *
+            Math.cos(y * 0.1 + timeRef.current) *
+            1.5;
         }
         position.needsUpdate = true;
       }
@@ -143,28 +153,28 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
   useEffect(() => {
     if (!containerRef.current) return;
     isMounted.current = true;
-    
+
     // Initialize Three.js scene
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      1000,
     );
     camera.position.z = 15;
 
-    const renderer = new THREE.WebGLRenderer({ 
-      antialias: true, 
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
       alpha: true,
-      powerPreference: 'high-performance',
+      powerPreference: "high-performance",
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // Clear container and append renderer
     const container = containerRef.current;
-    container.innerHTML = '';
+    container.innerHTML = "";
     container.appendChild(renderer.domElement);
 
     // Create particle system
@@ -180,8 +190,8 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
     }
 
     particleGeometry.setAttribute(
-      'position',
-      new THREE.BufferAttribute(new Float32Array(posArray), 3)
+      "position",
+      new THREE.BufferAttribute(new Float32Array(posArray), 3),
     );
 
     const particleMaterial = new THREE.PointsMaterial({
@@ -260,27 +270,28 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
     updateAnimation();
 
     // Handle window resize
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Cleanup function
     return () => {
       isMounted.current = false;
-      
+
       // Cancel animation frame
       if (sceneRefs.current.animationFrameId !== null) {
         cancelAnimationFrame(sceneRefs.current.animationFrameId);
       }
-      
+
       // Remove event listeners
-      window.removeEventListener('resize', handleResize);
-      
+      window.removeEventListener("resize", handleResize);
+
       // Cleanup Three.js resources
-      const { scene: currentScene, renderer: currentRenderer } = sceneRefs.current;
-      
+      const { scene: currentScene, renderer: currentRenderer } =
+        sceneRefs.current;
+
       if (currentRenderer) {
         currentRenderer.dispose();
       }
-      
+
       if (currentScene) {
         // Dispose all geometries and materials
         currentScene.traverse((object) => {
@@ -290,7 +301,7 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
             }
             if (object.material) {
               if (Array.isArray(object.material)) {
-                object.material.forEach(material => material.dispose());
+                object.material.forEach((material) => material.dispose());
               } else {
                 object.material.dispose();
               }
@@ -298,12 +309,12 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
           }
         });
       }
-      
+
       // Clear the container
       if (containerRef.current) {
-        containerRef.current.innerHTML = '';
+        containerRef.current.innerHTML = "";
       }
-      
+
       // Reset refs
       sceneRefs.current = {
         scene: null,
@@ -330,7 +341,10 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
 
     if (shapes) {
       shapes.traverse((child) => {
-        if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshBasicMaterial) {
+        if (
+          child instanceof THREE.Mesh &&
+          child.material instanceof THREE.MeshBasicMaterial
+        ) {
           child.material.color.set(color);
         }
       });
@@ -347,13 +361,13 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
       ref={containerRef}
       className="fixed inset-0 -z-10 pointer-events-none"
       style={{
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
-        width: '100vw',
-        height: '100vh',
+        width: "100vw",
+        height: "100vh",
         zIndex: -1,
-        overflow: 'hidden',
+        overflow: "hidden",
       }}
     />
   );
@@ -362,6 +376,10 @@ const ThreeJSBackground: React.FC<ThreeJSBackgroundProps> = ({
 // Memoize the component to prevent unnecessary re-renders
 export default React.memo(ThreeJSBackground, (prevProps, nextProps) => {
   // Only re-render if darkMode changes
-  return prevProps.darkMode === nextProps.darkMode && 
-         Math.abs((prevProps.scrollProgress || 0) - (nextProps.scrollProgress || 0)) < 0.01;
+  return (
+    prevProps.darkMode === nextProps.darkMode &&
+    Math.abs(
+      (prevProps.scrollProgress || 0) - (nextProps.scrollProgress || 0),
+    ) < 0.01
+  );
 });

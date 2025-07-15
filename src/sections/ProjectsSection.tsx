@@ -66,7 +66,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Project cards animation
-      const cards = gsap.utils.toArray<HTMLElement>('.project-card');
+      const cards = gsap.utils.toArray<HTMLElement>(".project-card");
       cards.forEach((card, index) => {
         gsap.fromTo(
           card,
@@ -154,12 +154,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     <Section
       ref={sectionRef}
       id="projects"
-      className="section section-4 py-20 bg-gradient-to-br from-indigo-50/30 via-white to-pink-50/20 dark:from-indigo-900/10 dark:via-gray-900 dark:to-pink-900/10"
+      className="section section-4 bg-gradient-to-br from-indigo-50/30 via-white to-pink-50/20 dark:from-indigo-900/10 dark:via-gray-900 dark:to-pink-900/10"
     >
       <div className="grid-container">
         <div className="w-full max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-24">
+          <div className="text-center mb-4">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -200,7 +200,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           </div>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-6 mb-20">
+          <div className="flex flex-wrap justify-center gap-4 mb-4">
             {categories.map((category) => (
               <motion.button
                 key={category.id}
@@ -208,7 +208,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                 className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-semibold transition-all duration-300 text-lg ${
                   selectedCategory === category.id
                     ? "bg-gradient-to-r from-pink-600 to-indigo-600 text-white shadow-lg scale-105"
-                    : "bg-white/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-800/70"
+                    : "bg-white/90 text-gray-700 dark:text-gray-300 hover:bg-white/95"
                 } backdrop-blur-sm border border-white/20 dark:border-gray-700/50`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -245,7 +245,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                   onMouseEnter={() => setHoveredProject(index)}
                   onMouseLeave={() => setHoveredProject(null)}
                 >
-                  <div className="relative p-10 rounded-3xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                  <div className="relative p-6 rounded-3xl bg-white/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
                     {/* Status Badge */}
                     <div className="absolute top-8 right-8 z-10">
                       <div
@@ -367,7 +367,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
                         {(project as any).githubUrl && (
                           <motion.button
-                            className="flex items-center space-x-3 px-6 py-3 rounded-xl bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 font-medium hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 text-base"
+                            className="flex items-center space-x-3 px-6 py-3 rounded-xl bg-white/30 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 font-medium hover:bg-white/40 transition-all duration-300 text-base"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >

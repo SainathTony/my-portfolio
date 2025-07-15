@@ -1,7 +1,7 @@
-import { useEffect, useCallback } from 'react';
-import { useLenis } from '@studio-freight/react-lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useCallback } from "react";
+import { useLenis } from "@studio-freight/react-lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +34,7 @@ export const useSmoothScroll = () => {
       ScrollTrigger.update();
     };
 
-    lenis.on('scroll', onScroll);
+    lenis.on("scroll", onScroll);
 
     // Setup GSAP ticker
     gsap.ticker.add((time) => {
@@ -45,7 +45,7 @@ export const useSmoothScroll = () => {
 
     // Cleanup
     return () => {
-      lenis.off('scroll', onScroll);
+      lenis.off("scroll", onScroll);
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000);
       });
@@ -53,19 +53,22 @@ export const useSmoothScroll = () => {
   }, [lenis]);
 
   // Scroll to target function
-  const scrollTo = useCallback((target: string | HTMLElement | number, options?: ScrollToOptions) => {
-    if (!lenis) return;
-    
-    // Convert string selector to HTMLElement if needed
-    if (typeof target === 'string') {
-      const element = document.querySelector(target);
-      if (element && element instanceof HTMLElement) {
-        lenis.scrollTo(element, options);
+  const scrollTo = useCallback(
+    (target: string | HTMLElement | number, options?: ScrollToOptions) => {
+      if (!lenis) return;
+
+      // Convert string selector to HTMLElement if needed
+      if (typeof target === "string") {
+        const element = document.querySelector(target);
+        if (element && element instanceof HTMLElement) {
+          lenis.scrollTo(element, options);
+        }
+      } else {
+        lenis.scrollTo(target, options);
       }
-    } else {
-      lenis.scrollTo(target, options);
-    }
-  }, [lenis]);
+    },
+    [lenis],
+  );
 
   return { scrollTo, lenis };
 };

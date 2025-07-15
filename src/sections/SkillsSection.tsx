@@ -20,9 +20,7 @@ interface SkillsSectionProps {
   visibleElements: VisibleElements;
 }
 
-const SkillsSection: React.FC<SkillsSectionProps> = ({
-  skills,
-}) => {
+const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
@@ -33,7 +31,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
       name: "Frontend",
       icon: <Code className="w-6 h-6" />,
       color: "from-blue-500 to-cyan-500",
-      description: "User Interface & Experience"
+      description: "User Interface & Experience",
     },
     {
       id: "backend",
@@ -47,7 +45,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
       name: "Tools",
       icon: <Code className="w-6 h-6" />,
       color: "from-amber-500 to-orange-500",
-      description: "Development Tools & Platforms"
+      description: "Development Tools & Platforms",
     },
     {
       id: "other",
@@ -231,7 +229,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
               start: "top 85%",
               toggleActions: "play none none none",
             },
-          }
+          },
         );
       });
 
@@ -252,19 +250,19 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
               start: "top 85%",
               toggleActions: "play none none none",
             },
-          }
+          },
         );
       });
 
       // 3D hover effect for skill cards
-      const skillCards = document.querySelectorAll<HTMLElement>('.skill-card');
+      const skillCards = document.querySelectorAll<HTMLElement>(".skill-card");
       const hoverAnimation = (element: HTMLElement, isHovered: boolean) => {
         gsap.to(element, {
           rotationY: isHovered ? 10 : 0,
           rotationX: isHovered ? 5 : 0,
           z: isHovered ? 50 : 0,
           duration: 0.3,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       };
 
@@ -295,12 +293,12 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
     <Section
       ref={sectionRef}
       id="skills"
-      className="section section-2 py-20 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/10"
+      className="section section-2 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/10"
     >
       <div className="grid-container">
         <div className="w-full max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-24">
+          <div className="text-center mb-4">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -342,13 +340,13 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
           </div>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-6 mb-20">
+          <div className="flex flex-wrap justify-center gap-4 mb-4">
             <motion.button
               onClick={() => setActiveCategory("all")}
               className={`px-8 py-4 rounded-2xl font-semibold transition-all duration-300 text-lg ${
                 activeCategory === "all"
                   ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg scale-105"
-                  : "bg-white/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-800/70"
+                  : "bg-white/90 text-gray-700 dark:text-gray-300 hover:bg-white/95"
               } backdrop-blur-sm border border-white/20 dark:border-gray-700/50`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -363,7 +361,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                 className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-semibold transition-all duration-300 text-lg ${
                   activeCategory === category.id
                     ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105`
-                    : "bg-white/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-800/70"
+                    : "bg-white/90 text-gray-700 dark:text-gray-300 hover:bg-white/95"
                 } backdrop-blur-sm border border-white/20 dark:border-gray-700/50`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -395,7 +393,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                     type: "spring",
                     stiffness: 100,
                   }}
-                  className="skill-card card-hover group relative p-8 rounded-3xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:bg-white/80 dark:hover:bg-gray-800/80"
+                  className="skill-card card-hover group relative p-6 rounded-3xl bg-white/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:bg-white/95"
                   onMouseEnter={() => setHoveredSkill(skill.name)}
                   onMouseLeave={() => setHoveredSkill(null)}
                   style={{ perspective: "1000px" }}

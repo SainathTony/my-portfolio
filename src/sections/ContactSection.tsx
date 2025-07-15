@@ -234,12 +234,12 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     <Section
       ref={sectionRef}
       id="contact"
-      className="section section-5 py-20 bg-gradient-to-br from-rose-50/30 via-white to-indigo-50/20 dark:from-rose-900/10 dark:via-gray-900 dark:to-indigo-900/10"
+      className="section section-5 bg-gradient-to-br from-rose-50/30 via-white to-indigo-50/20 dark:from-rose-900/10 dark:via-gray-900 dark:to-indigo-900/10"
     >
       <div className="form-container">
         <div className="w-full max-w-5xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-20">
+          <div className="text-center mb-4">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -275,7 +275,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid lg:grid-cols-2 gap-16">
+          <div className="grid lg:grid-cols-2 gap-8">
             {/* Contact Information */}
             <div className="space-y-8">
               <motion.div
@@ -387,7 +387,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="relative p-8 rounded-3xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-xl"
+                className="relative p-8 rounded-3xl bg-white/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-xl"
               >
                 <div className="text-center mb-8">
                   <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
@@ -442,7 +442,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                             value={formData.name}
                             onChange={handleInputChange}
                             required
-                            className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/90 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300"
                             placeholder="Your name"
                           />
                         </div>
@@ -456,7 +456,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                             value={formData.email}
                             onChange={handleInputChange}
                             required
-                            className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/90 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300"
                             placeholder="your@email.com"
                           />
                         </div>
@@ -472,7 +472,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                           value={formData.subject}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/90 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300"
                           placeholder="Project discussion, collaboration, etc."
                         />
                       </div>
@@ -487,7 +487,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                           onChange={handleInputChange}
                           required
                           rows={6}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300 resize-none"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/90 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300 resize-none"
                           placeholder="Tell me about your project, ideas, or how we can collaborate..."
                         />
                       </div>
@@ -525,7 +525,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-20 text-center"
+            className="mt-6 text-center"
           >
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
               Connect on Social Media
@@ -538,7 +538,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`social-link group relative p-6 rounded-2xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 ${social.bgColor} transition-all duration-300 hover:shadow-xl`}
+                  className={`social-link group relative p-6 rounded-2xl bg-white/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 ${social.bgColor} transition-all duration-300 hover:shadow-xl`}
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -573,7 +573,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-20 text-center"
+            className="mt-6 text-center"
           >
             <div className="relative max-w-4xl mx-auto p-8 md:p-12 rounded-3xl bg-gradient-to-br from-rose-500/10 via-purple-500/10 to-indigo-500/10 border border-white/20 dark:border-gray-700/50 backdrop-blur-sm">
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-rose-500/5 to-indigo-500/5 blur-xl"></div>
@@ -609,7 +609,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                   </motion.button>
 
                   <motion.button
-                    className="px-8 py-4 bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 font-semibold rounded-2xl hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300"
+                    className="px-8 py-4 bg-white/30 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 font-semibold rounded-2xl hover:bg-white/40 transition-all duration-300"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={copyEmail}
