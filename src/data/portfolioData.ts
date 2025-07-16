@@ -1,21 +1,87 @@
 import type { Experience, Project, Skill } from "portfolio-data";
+import ReactPng from '../assets/icons/React.png';
+import AngularPng from '../assets/icons/Angular.png';
+import BootstrapPng from '../assets/icons/Bootstrap.png';
+import TailwindCssPng from '../assets/icons/Tailwind CSS.png';
+import MaterialUiPng from '../assets/icons/Material UI.png';
+import Html5Png from '../assets/icons/HTML5.png';
+import Css3Png from '../assets/icons/CSS3.png';
+import JavaScriptPng from '../assets/icons/JavaScript.png';
+import TypeScriptPng from '../assets/icons/TypeScript.png';
+import JavaPng from '../assets/icons/Java.png';
+import PythonPng from '../assets/icons/Python.png';
+import SpringPng from '../assets/icons/Spring.png';
+import DjangoPng from '../assets/icons/Django.png';
+import FastApiPng from '../assets/icons/FastAPI.png';
+import ExpressPng from '../assets/icons/Express.png';
+import NestPng from '../assets/icons/Nest.png';
+import GraphQlPng from '../assets/icons/GraphQL.png';
+import AwsPng from '../assets/icons/AWS.png';
+import JenkinsPng from '../assets/icons/Jenkins.png';
+import DockerPng from '../assets/icons/Docker.png';
+import GradlePng from '../assets/icons/Gradle.png';
+import HashiCorpVaultPng from '../assets/icons/HashiCorp Vault.png';
+import GitPng from '../assets/icons/Git.png';
+import GitHubPng from '../assets/icons/GitHub.png';
+import PostmanPng from '../assets/icons/Postman.png';
+import JestPng from '../assets/icons/Jest.png';
+import JUnitPng from '../assets/icons/JUnit.png';
+import NpmPng from '../assets/icons/NPM.png';
+import YarnPng from '../assets/icons/Yarn.png';
+import AndroidStudioPng from '../assets/icons/Android Studio.png';
+import FigmaPng from '../assets/icons/Figma.png';
+import MongoDbPng from '../assets/icons/MongoDB.png';
+import MySqlPng from '../assets/icons/MySQL.png';
+import PostgresSqlPng from '../assets/icons/PostgresSQL.png';
+import GrafanaPng from '../assets/icons/Grafana.png';
+import SplunkPng from '../assets/icons/Splunk.png';
 
 export const skills: Skill[] = [
-  { name: "Java", level: 90, category: "backend" },
-  { name: "Spring Boot", level: 90, category: "backend" },
-  { name: "Node.js", level: 85, category: "backend" },
-  { name: "React", level: 90, category: "frontend" },
-  { name: "TypeScript", level: 80, category: "frontend" },
-  { name: "JavaScript", level: 90, category: "frontend" },
-  { name: "Tailwind CSS", level: 85, category: "design" },
-  { name: "AWS", level: 80, category: "devops" },
-  { name: "Docker", level: 75, category: "devops" },
-  { name: "GitHub Actions", level: 70, category: "devops" },
-  { name: "MongoDB", level: 80, category: "tools" },
-  { name: "MySQL", level: 75, category: "tools" },
-  { name: "Redis", level: 70, category: "tools" },
-  { name: "Jenkins", level: 70, category: "devops" },
-  { name: "Postman", level: 80, category: "tools" },
+  // Frontend
+  { name: "React", category: "frontend", icon: ReactPng },
+  { name: "Angular", category: "frontend", icon: AngularPng },
+  { name: "Bootstrap", category: "frontend", icon: BootstrapPng },
+  { name: "Tailwind CSS", category: "frontend", icon: TailwindCssPng },
+  { name: "Material UI", category: "frontend", icon: MaterialUiPng },
+  { name: "HTML5", category: "frontend", icon: Html5Png },
+  { name: "CSS3", category: "frontend", icon: Css3Png },
+  { name: "JavaScript", category: "frontend", icon: JavaScriptPng },
+  { name: "TypeScript", category: "frontend", icon: TypeScriptPng },
+
+  // Backend
+  { name: "Java", category: "backend", icon: JavaPng },
+  { name: "Python", category: "backend", icon: PythonPng },
+  { name: "Spring", category: "backend", icon: SpringPng },
+  { name: "Django", category: "backend", icon: DjangoPng },
+  { name: "FastAPI", category: "backend", icon: FastApiPng },
+  { name: "Express", category: "backend", icon: ExpressPng },
+  { name: "Nest", category: "backend", icon: NestPng },
+  { name: "GraphQL", category: "backend", icon: GraphQlPng },
+
+  // DevOps
+  { name: "AWS", category: "devops", icon: AwsPng },
+  { name: "Jenkins", category: "devops", icon: JenkinsPng },
+  { name: "Docker", category: "devops", icon: DockerPng },
+  { name: "Gradle", category: "devops", icon: GradlePng },
+  { name: "HashiCorp Vault", category: "devops", icon: HashiCorpVaultPng },
+
+  // Tools
+  { name: "Git", category: "tools", icon: GitPng },
+  { name: "GitHub", category: "tools", icon: GitHubPng },
+  { name: "Postman", category: "tools", icon: PostmanPng },
+  { name: "Jest", category: "tools", icon: JestPng },
+  { name: "JUnit", category: "tools", icon: JUnitPng },
+  { name: "NPM", category: "tools", icon: NpmPng },
+  { name: "Yarn", category: "tools", icon: YarnPng },
+  { name: "Android Studio", category: "tools", icon: AndroidStudioPng },
+  { name: "Figma", category: "tools", icon: FigmaPng },
+
+  // Database
+  { name: "MongoDB", category: "database", icon: MongoDbPng },
+  { name: "MySQL", category: "database", icon: MySqlPng },
+  { name: "PostgresSQL", category: "database", icon: PostgresSqlPng },
+  { name: "Grafana", category: "database", icon: GrafanaPng },
+  { name: "Splunk", category: "database", icon: SplunkPng }
 ];
 
 export const projects: Project[] = [
@@ -31,7 +97,7 @@ export const projects: Project[] = [
     featured: true,
     tags: ["AI", "Design Tool", "Canva"],
     gradient: "from-blue-500 to-cyan-500",
-    icon: "",
+    icon: "assets/icons/",
   },
   {
     id: "mindvalley-nextgen",
@@ -45,7 +111,7 @@ export const projects: Project[] = [
     featured: true,
     tags: ["Android", "UI", "Wellness"],
     gradient: "from-pink-500 to-indigo-500",
-    icon: "",
+    icon: "assets/icons/",
   },
   {
     id: "fastgig",
@@ -59,7 +125,7 @@ export const projects: Project[] = [
     featured: true,
     tags: ["Jobs", "Mobile", "Singapore"],
     gradient: "from-green-500 to-emerald-500",
-    icon: "",
+    icon: "assets/icons/",
   },
   {
     id: "gap-ecommerce",
@@ -73,7 +139,7 @@ export const projects: Project[] = [
     featured: false,
     tags: ["E-Commerce", "Spring Boot", "CI/CD"],
     gradient: "from-yellow-500 to-orange-500",
-    icon: "",
+    icon: "assets/icons/",
   },
 ];
 
@@ -96,7 +162,7 @@ export const experiences: Experience[] = [
     achievements: [],
     period: "Aug 2022 - Present",
     color: "from-blue-500 to-cyan-500",
-    icon: "",
+    icon: "assets/icons/",
     highlights: []
   },
   {
@@ -117,7 +183,7 @@ export const experiences: Experience[] = [
     achievements: [],
     period: "Dec 2020 - Aug 2022",
     color: "from-green-500 to-emerald-500",
-    icon: "",
+    icon: "assets/icons/",
     highlights: []
   },
   {
@@ -137,7 +203,7 @@ export const experiences: Experience[] = [
     achievements: [],
     period: "Dec 2019 - Dec 2020",
     color: "from-blue-500 to-cyan-500",
-    icon: "",
+    icon: "assets/icons/",
     highlights: []
   },
   {
@@ -157,7 +223,7 @@ export const experiences: Experience[] = [
     achievements: [],
     period: "Oct 2018 - Jun 2019",
     color: "from-blue-500 to-cyan-500",
-    icon: "",
+    icon: "assets/icons/",
     highlights: []
   },
 ];
