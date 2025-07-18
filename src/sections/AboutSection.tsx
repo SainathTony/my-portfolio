@@ -66,33 +66,36 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
     {
       year: "2016",
       title: "The Spark",
-      description: "Began my tech journey at IIIT Basar, writing my first “Hello, World!” in Computer Science.",
+      description:
+        "Began my tech journey at IIIT Basar, writing my first “Hello, World!” in Computer Science.",
       icon: <Star className="w-5 h-5" />,
       color: "from-blue-500 to-purple-500",
     },
     {
       year: "2018",
       title: "First Breakthrough",
-      description: "Landed remote internships at Qualzz and DTaiLabs, stepping into full-stack development.",
+      description:
+        "Landed remote internships at Qualzz and DTaiLabs, stepping into full-stack development.",
       icon: <Rocket className="w-5 h-5" />,
       color: "from-purple-500 to-pink-500",
     },
     {
       year: "2020",
       title: "Turning Pro",
-      description: "Graduated and joined ThoughtWorks, shaping real-world impact through projects with GAP.",
+      description:
+        "Graduated and joined ThoughtWorks, shaping real-world impact through projects with GAP.",
       icon: <TrendingUp className="w-5 h-5" />,
       color: "from-emerald-500 to-blue-500",
     },
     {
       year: "2022",
       title: "Driving Innovation",
-      description: "Led AI/ML initiatives and delivered value to global clients as a Software Craftsperson at Everest.",
+      description:
+        "Led AI/ML initiatives and delivered value to global clients as a Software Craftsperson at Everest.",
       icon: <Sparkles className="w-5 h-5" />,
       color: "from-orange-500 to-red-500",
     },
   ];
-
 
   const personalInfo = [
     {
@@ -142,19 +145,20 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
             },
             onUpdate: function () {
               const current = Math.floor(
-                gsap.getProperty(this.targets()[0], "textContent")
+                gsap.getProperty(this.targets()[0], "textContent"),
               );
               let suffix = "";
               if (hasPlus) suffix = "+";
               if (hasPercent) suffix = "%";
               (this.targets()[0] as HTMLElement).textContent = current + suffix;
             },
-          }
+          },
         );
       });
 
       // Floating animations
-      const floatingElements = gsap.utils.toArray<HTMLElement>(".floating-card");
+      const floatingElements =
+        gsap.utils.toArray<HTMLElement>(".floating-card");
       floatingElements.forEach((element, index) => {
         gsap.to(element, {
           y: -15,
@@ -198,17 +202,18 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                 About Me
               </span>
             </div>
-            
+
             <h2 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               Crafting Digital{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600">
                 Experiences
               </span>
             </h2>
-            
+
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed">
-              I'm Sainath Bottupally, a passionate Full Stack Developer and AI/ML Engineer 
-              who transforms complex problems into elegant solutions.
+              I'm Sainath Bottupally, a passionate Full Stack Developer and
+              AI/ML Engineer who transforms complex problems into elegant
+              solutions.
             </p>
           </motion.div>
 
@@ -225,21 +230,25 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                   className="floating-card group relative"
                 >
                   <div className="relative p-8 rounded-3xl bg-white/80 backdrop-blur-sm border border-white/20 dark:bg-gray-800/80 dark:border-gray-700/50 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-                    <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
-                    
+                    <div
+                      className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+                    ></div>
+
                     <div className="relative z-10 text-center">
-                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.color} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <div
+                        className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.color} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
+                      >
                         {stat.icon}
                       </div>
-                      
+
                       <div className="counter text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
                         {stat.number}
                       </div>
-                      
+
                       <div className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">
                         {stat.label}
                       </div>
-                      
+
                       <div className="text-sm text-gray-500 dark:text-gray-500">
                         {stat.description}
                       </div>
@@ -276,7 +285,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                 <div className="relative h-full">
                   {/* Background line */}
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 via-emerald-500/20 to-orange-500/20 rounded-full"></div>
-                  
+
                   {/* Animated progress line */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 via-emerald-500 to-orange-500 rounded-full origin-left"
@@ -285,7 +294,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
                   />
-                  
+
                   {/* Timeline dots */}
                   {journey.map((item, index) => (
                     <motion.div
@@ -293,8 +302,20 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                       className="absolute top-1/2 transform -translate-y-1/2 w-6 h-6 rounded-full bg-white dark:bg-gray-800 border-4 border-current z-10"
                       style={{
                         left: `${(index / (journey.length - 1)) * 100}%`,
-                        marginLeft: index === 0 ? '0' : index === journey.length - 1 ? '-24px' : '-12px',
-                        color: index === 0 ? '#3b82f6' : index === 1 ? '#8b5cf6' : index === 2 ? '#10b981' : '#f97316'
+                        marginLeft:
+                          index === 0
+                            ? "0"
+                            : index === journey.length - 1
+                              ? "-24px"
+                              : "-12px",
+                        color:
+                          index === 0
+                            ? "#3b82f6"
+                            : index === 1
+                              ? "#8b5cf6"
+                              : index === 2
+                                ? "#10b981"
+                                : "#f97316",
                       }}
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
@@ -304,7 +325,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                   ))}
                 </div>
               </div>
-              
+
               {/* Timeline Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                 {journey.map((item, index) => (
@@ -320,10 +341,12 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                     {index < journey.length - 1 && (
                       <div className="absolute top-20 left-1/2 transform -translate-x-1/2 w-1 h-32 bg-gradient-to-b from-blue-500/30 to-purple-500/30 rounded-full lg:hidden"></div>
                     )}
-                    
+
                     <div className="relative p-8 rounded-3xl bg-white/80 backdrop-blur-sm border border-white/20 dark:bg-gray-800/80 dark:border-gray-700/50 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
-                      <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
-                      
+                      <div
+                        className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+                      ></div>
+
                       <div className="relative z-10">
                         {/* Year Badge */}
                         <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-gradient-to-br from-white/90 to-gray-100/90 dark:from-gray-800/90 dark:to-gray-900/90 border-2 border-white/50 dark:border-gray-700/50 flex items-center justify-center shadow-lg">
@@ -331,22 +354,24 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                             {item.year}
                           </span>
                         </div>
-                        
+
                         {/* Icon */}
-                        <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                        <div
+                          className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} text-white mb-6 group-hover:scale-110 transition-transform duration-300`}
+                        >
                           {item.icon}
                         </div>
-                        
+
                         {/* Title */}
                         <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                           {item.title}
                         </h4>
-                        
+
                         {/* Description */}
                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
                           {item.description}
                         </p>
-                        
+
                         {/* Progress Indicator */}
                         <div className="mt-6 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
                           <div className="flex items-center space-x-2">
@@ -354,19 +379,25 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                               <motion.div
                                 className={`h-full bg-gradient-to-r ${item.color} rounded-full`}
                                 initial={{ width: 0 }}
-                                whileInView={{ width: `${((index + 1) / journey.length) * 100}%` }}
+                                whileInView={{
+                                  width: `${((index + 1) / journey.length) * 100}%`,
+                                }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
+                                transition={{
+                                  duration: 1,
+                                  delay: 0.5 + index * 0.1,
+                                }}
                               />
                             </div>
                             <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                              {Math.round(((index + 1) / journey.length) * 100)}%
+                              {Math.round(((index + 1) / journey.length) * 100)}
+                              %
                             </span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Connection Arrow for Desktop */}
                     {index < journey.length - 1 && (
                       <motion.div
@@ -384,7 +415,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                   </motion.div>
                 ))}
               </div>
-              
+
               {/* Journey Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -400,15 +431,21 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="flex items-center justify-center space-x-3">
                       <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                      <span className="text-gray-600 dark:text-gray-400">Started with curiosity</span>
+                      <span className="text-gray-600 dark:text-gray-400">
+                        Started with curiosity
+                      </span>
                     </div>
                     <div className="flex items-center justify-center space-x-3">
                       <div className="w-3 h-3 rounded-full bg-purple-500"></div>
-                      <span className="text-gray-600 dark:text-gray-400">Gained professional experience</span>
+                      <span className="text-gray-600 dark:text-gray-400">
+                        Gained professional experience
+                      </span>
                     </div>
                     <div className="flex items-center justify-center space-x-3">
                       <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                      <span className="text-gray-600 dark:text-gray-400">Leading innovation today</span>
+                      <span className="text-gray-600 dark:text-gray-400">
+                        Leading innovation today
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -450,11 +487,11 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                     <div className="text-blue-600 dark:text-blue-400 mb-4 group-hover:scale-110 transition-transform duration-300">
                       {info.icon}
                     </div>
-                    
+
                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                       {info.title}
                     </h4>
-                    
+
                     <p className="text-gray-600 dark:text-gray-400 text-sm">
                       {info.description}
                     </p>
@@ -475,14 +512,14 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
             >
               <div className="relative p-12 rounded-3xl bg-gradient-to-br from-white/90 to-blue-50/90 dark:from-gray-800/90 dark:to-indigo-900/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:shadow-2xl transition-all duration-300">
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/5 to-purple-500/5"></div>
-                
+
                 <div className="relative z-10 flex items-center space-x-8">
                   <div className="flex-shrink-0">
                     <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white">
                       <BookOpen className="w-10 h-10" />
                     </div>
                   </div>
-                  
+
                   <div className="flex-1">
                     <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                       IIIT Basar
@@ -511,7 +548,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
           >
             <div className="relative max-w-5xl mx-auto p-16 rounded-3xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-emerald-500/10 border border-white/20 dark:border-gray-700/50 backdrop-blur-sm">
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/5 to-purple-500/5 blur-xl"></div>
-              
+
               <div className="relative z-10">
                 <h3 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8">
                   Let's Build{" "}
@@ -519,12 +556,12 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                     Something Amazing
                   </span>
                 </h3>
-                
+
                 <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-12 leading-relaxed max-w-3xl mx-auto">
-                  Ready to transform your ideas into reality? I'm excited to collaborate 
-                  on projects that make a real difference.
+                  Ready to transform your ideas into reality? I'm excited to
+                  collaborate on projects that make a real difference.
                 </p>
-                
+
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
                   <motion.button
                     className="group px-12 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:shadow-xl"
@@ -536,7 +573,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                       <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </motion.button>
-                  
+
                   <motion.button
                     className="px-12 py-5 bg-white/30 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 font-semibold rounded-2xl text-lg hover:bg-white/40 transition-all duration-300"
                     whileHover={{ scale: 1.05, y: -2 }}
