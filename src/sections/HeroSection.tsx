@@ -4,6 +4,7 @@ import {
   Github,
   Linkedin,
   Mail,
+  Phone,
   MapPin,
   Globe,
   Code,
@@ -12,6 +13,7 @@ import {
   Server,
   ArrowDown,
   Download,
+  Workflow,
 } from "lucide-react";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -24,8 +26,9 @@ gsap.registerPlugin(TextPlugin);
 const techStack = [
   { icon: <Code className="w-5 h-5" />, name: "Frontend" },
   { icon: <Server className="w-5 h-5" />, name: "Backend" },
-  { icon: <Cpu className="w-5 h-5" />, name: "AI/ML" },
   { icon: <Database className="w-5 h-5" />, name: "Databases" },
+  { icon: <Cpu className="w-5 h-5" />, name: "AI/ML" },
+  { icon: <Workflow className="w-5 h-5" />, name: "CI/CD" },
 ];
 
 interface HeroSectionProps {
@@ -43,19 +46,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
   const socialLinks = [
     {
       icon: <Github size={20} />,
-      url: "https://github.com/sainath",
+      url: "https://github.com/SainathTony",
       label: "GitHub",
       color: "hover:text-gray-900 dark:hover:text-white",
     },
     {
       icon: <Linkedin size={20} />,
-      url: "https://linkedin.com/in/sainath-bottupally",
+      url: "https://www.linkedin.com/in/sainath-bottupally-754636156",
       label: "LinkedIn",
       color: "hover:text-blue-600",
     },
     {
       icon: <Mail size={20} />,
-      url: "mailto:sainath.bottupally@gmail.com",
+      url: "mailto:bottupallysainath@gmail.com",
       label: "Email",
       color: "hover:text-red-500",
     },
@@ -282,7 +285,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-6">
             <p
               ref={descriptionRef}
-              className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed opacity-0"
+              className="text-md md:text-xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed opacity-0"
             >
               Crafting exceptional digital experiences through the intersection
               of
@@ -332,44 +335,78 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Info Section */}
-          <div className="flex flex-col md:flex-row gap-6 justify-center items-center max-w-3xl mx-auto">
-            {/* Location */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-center items-center max-w-6xl mx-auto">
+            {/* Phone */}
             <RevealAnimation
-              delay={800}
+              delay={825}
               direction="up"
               appearOnMount={true}
-              className="flex items-center justify-center"
+              className="w-full"
             >
               <motion.div
-                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all min-w-[240px] border border-white/20"
+                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all w-full border border-white/20"
                 whileHover={{
                   y: -5,
                   boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <div className="p-3 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 mr-4">
-                  <MapPin size={20} />
+                <div className="p-3 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 mr-4">
+                  <Phone size={20} />
                 </div>
                 <div className="text-left">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Location
+                    Phone
                   </p>
-                  <p className="text-base font-medium text-gray-900 dark:text-white">
-                    Hyderabad, India
+                  <a
+                    href="tel:+918978666892"
+                    className="text-base font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    +91 89786 66892
+                  </a>
+                </div>
+              </motion.div>
+            </RevealAnimation>
+
+            {/* Email */}
+            <RevealAnimation
+              delay={850}
+              direction="up"
+              appearOnMount={true}
+              className="w-full"
+            >
+              <motion.div
+                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all w-full border border-white/20"
+                whileHover={{
+                  y: -5,
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <div className="p-3 rounded-lg bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 mr-4">
+                  <Mail size={20} />
+                </div>
+                <div className="text-left">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Email
                   </p>
+                  <a
+                    href="mailto:sainath.bottupally@gmail.com"
+                    className="text-base font-medium text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                  >
+                    bottupallysainath@gmail.com
+                  </a>
                 </div>
               </motion.div>
             </RevealAnimation>
 
             {/* Availability */}
             <RevealAnimation
-              delay={850}
+              delay={875}
               direction="up"
               appearOnMount={true}
-              className="flex items-center justify-center"
+              className="w-full"
             >
               <motion.div
-                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all min-w-[240px] border border-white/20"
+                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all w-full border border-white/20"
                 whileHover={{
                   y: -5,
                   boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
@@ -441,9 +478,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-              >
-                Discover My Story
-              </motion.span>
+              ></motion.span>
               <motion.div
                 className="w-8 h-12 border-2 border-current rounded-full p-1 relative overflow-hidden"
                 animate={{ y: [0, 8, 0] }}
