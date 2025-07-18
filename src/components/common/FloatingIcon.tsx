@@ -1,5 +1,7 @@
 import React from "react";
-import { mergeClasses } from "../../lib/utils";
+
+const mergeClasses = (...classes: string[]) =>
+  classes.filter(Boolean).join(" ");
 
 type FloatingIconProps = {
   icon: React.ReactNode;

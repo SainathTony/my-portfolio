@@ -46,7 +46,14 @@ export const useScrollHandler = (
 
   const detectActiveSection = useCallback((): number => {
     // Use specific section IDs in the expected order
-    const sectionIds = ["home", "about", "skills", "experience", "projects", "contact"];
+    const sectionIds = [
+      "home",
+      "about",
+      "skills",
+      "experience",
+      "projects",
+      "contact",
+    ];
     const scrollY = window.scrollY;
     const viewportHeight = window.innerHeight;
     const threshold = viewportHeight * 0.4; // 40% of viewport height
@@ -64,8 +71,12 @@ export const useScrollHandler = (
       const sectionHeight = rect.height;
 
       // Calculate how much of the section is visible in the viewport
-      const visibleTop = Math.max(0, Math.min(sectionBottom, viewportHeight) - Math.max(sectionTop, 0));
-      const visibilityPercentage = visibleTop / Math.min(sectionHeight, viewportHeight);
+      const visibleTop = Math.max(
+        0,
+        Math.min(sectionBottom, viewportHeight) - Math.max(sectionTop, 0),
+      );
+      const visibilityPercentage =
+        visibleTop / Math.min(sectionHeight, viewportHeight);
 
       // Check if section is prominently visible (more than 30% visible)
       if (visibilityPercentage > 0.3 && visibilityPercentage > maxVisibility) {

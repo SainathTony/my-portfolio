@@ -1,5 +1,18 @@
 import React from "react";
-import { cn } from "../../lib/utils";
+
+const cn = (...classes: (string | object)[]) => {
+  return classes
+    .filter(Boolean)
+    .map((cls) =>
+      typeof cls === "string"
+        ? cls
+        : Object.entries(cls)
+            .filter(([_, value]) => value)
+            .map(([key]) => key)
+            .join(" "),
+    )
+    .join(" ");
+};
 
 type AnimationDirection = "up" | "down" | "left" | "right" | "scale" | "fade";
 

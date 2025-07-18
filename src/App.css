@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  @apply fixed top-4 left-4 z-50 w-12 h-12 rounded-full bg-white/90 dark:bg-gray-900/90 
+         backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg
+         flex items-center justify-center text-gray-700 dark:text-gray-300
+         hover:bg-white dark:hover:bg-gray-800 hover:scale-110 active:scale-95
+         transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
 :root {
   /* Color Palette */
   --color-primary-blue: #3b82f6;

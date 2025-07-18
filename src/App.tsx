@@ -33,7 +33,6 @@ import "./styles/base.css";
 import "./styles/animations.css";
 import "./styles/component.css";
 import "./styles/mobile.css";
-import "./styles/layout-debug.css";
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -84,14 +83,14 @@ function App() {
         "contact",
       ];
       const targetSection = sectionNames[index];
-      
+
       // Try to find section by ID first
       const sectionElement = document.getElementById(targetSection);
       if (sectionElement) {
         const offsetTop = sectionElement.offsetTop - 80;
-        window.scrollTo({ 
-          top: offsetTop, 
-          behavior: "smooth" 
+        window.scrollTo({
+          top: offsetTop,
+          behavior: "smooth",
         });
       } else if (scrollTo) {
         scrollTo(`#${targetSection}`, { offset: -80, duration: 1.5 });
@@ -100,10 +99,11 @@ function App() {
         const sections = document.querySelectorAll(".section");
         const targetSectionEl = sections[index];
         if (targetSectionEl) {
-          const offsetTop = targetSectionEl.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ 
-            top: offsetTop, 
-            behavior: "smooth" 
+          const offsetTop =
+            targetSectionEl.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth",
           });
         }
       }

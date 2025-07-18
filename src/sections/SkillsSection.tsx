@@ -13,7 +13,10 @@ interface SkillsSectionProps {
   visibleElements: VisibleElements;
 }
 
-const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }) => {
+const SkillsSection: React.FC<SkillsSectionProps> = ({
+  skills,
+  visibleElements,
+}) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
@@ -26,24 +29,46 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }
 
   const categories = [
     { key: "all", label: "All Skills", count: displaySkills.length },
-    { key: "frontend", label: "Frontend", count: displaySkills.filter(s => s.category === "frontend").length },
-    { key: "backend", label: "Backend", count: displaySkills.filter(s => s.category === "backend").length },
-    { key: "devops", label: "DevOps", count: displaySkills.filter(s => s.category === "devops").length },
-    { key: "tools", label: "Tools", count: displaySkills.filter(s => s.category === "tools").length },
-    { key: "database", label: "Database", count: displaySkills.filter(s => s.category === "database").length },
+    {
+      key: "frontend",
+      label: "Frontend",
+      count: displaySkills.filter((s) => s.category === "frontend").length,
+    },
+    {
+      key: "backend",
+      label: "Backend",
+      count: displaySkills.filter((s) => s.category === "backend").length,
+    },
+    {
+      key: "devops",
+      label: "DevOps",
+      count: displaySkills.filter((s) => s.category === "devops").length,
+    },
+    {
+      key: "tools",
+      label: "Tools",
+      count: displaySkills.filter((s) => s.category === "tools").length,
+    },
+    {
+      key: "database",
+      label: "Database",
+      count: displaySkills.filter((s) => s.category === "database").length,
+    },
   ];
 
   useEffect(() => {
     if (visibleElements.skills && sectionRef.current) {
-      const skillCards = sectionRef.current.querySelectorAll('.skill-card');
-      const categoryButtons = sectionRef.current.querySelectorAll('.category-btn');
-      
+      const skillCards = sectionRef.current.querySelectorAll(".skill-card");
+      const categoryButtons =
+        sectionRef.current.querySelectorAll(".category-btn");
+
       // Animate category buttons
-      gsap.fromTo(categoryButtons, 
+      gsap.fromTo(
+        categoryButtons,
         { opacity: 0, y: 20 },
-        { 
-          opacity: 1, 
-          y: 0, 
+        {
+          opacity: 1,
+          y: 0,
           duration: 0.6,
           stagger: 0.1,
           ease: "power2.out",
@@ -51,13 +76,14 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }
             trigger: sectionRef.current,
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
-          }
-        }
+            toggleActions: "play none none reverse",
+          },
+        },
       );
 
       // Animate skill cards
-      gsap.fromTo(skillCards,
+      gsap.fromTo(
+        skillCards,
         { opacity: 0, y: 30, scale: 0.9 },
         {
           opacity: 1,
@@ -70,9 +96,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }
             trigger: sectionRef.current,
             start: "top 70%",
             end: "bottom 30%",
-            toggleActions: "play none none reverse"
-          }
-        }
+            toggleActions: "play none none reverse",
+          },
+        },
       );
     }
   }, [visibleElements.skills, filteredSkills]);
@@ -83,16 +109,16 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 20,
-      scale: 0.95
+      scale: 0.95,
     },
     visible: {
       opacity: 1,
@@ -102,25 +128,25 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }
         type: "spring",
         stiffness: 100,
         damping: 15,
-        duration: 0.5
-      }
+        duration: 0.5,
+      },
     },
     exit: {
       opacity: 0,
       y: -20,
       scale: 0.95,
       transition: {
-        duration: 0.3
-      }
-    }
+        duration: 0.3,
+      },
+    },
   };
 
   const skillCardVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 30,
       rotateX: -15,
-      scale: 0.9
+      scale: 0.9,
     },
     visible: {
       opacity: 1,
@@ -131,8 +157,8 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }
         type: "spring",
         stiffness: 120,
         damping: 20,
-        duration: 0.6
-      }
+        duration: 0.6,
+      },
     },
     hover: {
       y: -8,
@@ -141,9 +167,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }
       transition: {
         type: "spring",
         stiffness: 300,
-        damping: 20
-      }
-    }
+        damping: 20,
+      },
+    },
   };
 
   return (
@@ -176,7 +202,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }
               whileTap={{ scale: 0.95 }}
             >
               {category.label}
-              <span className="ml-2 text-sm opacity-75">({category.count})</span>
+              <span className="ml-2 text-sm opacity-75">
+                ({category.count})
+              </span>
             </motion.button>
           ))}
         </motion.div>
@@ -203,27 +231,29 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, visibleElements }
               >
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 {/* Icon */}
                 <div className="relative flex items-center justify-center mb-4">
                   <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {skill.icon ? (
-                      <img 
-                        src={skill.icon} 
+                      <img
+                        src={skill.icon}
                         alt={skill.name}
                         className="w-8 h-8 object-contain"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          target.nextElementSibling?.classList.remove('hidden');
+                          target.style.display = "none";
+                          target.nextElementSibling?.classList.remove("hidden");
                         }}
                       />
                     ) : null}
-                    <div className={`w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm ${skill.icon ? 'hidden' : ''}`}>
+                    <div
+                      className={`w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm ${skill.icon ? "hidden" : ""}`}
+                    >
                       {skill.name.charAt(0).toUpperCase()}
                     </div>
                   </div>
-                  
+
                   {/* Floating animation dots */}
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-300" />
                 </div>

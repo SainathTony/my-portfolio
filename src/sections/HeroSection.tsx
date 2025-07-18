@@ -61,13 +61,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
     },
   ];
 
-  const roles = [
-    "Full Stack Developer",
-    "AI/ML Engineer",
-    "Cloud Architect",
-    "Tech Innovator",
-  ];
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Set initial states
@@ -217,7 +210,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-4">
             <h1
               ref={titleRef}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 dark:text-white leading-tight opacity-0"
+              className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight opacity-0"
             >
               Hi, I'm{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 animate-gradient-x">
