@@ -45,16 +45,46 @@ export const useScrollHandler = (
   const ticking = useRef<boolean>(false);
 
   const detectActiveSection = useCallback((): number => {
-    const sections = document.querySelectorAll(".section");
-    const viewportCenter = window.innerHeight / 2;
+    // Use specific section IDs in the expected order
+    const sectionIds = ["home", "about", "skills", "experience", "projects", "contact"];
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const threshold = viewportHeight * 0.4; // 40% of viewport height
 
-    for (let i = 0; i < sections.length; i++) {
-      const rect = sections[i].getBoundingClientRect();
-      if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
+    let activeSection = 0;
+    let maxVisibility = 0;
+
+    for (let i = 0; i < sectionIds.length; i++) {
+      const sectionElement = document.getElementById(sectionIds[i]);
+      if (!sectionElement) continue;
+
+      const rect = sectionElement.getBoundingClientRect();
+      const sectionTop = rect.top;
+      const sectionBottom = rect.bottom;
+      const sectionHeight = rect.height;
+
+      // Calculate how much of the section is visible in the viewport
+      const visibleTop = Math.max(0, Math.min(sectionBottom, viewportHeight) - Math.max(sectionTop, 0));
+      const visibilityPercentage = visibleTop / Math.min(sectionHeight, viewportHeight);
+
+      // Check if section is prominently visible (more than 30% visible)
+      if (visibilityPercentage > 0.3 && visibilityPercentage > maxVisibility) {
+        maxVisibility = visibilityPercentage;
+        activeSection = i;
+      }
+
+      // Special case: if we're at the top of the page, home section is active
+      if (scrollY < 100) {
+        return 0;
+      }
+
+      // Special case: if section top is near the top of viewport
+      if (sectionTop >= -50 && sectionTop <= 200) {
         return i;
       }
     }
-    return 0;
+
+    return activeSection;
   }, []);
 
   const calculateScrollProgress = useCallback((): number => {

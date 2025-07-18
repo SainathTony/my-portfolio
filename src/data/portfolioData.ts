@@ -35,28 +35,35 @@ import MySqlPng from '../assets/icons/MySQL.png';
 import PostgresSqlPng from '../assets/icons/PostgresSQL.png';
 import GrafanaPng from '../assets/icons/Grafana.png';
 import SplunkPng from '../assets/icons/Splunk.png';
+import EverestLogo from '../assets/images/everest.png';
+import ThoughtWorksLogo from '../assets/images/thoughtworks.jpg';
+import DtailabsLogo from '../assets/images/DTaiLabs.jpg';
+import QualzzLogo from '../assets/images/Qualzz.png';
 
 export const skills: Skill[] = [
-  // Frontend
-  { name: "React", category: "frontend", icon: ReactPng },
-  { name: "Angular", category: "frontend", icon: AngularPng },
+  // Languages
+  { name: "Java", category: "backend", icon: JavaPng },
+  { name: "Python", category: "backend", icon: PythonPng },
+  { name: "JavaScript", category: "frontend", icon: JavaScriptPng },
+  { name: "TypeScript", category: "frontend", icon: TypeScriptPng },
+  { name: "HTML5", category: "frontend", icon: Html5Png },
+  { name: "CSS3", category: "frontend", icon: Css3Png },
+
   { name: "Bootstrap", category: "frontend", icon: BootstrapPng },
   { name: "Tailwind CSS", category: "frontend", icon: TailwindCssPng },
   { name: "Material UI", category: "frontend", icon: MaterialUiPng },
-  { name: "HTML5", category: "frontend", icon: Html5Png },
-  { name: "CSS3", category: "frontend", icon: Css3Png },
-  { name: "JavaScript", category: "frontend", icon: JavaScriptPng },
-  { name: "TypeScript", category: "frontend", icon: TypeScriptPng },
+  
+  
 
-  // Backend
-  { name: "Java", category: "backend", icon: JavaPng },
-  { name: "Python", category: "backend", icon: PythonPng },
+  // Frameworks
+  
   { name: "Spring", category: "backend", icon: SpringPng },
+  { name: "React", category: "frontend", icon: ReactPng },
+  { name: "Angular", category: "frontend", icon: AngularPng },
   { name: "Django", category: "backend", icon: DjangoPng },
   { name: "FastAPI", category: "backend", icon: FastApiPng },
   { name: "Express", category: "backend", icon: ExpressPng },
   { name: "Nest", category: "backend", icon: NestPng },
-  { name: "GraphQL", category: "backend", icon: GraphQlPng },
 
   // DevOps
   { name: "AWS", category: "devops", icon: AwsPng },
@@ -73,6 +80,7 @@ export const skills: Skill[] = [
   { name: "JUnit", category: "tools", icon: JUnitPng },
   { name: "NPM", category: "tools", icon: NpmPng },
   { name: "Yarn", category: "tools", icon: YarnPng },
+  { name: "GraphQL", category: "backend", icon: GraphQlPng },
   { name: "Android Studio", category: "tools", icon: AndroidStudioPng },
   { name: "Figma", category: "tools", icon: FigmaPng },
 
@@ -162,7 +170,7 @@ export const experiences: Experience[] = [
     achievements: [],
     period: "Aug 2022 - Present",
     color: "from-blue-500 to-cyan-500",
-    icon: "assets/icons/",
+    icon: EverestLogo,
     highlights: []
   },
   {
@@ -183,7 +191,7 @@ export const experiences: Experience[] = [
     achievements: [],
     period: "Dec 2020 - Aug 2022",
     color: "from-green-500 to-emerald-500",
-    icon: "assets/icons/",
+    icon: ThoughtWorksLogo,
     highlights: []
   },
   {
@@ -203,7 +211,7 @@ export const experiences: Experience[] = [
     achievements: [],
     period: "Dec 2019 - Dec 2020",
     color: "from-blue-500 to-cyan-500",
-    icon: "assets/icons/",
+    icon: DtailabsLogo,
     highlights: []
   },
   {
@@ -223,7 +231,7 @@ export const experiences: Experience[] = [
     achievements: [],
     period: "Oct 2018 - Jun 2019",
     color: "from-blue-500 to-cyan-500",
-    icon: "assets/icons/",
+    icon: QualzzLogo,
     highlights: []
   },
 ];

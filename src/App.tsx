@@ -84,12 +84,28 @@ function App() {
         "contact",
       ];
       const targetSection = sectionNames[index];
-      if (targetSection && scrollTo) {
+      
+      // Try to find section by ID first
+      const sectionElement = document.getElementById(targetSection);
+      if (sectionElement) {
+        const offsetTop = sectionElement.offsetTop - 80;
+        window.scrollTo({ 
+          top: offsetTop, 
+          behavior: "smooth" 
+        });
+      } else if (scrollTo) {
         scrollTo(`#${targetSection}`, { offset: -80, duration: 1.5 });
       } else {
-        // Fallback to default scrolling
-        const section = document.querySelector(`.section-${index}`);
-        section?.scrollIntoView({ behavior: "smooth" });
+        // Final fallback using class selector
+        const sections = document.querySelectorAll(".section");
+        const targetSectionEl = sections[index];
+        if (targetSectionEl) {
+          const offsetTop = targetSectionEl.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ 
+            top: offsetTop, 
+            behavior: "smooth" 
+          });
+        }
       }
     },
     [scrollTo],

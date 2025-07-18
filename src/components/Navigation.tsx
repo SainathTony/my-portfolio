@@ -15,7 +15,7 @@ interface NavigationProps {
 }
 
 const sections = [
-  { id: "hero", label: "Home", icon: <Home size={20} /> },
+  { id: "home", label: "Home", icon: <Home size={20} /> },
   { id: "about", label: "About", icon: <User size={20} /> },
   { id: "skills", label: "Skills", icon: <CodeIcon size={20} /> },
   { id: "experience", label: "Experience", icon: <BarChart2 size={20} /> },
@@ -57,8 +57,8 @@ const Navigation: React.FC<NavigationProps> = memo(
         {/* Desktop Navigation - Right Side Vertical */}
         <motion.nav
           className={`fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-3 p-3 rounded-2xl 
-          bg-white/10 bg-white/90 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl transition-all duration-300
-          hover:shadow-2xl hover:bg-white/20 hover:bg-white/95 ${
+          bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl transition-all duration-300
+          hover:shadow-2xl hover:bg-white/95 dark:hover:bg-gray-800/95 ${
             isScrolling ? "opacity-60 hover:opacity-100" : "opacity-100"
           }`}
           initial={{ x: 80, opacity: 0 }}
@@ -86,7 +86,7 @@ const Navigation: React.FC<NavigationProps> = memo(
                   ${
                     isActive
                       ? "text-white bg-blue-500 shadow-lg scale-110"
-                      : "text-gray-700 text-gray-700 hover:text-white hover:bg-blue-500/80 hover:text-white hover:bg-blue-500/80 hover:scale-105"
+                      : "text-gray-700 dark:text-gray-300 hover:text-white hover:bg-blue-500/80 hover:scale-105"
                   }`}
                   aria-label={`Go to ${section.label} section`}
                   aria-current={isActive ? "page" : undefined}
@@ -146,7 +146,7 @@ const Navigation: React.FC<NavigationProps> = memo(
         {/* Mobile Navigation - Bottom Horizontal */}
         <motion.nav
           className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-50 md:hidden flex items-center gap-2 px-4 py-3 rounded-2xl 
-          bg-white/10 bg-white/95 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl transition-all duration-300
+          bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl transition-all duration-300
           ${isScrolling ? "opacity-60" : "opacity-100"}`}
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -167,7 +167,7 @@ const Navigation: React.FC<NavigationProps> = memo(
                 ${
                   isActive
                     ? "text-white bg-blue-500 shadow-lg scale-110"
-                    : "text-gray-700 text-gray-700 hover:text-white hover:bg-blue-500/80 dark:hover:text-white active:bg-blue-500/80"
+                    : "text-gray-700 dark:text-gray-300 hover:text-white hover:bg-blue-500/80 active:bg-blue-500/80"
                 }`}
                 aria-label={`Go to ${section.label} section`}
                 aria-current={isActive ? "page" : undefined}
