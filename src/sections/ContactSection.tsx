@@ -314,12 +314,12 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid lg:grid-cols-2 gap-8">
+
             {/* Contact Information */}
             <div className="space-y-8">
 
               {/* Contact Methods */}
-              <div className="h-full flex flex-col justify-between">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {contactMethods.map((method, index) => (
                   <motion.div
                     key={method.id}
@@ -392,145 +392,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                 )}
               </AnimatePresence>
             </div>
-
-            {/* Contact Form */}
-            <div className="contact-form space-y-8">
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="relative p-8 rounded-3xl bg-white/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-xl"
-              >
-                <div className="text-center mb-8">
-                  <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                    Send a Message
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Let's discuss your project and how we can work together
-                  </p>
-                </div>
-
-                <AnimatePresence mode="wait">
-                  {submitted ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      className="text-center py-12"
-                    >
-                      <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <CheckCircle className="w-10 h-10 text-white" />
-                      </div>
-                      <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                        Message Sent!
-                      </h4>
-                      <p className="text-gray-600 dark:text-gray-400 mb-6">
-                        Thank you for reaching out. I'll get back to you within
-                        24 hours.
-                      </p>
-                      <button
-                        onClick={() => setSubmitted(false)}
-                        className="px-6 py-3 bg-gradient-to-r from-rose-600 to-indigo-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-300"
-                      >
-                        Send Another Message
-                      </button>
-                    </motion.div>
-                  ) : (
-                    <motion.form
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      onSubmit={handleSubmit}
-                      className="space-y-6"
-                    >
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
-                            Name *
-                          </label>
-                          <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            required
-                            className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/90 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300"
-                            placeholder="Your name"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
-                            Email *
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                            className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/90 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300"
-                            placeholder="your@email.com"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
-                          Subject *
-                        </label>
-                        <input
-                          type="text"
-                          name="subject"
-                          value={formData.subject}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/90 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300"
-                          placeholder="Project discussion, collaboration, etc."
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
-                          Message *
-                        </label>
-                        <textarea
-                          name="message"
-                          value={formData.message}
-                          onChange={handleInputChange}
-                          required
-                          rows={6}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white/90 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-300 resize-none"
-                          placeholder="Tell me about your project, ideas, or how we can collaborate..."
-                        />
-                      </div>
-
-                      <motion.button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full px-8 py-4 bg-gradient-to-r from-rose-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        {isSubmitting ? (
-                          <div className="flex items-center justify-center space-x-2">
-                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                            <span>Sending...</span>
-                          </div>
-                        ) : (
-                          <div className="flex items-center justify-center space-x-2">
-                            <Send className="w-5 h-5" />
-                            <span>Send Message</span>
-                            <ArrowRight className="w-5 h-5" />
-                          </div>
-                        )}
-                      </motion.button>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            </div>
-          </div>
+          
 
           {/* Social Links */}
           <motion.div
