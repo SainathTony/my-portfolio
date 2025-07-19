@@ -39,6 +39,9 @@ import EverestLogo from "../assets/images/everest.png";
 import ThoughtWorksLogo from "../assets/images/thoughtworks.jpg";
 import DtailabsLogo from "../assets/images/DTaiLabs.jpg";
 import QualzzLogo from "../assets/images/Qualzz.png";
+import StatesLogo from "../assets/images/states_logo.png";
+import FastGigLogo from "../assets/images/fastgig.png";
+import GapLogo from "../assets/images/gapinc.jpg";
 
 export const skills: Skill[] = [
   // Languages
@@ -93,59 +96,59 @@ export const skills: Skill[] = [
 export const projects: Project[] = [
   {
     id: "amazon-nova-canva",
-    title: "Amazon Nova Canva App",
+    title: "Canva App - With Amazon Nova",
     description:
       "A Canva extension for image generation, object replacement, and background removal with AI/ML support. Delivered with 90% object manipulation accuracy in 2.5 weeks.",
-    technologies: ["React", "AI/ML", "Canva SDK"],
+    technologies: ["React", "AI", "Canva SDK", "Express"],
     imageUrl: "/images/projects/amazon-nova-canva.jpg",
     githubUrl: undefined,
-    liveUrl: undefined,
+    liveUrl: "https://www.canva.com/your-apps/ai-generation",
     featured: true,
-    tags: ["AI", "Design Tool", "Canva"],
+    tags: ["AI", "Design Tool", "Canva", "Amazon Nova"],
     gradient: "from-blue-500 to-cyan-500",
-    icon: "assets/icons/",
+    icon: "",
   },
   {
     id: "mindvalley-nextgen",
     title: "Mindvalley States & NextGen",
     description:
       "Built a native Android app for immersive mental enhancement programs with advanced animation and transitions. Revamped the UI to align with brand guidelines.",
-    technologies: ["Android", "Java", "UI Animation"],
+    technologies: ["Android", "Kotlin", "Jetpack", "GraphQL"],
     imageUrl: "/images/projects/mindvalley-nextgen.jpg",
     githubUrl: undefined,
-    liveUrl: undefined,
+    liveUrl: "https://www.mindvalleystates.com",
     featured: true,
     tags: ["Android", "UI", "Wellness"],
     gradient: "from-pink-500 to-indigo-500",
-    icon: "assets/icons/",
+    icon: StatesLogo,
   },
   {
     id: "fastgig",
     title: "Fast GiG – Web & Mobile Platform",
     description:
       "A React Native platform for part-time job seekers in Singapore. Included backend optimization and weekly payout automation.",
-    technologies: ["React Native", "Node.js", "MongoDB"],
+    technologies: ["React Native", "Node.js", "MongoDB", "Redis"],
     imageUrl: "/images/projects/fastgig.jpg",
     githubUrl: undefined,
-    liveUrl: undefined,
+    liveUrl: "https://www.fastgig.sg",
     featured: true,
     tags: ["Jobs", "Mobile", "Singapore"],
     gradient: "from-green-500 to-emerald-500",
-    icon: "assets/icons/",
+    icon: FastGigLogo,
   },
   {
     id: "gap-ecommerce",
-    title: "GAP E-Commerce Platform",
+    title: "GAP E-Commerce Profile Platform",
     description:
       "Maintained user profile module, secured financial data, and facilitated legacy-to-modern migration using feature flags and CI/CD.",
-    technologies: ["Java", "Spring Boot", "Jenkins"],
+    technologies: ["Java", "Spring Boot", "Jenkins", "Monitoring"],
     imageUrl: "/images/projects/gap-ecommerce.jpg",
     githubUrl: undefined,
-    liveUrl: undefined,
-    featured: false,
+    liveUrl: "https://www.gapinc.com/en-in",
+    featured: true,
     tags: ["E-Commerce", "Spring Boot", "CI/CD"],
     gradient: "from-yellow-500 to-orange-500",
-    icon: "assets/icons/",
+    icon: GapLogo,
   },
 ];
 

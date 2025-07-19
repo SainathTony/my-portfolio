@@ -54,7 +54,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       title: "Email",
       value: "bottupallysainath@gmail.com",
       description: "Drop me a line for project discussions",
-      action: "Send Email",
+      action: "Mail me",
       gradient: "from-blue-500 to-cyan-500",
       bgGradient: "from-blue-500/10 to-cyan-500/10",
       borderColor: "border-blue-500/20",
@@ -74,7 +74,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       id: "location",
       icon: <MapPin className="w-6 h-6" />,
       title: "Location",
-      value: "Hyderabad, India",
+      value: "Asifabad, India",
       description: "Available for remote collaboration",
       action: "View Map",
       gradient: "from-purple-500 to-pink-500",
@@ -98,7 +98,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     {
       name: "GitHub",
       icon: <Github className="w-6 h-6" />,
-      url: "https://github.com/sainath",
+      url: "https://github.com/SainathTony",
       username: "@sainath",
       description: "Check out my code",
       color: "hover:text-gray-900 dark:hover:text-white",
@@ -107,18 +107,18 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     {
       name: "LinkedIn",
       icon: <Linkedin className="w-6 h-6" />,
-      url: "https://linkedin.com/in/sainath-bottupally",
+      url: "https://www.linkedin.com/in/sainath-bottupally-754636156/",
       username: "sainath-bottupally",
       description: "Connect professionally",
       color: "hover:text-blue-600",
       bgColor: "hover:bg-blue-50 dark:hover:bg-blue-900/20",
     },
     {
-      name: "Twitter",
-      icon: <Twitter className="w-6 h-6" />,
-      url: "https://twitter.com/sainath",
-      username: "@sainath",
-      description: "Follow for updates",
+      name: "WhatsApp",
+      icon: <MessageCircle className="w-6 h-6" />,
+      url: "https://wa.me/918096149910",
+      username: "+91 8096149910",
+      description: "Text me for quick responses",
       color: "hover:text-sky-500",
       bgColor: "hover:bg-sky-50 dark:hover:bg-sky-900/20",
     },
@@ -127,7 +127,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Contact cards animation
-      gsap.utils.toArray(".contact-card").forEach((card, index) => {
+      const cards = gsap.utils.toArray<HTMLDivElement>(".contact-card");
+      cards.forEach((card, index) => {
         gsap.fromTo(
           card,
           {
@@ -230,6 +231,25 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     }
   };
 
+  const handleContactAction = (methodId: string) => {
+    switch (methodId) {
+      case "email":
+        window.open("mailto:bottupallysainath@gmail.com?subject=Project Discussion&body=Hi Sainath,%0D%0A%0D%0AI would like to discuss a project with you.");
+        break;
+      case "phone":
+        window.open("tel:+918096149910");
+        break;
+      case "location":
+        window.open("https://www.google.com/maps/place/88MX%2BXFC,+Rajiv+Rahadari,+Rahapalle,+Telangana+504293/@19.3347802,79.3486707,170m/data=!3m1!1e3!4m15!1m8!3m7!1s0x3bcb99daeaebd2c7:0xae93b78392bafbc2!2sHyderabad,+Telangana!3b1!8m2!3d17.406498!4d78.4772439!16zL20vMDljNnc!3m5!1s0x3bd2ab6e453aec95:0xc16cc5c1f346c705!8m2!3d19.3349577!4d79.3486129!16s%2Fg%2F11nng7jhg1?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D", "_blank");
+        break;
+      case "timezone":
+        window.open("https://www.timeanddate.com/worldclock/india/hyderabad", "_blank");
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <Section
       ref={sectionRef}
@@ -274,29 +294,32 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             </motion.p>
           </div>
 
+          <div>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="mb-12"
+            >
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center mt-10">
+                Get In Touch
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                Whether you have a project in mind, want to discuss
+                opportunities, or just want to say hello, I'd love to hear
+                from you!
+              </p>
+            </motion.div>
+          </div>
+
           {/* Main Content Grid */}
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Contact Information */}
             <div className="space-y-8">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="mb-12"
-              >
-                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                  Get In Touch
-                </h3>
-                <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Whether you have a project in mind, want to discuss
-                  opportunities, or just want to say hello, I'd love to hear
-                  from you!
-                </p>
-              </motion.div>
 
               {/* Contact Methods */}
-              <div className="grid gap-6">
+              <div className="h-full flex flex-col justify-between">
                 {contactMethods.map((method, index) => (
                   <motion.div
                     key={method.id}
@@ -341,6 +364,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                         </div>
                         <div className="hidden sm:block">
                           <button
+                            onClick={() => handleContactAction(method.id)}
                             className={`px-4 py-2 rounded-xl bg-gradient-to-r ${method.gradient} text-white font-medium hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
                           >
                             {method.action}
@@ -348,17 +372,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                         </div>
                       </div>
 
-                      {/* Hover Effect */}
-                      <AnimatePresence>
-                        {activeContact === method.id && (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${method.gradient} opacity-5 pointer-events-none`}
-                          />
-                        )}
-                      </AnimatePresence>
                     </div>
                   </motion.div>
                 ))}
@@ -381,7 +394,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             </div>
 
             {/* Contact Form */}
-            <div className="contact-form">
+            <div className="contact-form space-y-8">
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
