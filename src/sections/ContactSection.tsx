@@ -234,16 +234,24 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   const handleContactAction = (methodId: string) => {
     switch (methodId) {
       case "email":
-        window.open("mailto:bottupallysainath@gmail.com?subject=Project Discussion&body=Hi Sainath,%0D%0A%0D%0AI would like to discuss a project with you.");
+        window.open(
+          "mailto:bottupallysainath@gmail.com?subject=Project Discussion&body=Hi Sainath,%0D%0A%0D%0AI would like to discuss a project with you.",
+        );
         break;
       case "phone":
         window.open("tel:+918096149910");
         break;
       case "location":
-        window.open("https://www.google.com/maps/place/88MX%2BXFC,+Rajiv+Rahadari,+Rahapalle,+Telangana+504293/@19.3347802,79.3486707,170m/data=!3m1!1e3!4m15!1m8!3m7!1s0x3bcb99daeaebd2c7:0xae93b78392bafbc2!2sHyderabad,+Telangana!3b1!8m2!3d17.406498!4d78.4772439!16zL20vMDljNnc!3m5!1s0x3bd2ab6e453aec95:0xc16cc5c1f346c705!8m2!3d19.3349577!4d79.3486129!16s%2Fg%2F11nng7jhg1?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D", "_blank");
+        window.open(
+          "https://www.google.com/maps/place/88MX%2BXFC,+Rajiv+Rahadari,+Rahapalle,+Telangana+504293/@19.3347802,79.3486707,170m/data=!3m1!1e3!4m15!1m8!3m7!1s0x3bcb99daeaebd2c7:0xae93b78392bafbc2!2sHyderabad,+Telangana!3b1!8m2!3d17.406498!4d78.4772439!16zL20vMDljNnc!3m5!1s0x3bd2ab6e453aec95:0xc16cc5c1f346c705!8m2!3d19.3349577!4d79.3486129!16s%2Fg%2F11nng7jhg1?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D",
+          "_blank",
+        );
         break;
       case "timezone":
-        window.open("https://www.timeanddate.com/worldclock/india/hyderabad", "_blank");
+        window.open(
+          "https://www.timeanddate.com/worldclock/india/hyderabad",
+          "_blank",
+        );
         break;
       default:
         break;
@@ -307,92 +315,89 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               </h3>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                 Whether you have a project in mind, want to discuss
-                opportunities, or just want to say hello, I'd love to hear
-                from you!
+                opportunities, or just want to say hello, I'd love to hear from
+                you!
               </p>
             </motion.div>
           </div>
 
           {/* Main Content Grid */}
 
-            {/* Contact Information */}
-            <div className="space-y-8">
-
-              {/* Contact Methods */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {contactMethods.map((method, index) => (
-                  <motion.div
-                    key={method.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="contact-card group relative"
-                    onMouseEnter={() => setActiveContact(method.id)}
-                    onMouseLeave={() => setActiveContact(null)}
+          {/* Contact Information */}
+          <div className="space-y-8">
+            {/* Contact Methods */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {contactMethods.map((method, index) => (
+                <motion.div
+                  key={method.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="contact-card group relative"
+                  onMouseEnter={() => setActiveContact(method.id)}
+                  onMouseLeave={() => setActiveContact(null)}
+                >
+                  <div
+                    className={`relative p-6 rounded-2xl bg-gradient-to-r ${method.bgGradient} backdrop-blur-sm border ${method.borderColor} hover:shadow-xl transition-all duration-300`}
                   >
-                    <div
-                      className={`relative p-6 rounded-2xl bg-gradient-to-r ${method.bgGradient} backdrop-blur-sm border ${method.borderColor} hover:shadow-xl transition-all duration-300`}
-                    >
-                      <div className="flex items-center space-x-4">
-                        <div
-                          className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${method.gradient} p-3 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                        >
-                          {method.icon}
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                            {method.title}
-                          </h4>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-                            {method.description}
-                          </p>
-                          <div className="flex items-center space-x-3">
-                            <span className="font-semibold text-gray-900 dark:text-white">
-                              {method.value}
-                            </span>
-                            {method.id === "email" && (
-                              <button
-                                onClick={copyEmail}
-                                className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                                title="Copy email"
-                              >
-                                <Copy className="w-4 h-4 text-gray-500" />
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                        <div className="hidden sm:block">
-                          <button
-                            onClick={() => handleContactAction(method.id)}
-                            className={`px-4 py-2 rounded-xl bg-gradient-to-r ${method.gradient} text-white font-medium hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
-                          >
-                            {method.action}
-                          </button>
+                    <div className="flex items-center space-x-4">
+                      <div
+                        className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${method.gradient} p-3 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                      >
+                        {method.icon}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                          {method.title}
+                        </h4>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
+                          {method.description}
+                        </p>
+                        <div className="flex items-center space-x-3">
+                          <span className="font-semibold text-gray-900 dark:text-white">
+                            {method.value}
+                          </span>
+                          {method.id === "email" && (
+                            <button
+                              onClick={copyEmail}
+                              className="p-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                              title="Copy email"
+                            >
+                              <Copy className="w-4 h-4 text-gray-500" />
+                            </button>
+                          )}
                         </div>
                       </div>
-
+                      <div className="hidden sm:block">
+                        <button
+                          onClick={() => handleContactAction(method.id)}
+                          className={`px-4 py-2 rounded-xl bg-gradient-to-r ${method.gradient} text-white font-medium hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
+                        >
+                          {method.action}
+                        </button>
+                      </div>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Copy Email Success */}
-              <AnimatePresence>
-                {copiedEmail && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="fixed top-4 right-4 z-50 p-4 rounded-xl bg-green-500 text-white font-medium shadow-lg flex items-center space-x-2"
-                  >
-                    <CheckCircle className="w-5 h-5" />
-                    <span>Email copied to clipboard!</span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          
+
+            {/* Copy Email Success */}
+            <AnimatePresence>
+              {copiedEmail && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="fixed top-4 right-4 z-50 p-4 rounded-xl bg-green-500 text-white font-medium shadow-lg flex items-center space-x-2"
+                >
+                  <CheckCircle className="w-5 h-5" />
+                  <span>Email copied to clipboard!</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Social Links */}
           <motion.div

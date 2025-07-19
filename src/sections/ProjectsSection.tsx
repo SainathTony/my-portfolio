@@ -22,17 +22,16 @@ interface ProjectsSectionProps {
   visibleElements: VisibleElements;
 }
 
-const ProjectsSection: React.FC<ProjectsSectionProps> = ({
-  projects,
-}) => {
+const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeProject, setActiveProject] = useState<number | null>(null);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   const displayProjects = projects.length > 0 ? projects : [];
-  const featuredProjects = displayProjects.filter(project => project.featured);
-  const otherProjects = displayProjects.filter(project => !project.featured);
-
+  const featuredProjects = displayProjects.filter(
+    (project) => project.featured,
+  );
+  const otherProjects = displayProjects.filter((project) => !project.featured);
 
   return (
     <Section
@@ -132,16 +131,18 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
                     {/* Project Header */}
                     <div className="relative z-20 flex items-start space-x-6 mb-8">
-                      {project.icon ?
+                      {project.icon ? (
                         <img
                           className={`w-20 h-20 rounded-2xl p-4 flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}
                           src={project.icon}
                         />
-                        : <div
+                      ) : (
+                        <div
                           className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${project.gradient} p-4 text-white text-4xl flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}
                         >
                           <Code2 className="w-10 h-10" />
-                        </div>}
+                        </div>
+                      )}
                       <div className="flex-1">
                         <h3 className="text-3xl font-black text-gray-900 dark:text-white mb-2 group-hover:text-white group-hover:drop-shadow-lg transition-all duration-500">
                           {project.title}
@@ -159,14 +160,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       </div>
                     </div>
 
-
                     {/* Description */}
                     <div className="relative z-20">
                       <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 font-medium group-hover:text-white/90 group-hover:drop-shadow-sm transition-all duration-500">
                         {project.description}
                       </p>
                     </div>
-
 
                     {/* Technologies */}
                     <div className="relative z-20 mb-8">
@@ -187,7 +186,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       </div>
                     </div>
 
-
                     {/* Action Buttons */}
                     <div className="relative z-20 flex items-center justify-between pt-4 border-t border-gray-200/50 dark:border-gray-700/50 group-hover:border-white/30 transition-all duration-500">
                       <div className="flex space-x-4">
@@ -196,7 +194,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                             className="flex items-center space-x-3 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-600 to-indigo-600 text-white font-bold hover:shadow-xl transition-all duration-300 text-base transform hover:scale-105"
                             whileHover={{ scale: 1.08, y: -2 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => window.open(project.liveUrl, "_blank")}
+                            onClick={() =>
+                              window.open(project.liveUrl, "_blank")
+                            }
                           >
                             <ExternalLink className="w-5 h-5" />
                             <span>Live Demo</span>
@@ -228,7 +228,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                         <ArrowRight className="w-5 h-5" />
                       </motion.button>
                     </div>
-
 
                     {/* Hover Effects */}
                     <AnimatePresence>
@@ -321,7 +320,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                     }}
                     className="group relative p-6 rounded-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105"
                   >
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${project.gradient} p-3 text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <div
+                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${project.gradient} p-3 text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
+                    >
                       <Code2 className="w-6 h-6" />
                     </div>
 
@@ -334,14 +335,16 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                     </p>
 
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-2 py-1 text-xs font-medium rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 group-hover:bg-white group-hover:text-gray-900 transition-all duration-300"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                      {project.technologies
+                        .slice(0, 3)
+                        .map((tech, techIndex) => (
+                          <span
+                            key={techIndex}
+                            className="px-2 py-1 text-xs font-medium rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 group-hover:bg-white group-hover:text-gray-900 transition-all duration-300"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                       {project.technologies.length > 3 && (
                         <span className="px-2 py-1 text-xs font-medium rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 group-hover:bg-white group-hover:text-gray-900 transition-all duration-300">
                           +{project.technologies.length - 3}
