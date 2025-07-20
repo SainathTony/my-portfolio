@@ -47,7 +47,7 @@ export interface PersonalInfo {
 }
 
 // Re-export types for easier imports
-export type { Skill as SkillType };
+// export type { Skill as SkillType };
 export type { Project as ProjectType };
 export type { Experience as ExperienceType };
 export type { ContactInfo as ContactInfoType };

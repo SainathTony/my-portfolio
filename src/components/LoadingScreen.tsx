@@ -39,7 +39,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = React.memo(
         {isLoading && (
           <motion.div
             className={`fixed inset-0 z-50 flex items-center justify-center ${
-              darkMode ? "bg-gray-900" : "bg-white"
+              darkMode ? "bg-surface-dark-primary" : "bg-surface-light-primary"
             }`}
             initial={{ opacity: 1 }}
             exit={{
@@ -107,7 +107,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = React.memo(
                 <p
                   ref={loadingTextRef}
                   className={`text-lg md:text-xl font-light ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
+                    darkMode ? "text-text-dark-secondary" : "text-text-light-secondary"
                   }`}
                   aria-label="Loading portfolio"
                 >
@@ -118,7 +118,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = React.memo(
               {/* Progress Bar */}
               <motion.div
                 className={`mt-8 h-1 ${
-                  darkMode ? "bg-gray-800" : "bg-gray-200"
+                  darkMode ? "bg-surface-dark-tertiary" : "bg-surface-light-tertiary"
                 } rounded-full overflow-hidden w-48 mx-auto`}
                 initial={{ opacity: 0 }}
                 animate={{

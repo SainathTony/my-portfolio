@@ -3,7 +3,6 @@ import React, {
   useRef,
   useCallback,
   useMemo,
-  useLayoutEffect,
 } from "react";
 import * as THREE from "three";
 

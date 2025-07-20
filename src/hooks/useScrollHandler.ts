@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, type Dispatch, type SetStateAction, type MutableRefObject } from "react";
 
 interface ScrollHandlerConfig {
   parallaxBaseSpeed?: number;
@@ -17,12 +17,12 @@ interface ScrollMetrics {
 
 interface MouseState {
   speed: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export const useScrollHandler = (
-  setActiveSection: React.Dispatch<React.SetStateAction<number>>,
-  mouseState: React.MutableRefObject<MouseState>,
+  setActiveSection: Dispatch<SetStateAction<number>>,
+  mouseState: MutableRefObject<MouseState>,
   config: ScrollHandlerConfig = {},
 ): ScrollMetrics => {
   const {
@@ -41,7 +41,7 @@ export const useScrollHandler = (
 
   const lastScrollY = useRef<number>(0);
   const lastScrollTime = useRef<number>(Date.now());
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeoutRef = useRef<number | null>(null);
   const ticking = useRef<boolean>(false);
 
   const detectActiveSection = useCallback((): number => {
@@ -56,7 +56,7 @@ export const useScrollHandler = (
     ];
     const scrollY = window.scrollY;
     const viewportHeight = window.innerHeight;
-    const threshold = viewportHeight * 0.4; // 40% of viewport height
+    // const threshold = viewportHeight * 0.4; // 40% of viewport height
 
     let activeSection = 0;
     let maxVisibility = 0;

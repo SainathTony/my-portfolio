@@ -194,8 +194,8 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
               onClick={() => setActiveCategory(category.key)}
               className={`category-btn px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                 activeCategory === category.key
-                  ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25"
-                  : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  ? "bg-primary-500 text-white shadow-soft shadow-primary-500/25"
+                  : "bg-surface-light-tertiary dark:bg-surface-dark-elevated text-text-light-secondary dark:text-text-dark-secondary hover:bg-surface-light-secondary dark:hover:bg-surface-dark-tertiary"
               }`}
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
@@ -219,10 +219,10 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
             animate="visible"
             exit="exit"
           >
-            {filteredSkills.map((skill, index) => (
+            {filteredSkills.map((skill) => (
               <motion.div
                 key={skill.name}
-                className="skill-card group relative bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 cursor-pointer"
+                className="skill-card group relative bg-surface-light-elevated dark:bg-surface-dark-elevated rounded-xl p-6 shadow-soft hover:shadow-medium transition-all duration-300 border border-border-light-primary dark:border-border-dark-primary cursor-pointer"
                 variants={skillCardVariants}
                 whileHover="hover"
                 layout
@@ -230,11 +230,11 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                 style={{ perspective: "1000px" }}
               >
                 {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-secondary-500/5 to-gradient-pink/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Icon */}
                 <div className="relative flex items-center justify-center mb-4">
-                  <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 bg-surface-light-tertiary dark:bg-surface-dark-tertiary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {skill.icon ? (
                       <img
                         src={skill.icon}
@@ -248,30 +248,30 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                       />
                     ) : null}
                     <div
-                      className={`w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm ${skill.icon ? "hidden" : ""}`}
+                      className={`w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white font-bold text-sm ${skill.icon ? "hidden" : ""}`}
                     >
                       {skill.name.charAt(0).toUpperCase()}
                     </div>
                   </div>
 
                   {/* Floating animation dots */}
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-300" />
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-success-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-300" />
                 </div>
 
                 {/* Skill Name */}
-                <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 text-center group-hover:text-blue-500 transition-colors duration-300">
+                <h3 className="text-sm font-semibold text-text-light-primary dark:text-text-dark-primary text-center group-hover:text-primary-500 transition-colors duration-300">
                   {skill.name}
                 </h3>
 
                 {/* Category Badge */}
                 <div className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500 text-white">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-500 text-white">
                     {skill.category}
                   </span>
                 </div>
 
                 {/* Animated border */}
-                <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-blue-500/20 transition-all duration-300" />
+                <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-primary-500/20 transition-all duration-300" />
               </motion.div>
             ))}
           </motion.div>
@@ -284,12 +284,12 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-4 px-6 py-3 bg-gray-100 dark:bg-gray-800 rounded-full">
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+          <div className="inline-flex items-center gap-4 px-6 py-3 bg-surface-light-tertiary dark:bg-surface-dark-elevated rounded-full">
+            <span className="text-sm font-medium text-text-light-secondary dark:text-text-dark-tertiary">
               Total Skills: {displaySkills.length}
             </span>
-            <div className="w-1 h-1 bg-gray-400 rounded-full" />
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            <div className="w-1 h-1 bg-text-light-tertiary dark:bg-text-dark-tertiary rounded-full" />
+            <span className="text-sm font-medium text-text-light-secondary dark:text-text-dark-tertiary">
               Showing: {filteredSkills.length}
             </span>
           </div>

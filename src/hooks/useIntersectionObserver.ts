@@ -31,7 +31,7 @@ export const useIntersectionObserver = (
     new Set(),
   );
   const intersectionObserverRef = useRef<IntersectionObserver | null>(null);
-  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceTimeoutRef = useRef<number | null>(null);
   const observedElements = useRef<Set<Element>>(new Set());
   const visibilityRatios = useRef<Map<string, number>>(new Map());
 
@@ -121,7 +121,7 @@ export const useIntersectionObserver = (
 
   // Initialize observer
   useEffect(() => {
-    const observerOptions: IntersectionObserverInit = {
+    const observerOptions = {
       root,
       rootMargin,
       threshold,

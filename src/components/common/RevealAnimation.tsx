@@ -7,7 +7,7 @@ const cn = (...classes: (string | object)[]) => {
       typeof cls === "string"
         ? cls
         : Object.entries(cls)
-            .filter(([_, value]) => value)
+            .filter(([, value]) => value)
             .map(([key]) => key)
             .join(" "),
     )

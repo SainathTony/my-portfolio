@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yarn dev)",
+      "Bash(yarn build)",
+      "Bash(yarn list:*)",
+      "Bash(yarn lint)",
+      "Bash(yarn format)"
+    ],
+    "deny": []
+  }
+}

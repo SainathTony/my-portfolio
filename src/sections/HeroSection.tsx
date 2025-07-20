@@ -5,7 +5,6 @@ import {
   Linkedin,
   Mail,
   Phone,
-  MapPin,
   Globe,
   Code,
   Cpu,
@@ -173,7 +172,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
     <section
       ref={heroRef}
       id="home"
-      className="section relative flex items-center justify-center overflow-hidden"
+      className="section relative flex items-center justify-center min-h-screen bg-gradient-to-br from-surface-light-primary via-surface-light-secondary to-surface-light-tertiary dark:from-surface-dark-primary dark:via-surface-dark-secondary dark:to-surface-dark-tertiary overflow-hidden transition-colors duration-500"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -186,9 +185,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           />
         ))}
 
-        {/* Animated background shapes */}
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        {/* Enhanced animated background shapes */}
+        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-hero-gradient-start/10 to-secondary-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-secondary-500/10 to-hero-accent/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-hero-gradient-start/5 via-hero-accent/5 to-hero-gradient-end/5 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Main Content */}
@@ -197,13 +197,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           {/* Greeting Badge */}
           <div className="mb-4">
             <motion.span
-              className="inline-flex items-center px-6 py-2 rounded-full text-base font-medium bg-gradient-to-r from-emerald-500/20 to-blue-500/20 backdrop-blur-sm border border-white/20 text-emerald-700 dark:text-emerald-300 hover:shadow-lg transition-all duration-300"
+              className="inline-flex items-center px-6 py-3 rounded-full text-base font-medium bg-gradient-to-r from-hero-success/20 to-hero-gradient-start/20 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary text-success-700 dark:text-success-300 hover:shadow-hero-button dark:hover:shadow-hero-button-dark transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
               <span className="relative flex h-4 w-4 mr-4">
-                <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500"></span>
+                <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-success-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-success-500"></span>
               </span>
               Available for exciting opportunities
             </motion.span>
@@ -213,10 +213,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-4">
             <h1
               ref={titleRef}
-              className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight opacity-0"
+              className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-text-light-primary dark:text-text-dark-primary leading-tight opacity-0"
             >
               Hi, I'm{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 animate-gradient-x">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-hero-gradient-start via-hero-accent to-hero-success animate-gradient-x">
                 Sainath Bottupally
               </span>
               <motion.span
@@ -240,14 +240,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-4">
             <h2
               ref={subtitleRef}
-              className="text-2xl md:text-3xl lg:text-4xl text-gray-600 dark:text-gray-300 font-light opacity-0"
+              className="text-2xl md:text-3xl lg:text-4xl text-text-light-secondary dark:text-text-dark-secondary font-light opacity-0"
             >
               Senior{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 font-semibold">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-hero-gradient-start to-hero-accent font-semibold">
                 Full Stack Developer
               </span>{" "}
               &{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600 font-medium">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-hero-success to-hero-gradient-end font-medium">
                 AI/ML Engineer
               </span>
             </h2>
@@ -264,7 +264,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               {techStack.map((tech, index) => (
                 <motion.div
                   key={tech.name}
-                  className="flex items-center px-6 py-3 rounded-full bg-white/90 backdrop-blur-sm shadow-sm text-base font-medium text-gray-700 dark:text-gray-200 border border-white/20"
+                  className="flex items-center px-6 py-3 rounded-full bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm shadow-soft text-base font-medium text-text-light-primary dark:text-text-dark-primary border border-border-light-primary dark:border-border-dark-primary"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + index * 0.1 }}
@@ -274,7 +274,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                       "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                   }}
                 >
-                  <span className="mr-3 text-indigo-500">{tech.icon}</span>
+                  <span className="mr-3 text-primary-500">{tech.icon}</span>
                   {tech.name}
                 </motion.div>
               ))}
@@ -285,16 +285,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-6">
             <p
               ref={descriptionRef}
-              className="text-md md:text-xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed opacity-0"
+              className="text-md md:text-xl text-text-light-secondary dark:text-text-dark-tertiary max-w-4xl mx-auto leading-relaxed opacity-0"
             >
               Crafting exceptional digital experiences through the intersection
               of
-              <span className="text-blue-600 dark:text-blue-400 font-medium">
+              <span className="text-primary-600 dark:text-primary-400 font-medium">
                 {" "}
                 cutting-edge technology
               </span>{" "}
               and
-              <span className="text-purple-600 dark:text-purple-400 font-medium">
+              <span className="text-secondary-600 dark:text-secondary-400 font-medium">
                 {" "}
                 innovative design
               </span>
@@ -310,7 +310,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           >
             <motion.button
               onClick={() => scrollToSection(1)}
-              className="group relative px-12 py-5 text-lg font-semibold rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white transition-all duration-500 transform hover:shadow-2xl hover:shadow-blue-500/25"
+              className="group relative px-12 py-5 text-lg font-semibold rounded-2xl bg-gradient-to-r from-hero-gradient-start to-hero-gradient-end text-white shadow-hero-button hover:shadow-hero-card transition-all duration-500 transform hover:scale-105"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -318,12 +318,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                 Explore My Journey
                 <ArrowDown className="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform" />
               </span>
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-700 via-purple-700 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-hero-gradient-end via-hero-accent to-hero-gradient-start opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </motion.button>
 
             <motion.button
               onClick={handleContactClick}
-              className="group px-12 py-5 text-lg font-semibold rounded-2xl bg-white/10 backdrop-blur-sm border-2 border-white/20 text-gray-800 dark:text-gray-200 hover:bg-white/20 hover:border-white/30 transition-all duration-300 transform hover:shadow-xl"
+              className="group px-12 py-5 text-lg font-semibold rounded-2xl bg-surface-light-primary/10 dark:bg-surface-dark-primary/10 backdrop-blur-sm border-2 border-border-light-secondary dark:border-border-dark-secondary text-text-light-primary dark:text-text-dark-primary hover:bg-surface-light-primary/20 dark:hover:bg-surface-dark-primary/20 hover:border-hero-gradient-start dark:hover:border-hero-accent transition-all duration-300 transform hover:shadow-hero-card dark:hover:shadow-hero-card-dark"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -344,22 +344,22 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               className="w-full"
             >
               <motion.div
-                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all w-full border border-white/20"
+                className="flex items-center p-4 rounded-xl bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm shadow-hero-card dark:shadow-hero-card-dark hover:shadow-hero-button dark:hover:shadow-hero-button-dark transition-all w-full border border-border-light-primary dark:border-border-dark-primary hover:border-hero-gradient-start dark:hover:border-hero-accent"
                 whileHover={{
                   y: -5,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                  scale: 1.02,
                 }}
               >
-                <div className="p-3 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 mr-4">
+                <div className="p-3 rounded-lg bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 mr-4">
                   <Phone size={20} />
                 </div>
                 <div className="text-left">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-light-tertiary dark:text-text-dark-tertiary">
                     Phone
                   </p>
                   <a
                     href="tel:+918978666892"
-                    className="text-base font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="text-base font-medium text-text-light-primary dark:text-text-dark-primary hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     +91 89786 66892
                   </a>
@@ -375,22 +375,22 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               className="w-full"
             >
               <motion.div
-                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all w-full border border-white/20"
+                className="flex items-center p-4 rounded-xl bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm shadow-hero-card dark:shadow-hero-card-dark hover:shadow-hero-button dark:hover:shadow-hero-button-dark transition-all w-full border border-border-light-primary dark:border-border-dark-primary hover:border-hero-gradient-start dark:hover:border-hero-accent"
                 whileHover={{
                   y: -5,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                  scale: 1.02,
                 }}
               >
-                <div className="p-3 rounded-lg bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 mr-4">
+                <div className="p-3 rounded-lg bg-secondary-100 dark:bg-secondary-900/50 text-secondary-600 dark:text-secondary-400 mr-4">
                   <Mail size={20} />
                 </div>
                 <div className="text-left">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-light-tertiary dark:text-text-dark-tertiary">
                     Email
                   </p>
                   <a
                     href="mailto:sainath.bottupally@gmail.com"
-                    className="text-base font-medium text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                    className="text-base font-medium text-text-light-primary dark:text-text-dark-primary hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors"
                   >
                     bottupallysainath@gmail.com
                   </a>
@@ -406,26 +406,26 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               className="w-full"
             >
               <motion.div
-                className="flex items-center p-4 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all w-full border border-white/20"
+                className="flex items-center p-4 rounded-xl bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm shadow-hero-card dark:shadow-hero-card-dark hover:shadow-hero-button dark:hover:shadow-hero-button-dark transition-all w-full border border-border-light-primary dark:border-border-dark-primary hover:border-hero-gradient-start dark:hover:border-hero-accent"
                 whileHover={{
                   y: -5,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                  scale: 1.02,
                 }}
               >
-                <div className="p-3 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 mr-4">
+                <div className="p-3 rounded-lg bg-success-100 dark:bg-success-900/50 text-success-600 dark:text-success-400 mr-4">
                   <div className="relative">
                     <span className="absolute top-0 right-0 flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-success-500"></span>
                     </span>
                     <Globe size={20} />
                   </div>
                 </div>
                 <div className="text-left">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-light-tertiary dark:text-text-dark-tertiary">
                     Status
                   </p>
-                  <p className="text-base font-medium text-gray-900 dark:text-white">
+                  <p className="text-base font-medium text-text-light-primary dark:text-text-dark-primary">
                     Available for work
                   </p>
                 </div>
@@ -442,7 +442,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 text-gray-700 dark:text-gray-300 hover:bg-white/20 transition-all duration-300 ${link.color}`}
+                  className={`group p-4 rounded-2xl bg-surface-light-primary/10 dark:bg-surface-dark-primary/10 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary text-text-light-secondary dark:text-text-dark-secondary hover:bg-surface-light-primary/20 dark:hover:bg-surface-dark-primary/20 transition-all duration-300 ${link.color}`}
                   aria-label={link.label}
                   whileHover={{ y: -5, scale: 1.1, rotateY: 15 }}
                   whileTap={{ scale: 0.95 }}
@@ -456,7 +456,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
             </div>
 
             <div className="mt-8 text-center">
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-text-light-tertiary dark:text-text-dark-tertiary">
                 📍 Hyderabad, India | 🌍 Open to Remote Opportunities
               </p>
             </div>
@@ -466,7 +466,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mt-4">
             <motion.button
               onClick={() => scrollToSection(1)}
-              className="group flex flex-col items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-300"
+              className="group flex flex-col items-center text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 transition-colors duration-300"
               aria-label="Discover my story"
               whileHover={{ y: 5 }}
             >

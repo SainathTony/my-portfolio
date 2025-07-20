@@ -5,19 +5,14 @@ import {
   Phone,
   Github,
   Linkedin,
-  Twitter,
-  Send,
   MapPin,
   Clock,
-  Globe,
   MessageCircle,
-  Calendar,
-  ArrowRight,
   CheckCircle,
-  ExternalLink,
   Copy,
   Heart,
   Coffee,
+  ExternalLink,
 } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -32,20 +27,20 @@ interface ContactSectionProps {
 }
 
 const ContactSection: React.FC<ContactSectionProps> = ({
-  darkMode,
-  visibleElements,
+  // darkMode,
+  // visibleElements,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   email: "",
+  //   subject: "",
+  //   message: "",
+  // });
+  // const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [activeContact, setActiveContact] = useState<string | null>(null);
+  // const [activeContact, setActiveContact] = useState<string | null>(null);
 
   const contactMethods = [
     {
@@ -173,7 +168,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       );
 
       // Social links animation
-      gsap.utils.toArray(".social-link").forEach((link, index) => {
+      const links = gsap.utils.toArray<HTMLDivElement>(".social-link");
+      links.forEach((link, index) => {
         gsap.fromTo(
           link,
           {
@@ -199,27 +195,27 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     return () => ctx.revert();
   }, []);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  // ) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({ ...prev, [name]: value }));
+  // };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+  //   // Simulate form submission
+  //   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+  //   setIsSubmitting(false);
+  //   setSubmitted(true);
+  //   setFormData({ name: "", email: "", subject: "", message: "" });
 
-    // Reset success message after 5 seconds
-    setTimeout(() => setSubmitted(false), 5000);
-  };
+  //   // Reset success message after 5 seconds
+  //   setTimeout(() => setSubmitted(false), 5000);
+  // };
 
   const copyEmail = async () => {
     try {
@@ -335,8 +331,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="contact-card group relative"
-                  onMouseEnter={() => setActiveContact(method.id)}
-                  onMouseLeave={() => setActiveContact(null)}
                 >
                   <div
                     className={`relative p-6 rounded-2xl bg-gradient-to-r ${method.bgGradient} backdrop-blur-sm border ${method.borderColor} hover:shadow-xl transition-all duration-300`}
@@ -412,7 +406,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             </h3>
 
             <div className="flex flex-wrap justify-center gap-6">
-              {socialLinks.map((social, index) => (
+              {socialLinks.map((social) => (
                 <motion.a
                   key={social.name}
                   href={social.url}

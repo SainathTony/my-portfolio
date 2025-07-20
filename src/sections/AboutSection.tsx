@@ -178,13 +178,13 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
     <Section
       ref={sectionRef}
       id="about"
-      className="section section-1 bg-gradient-to-br from-slate-50 via-blue-50/50 to-purple-50/30 dark:from-gray-900 dark:via-slate-900 dark:to-indigo-900/20 overflow-hidden"
+      className="section section-1 bg-gradient-to-br from-surface-light-secondary via-surface-light-tertiary to-surface-light-primary dark:from-surface-dark-primary dark:via-surface-dark-secondary dark:to-surface-dark-tertiary overflow-hidden"
     >
       <div className="content-container relative">
         {/* Background Elements */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-primary-500/5 to-secondary-500/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-secondary-500/5 to-gradient-pink/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
         <div className="w-full max-w-7xl mx-auto">
@@ -196,21 +196,21 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-20"
           >
-            <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-8">
-              <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-2" />
-              <span className="text-blue-600 dark:text-blue-400 font-semibold">
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-primary-500/10 to-secondary-500/10 border border-primary-500/20 mb-8">
+              <Sparkles className="w-5 h-5 text-primary-600 dark:text-primary-400 mr-2" />
+              <span className="text-primary-600 dark:text-primary-400 font-semibold">
                 About Me
               </span>
             </div>
 
-            <h2 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+            <h2 className="text-5xl md:text-7xl font-bold text-text-light-primary dark:text-text-dark-primary mb-6 leading-tight">
               Crafting Digital{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-secondary-600 to-success-600">
                 Experiences
               </span>
             </h2>
 
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-text-light-secondary dark:text-text-dark-tertiary max-w-4xl mx-auto leading-relaxed">
               I'm Sainath Bottupally, a passionate Full Stack Developer and
               AI/ML Engineer who transforms complex problems into elegant
               solutions.
@@ -229,7 +229,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="floating-card group relative"
                 >
-                  <div className="relative p-8 rounded-3xl bg-white/80 backdrop-blur-sm border border-white/20 dark:bg-gray-800/80 dark:border-gray-700/50 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                  <div className="relative p-8 rounded-3xl bg-surface-light-elevated/80 dark:bg-surface-dark-elevated/80 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary hover:bg-surface-light-elevated/90 dark:hover:bg-surface-dark-elevated/90 transition-all duration-300 hover:shadow-hard hover:-translate-y-2">
                     <div
                       className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
                     ></div>
@@ -241,15 +241,15 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                         {stat.icon}
                       </div>
 
-                      <div className="counter text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
+                      <div className="counter text-4xl md:text-5xl font-bold text-text-light-primary dark:text-text-dark-primary mb-2">
                         {stat.number}
                       </div>
 
-                      <div className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                      <div className="text-lg font-semibold text-text-light-secondary dark:text-text-dark-secondary mb-1">
                         {stat.label}
                       </div>
 
-                      <div className="text-sm text-gray-500 dark:text-gray-500">
+                      <div className="text-sm text-text-light-tertiary dark:text-text-dark-muted">
                         {stat.description}
                       </div>
                     </div>
@@ -268,13 +268,13 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
               transition={{ duration: 0.8 }}
               className="text-center mb-16"
             >
-              <h3 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              <h3 className="text-4xl md:text-5xl font-bold text-text-light-primary dark:text-text-dark-primary mb-6">
                 My{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                   Journey
                 </span>
               </h3>
-              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              <p className="text-xl text-text-light-secondary dark:text-text-dark-secondary max-w-3xl mx-auto">
                 From curious beginner to seasoned professional
               </p>
             </motion.div>
@@ -299,7 +299,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                   {journey.map((item, index) => (
                     <motion.div
                       key={item.year}
-                      className="absolute top-1/2 transform -translate-y-1/2 w-6 h-6 rounded-full bg-white dark:bg-gray-800 border-4 border-current z-10"
+                      className="absolute top-1/2 transform -translate-y-1/2 w-6 h-6 rounded-full bg-surface-light-primary dark:bg-surface-dark-elevated border-4 border-current z-10"
                       style={{
                         left: `${(index / (journey.length - 1)) * 100}%`,
                         marginLeft:

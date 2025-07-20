@@ -23,19 +23,18 @@ import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { useScrollAnimations } from "./hooks/useScrollAnimations";
 import { useResponsive } from "./hooks/useResponsive";
 import { usePerformance, getAnimationConfig } from "./hooks/usePerformance";
+import { useTheme } from "./hooks/useTheme";
 
 // Data
 import { skills, projects, experiences } from "./data/portfolioData";
 
 // Styles
 import "./App.css";
-import "./styles/base.css";
-import "./styles/animations.css";
-import "./styles/component.css";
-import "./styles/mobile.css";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  // Theme management
+  const { isDarkMode, toggleDarkMode } = useTheme();
+  
   const [activeSection, setActiveSection] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -119,18 +118,16 @@ function App() {
   }, []);
 
   return (
-    <div
-      className={`app-container relative min-h-screen ${darkMode ? "dark" : "light"}`}
-    >
+    <div className="app-container relative min-h-screen bg-surface-light-primary dark:bg-surface-dark-primary transition-colors duration-300">
       <PerformanceMonitor />
-      <LoadingScreen isLoading={isLoading} darkMode={darkMode} />
+      <LoadingScreen isLoading={isLoading} darkMode={isDarkMode} />
 
       {/* Background Elements - Conditionally render based on performance */}
       {enableAdvancedFeatures && (
         <div className="fixed inset-0 -z-10">
           <Suspense
             fallback={
-              <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900"></div>
+              <div className="fixed inset-0 bg-gradient-to-br from-surface-dark-primary via-blue-900 to-purple-900"></div>
             }
           >
             {/* <ThreeJSBackground
@@ -152,18 +149,18 @@ function App() {
 
       {/* Dark Mode Toggle */}
       <button
-        onClick={() => setDarkMode(!darkMode)}
+        onClick={toggleDarkMode}
         className="dark-mode-toggle"
-        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+        aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
-        {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+        {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
       </button>
 
       {/* Scroll to Top Button */}
       {showScrollToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 w-12 h-12 flex items-center justify-center rounded-full bg-primary-500 text-white shadow-lg hover:bg-primary-600 transition-all duration-300 hover:scale-110"
+          className="fixed bottom-8 right-8 z-40 w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition-all duration-300 hover:scale-110"
           aria-label="Scroll to top"
         >
           <svg
@@ -197,7 +194,7 @@ function App() {
             </div>
           }
         >
-          <AboutSection darkMode={darkMode} visibleElements={visibleElements} />
+          <AboutSection darkMode={isDarkMode} visibleElements={visibleElements} />
         </Suspense>
 
         <Suspense
@@ -218,7 +215,7 @@ function App() {
           }
         >
           <ExperienceSection
-            darkMode={darkMode}
+            darkMode={isDarkMode}
             experiences={experiences}
             visibleElements={visibleElements}
           />
@@ -232,7 +229,7 @@ function App() {
           }
         >
           <ProjectsSection
-            darkMode={darkMode}
+            darkMode={isDarkMode}
             projects={projects}
             visibleElements={visibleElements}
           />
@@ -246,7 +243,7 @@ function App() {
           }
         >
           <ContactSection
-            darkMode={darkMode}
+            darkMode={isDarkMode}
             visibleElements={visibleElements}
           />
         </Suspense>

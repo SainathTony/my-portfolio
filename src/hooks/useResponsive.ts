@@ -56,11 +56,11 @@ export const useResponsive = (): ResponsiveData => {
   );
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: number;
 
     const handleResize = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => {
         setResponsiveData(getResponsiveData());
       }, 100); // Debounce resize events
     };
@@ -72,7 +72,7 @@ export const useResponsive = (): ResponsiveData => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      clearTimeout(timeoutId);
+      window.clearTimeout(timeoutId);
     };
   }, []);
 

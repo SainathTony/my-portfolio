@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { AnimationDirection, VisibleElements } from "./common";
 
 export interface BaseComponentProps {
@@ -14,7 +15,7 @@ export interface NavigationProps {
 }
 
 export interface RevealAnimationProps {
-  children: React.ReactNode;
+  children: ReactNode;
   animationId: string;
   delay?: number;
   direction?: AnimationDirection;

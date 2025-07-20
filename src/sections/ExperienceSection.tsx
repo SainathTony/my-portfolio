@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,9 +9,7 @@ import {
   Building,
   ChevronLeft,
   ChevronRight,
-  ExternalLink,
   Award,
-  Users,
   TrendingUp,
   Zap,
 } from "lucide-react";
@@ -27,14 +25,14 @@ interface ExperienceSectionProps {
 }
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
-  darkMode = false,
+  // darkMode = false,
   experiences = [],
-  visibleElements = {},
+  // visibleElements = {},
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const autoPlayRef = useRef<number | null>(null);
 
   const displayExperiences = experiences.length > 0 ? experiences : [];
 
@@ -134,13 +132,13 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
       <section
         ref={sectionRef}
         id="experience"
-        className="min-h-screen py-20 px-4 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 dark:from-slate-900 dark:via-blue-900/20 dark:to-indigo-900/10"
+        className="min-h-screen py-20 px-4 bg-gradient-to-br from-surface-light-secondary via-primary-50/30 to-secondary-50/20 dark:from-surface-dark-primary dark:via-primary-900/20 dark:to-secondary-900/10"
       >
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-4xl font-bold text-text-light-primary dark:text-text-dark-primary mb-4">
             Experience
           </h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-text-light-secondary dark:text-text-dark-tertiary">
             No experiences to display
           </p>
         </div>
@@ -154,13 +152,13 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     <section
       ref={sectionRef}
       id="experience"
-      className="min-h-screen py-20 px-4 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 dark:from-slate-900 dark:via-blue-900/20 dark:to-indigo-900/10 overflow-hidden"
+      className="min-h-screen py-20 px-4 bg-gradient-to-br from-surface-light-secondary via-primary-50/30 to-secondary-50/20 dark:from-surface-dark-primary dark:via-primary-900/20 dark:to-secondary-900/10 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="experience-header text-center mb-16">
           <motion.span
-            className="inline-block px-6 py-3 rounded-full text-base font-semibold bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 mb-6"
+            className="inline-block px-6 py-3 rounded-full text-base font-semibold bg-gradient-to-r from-secondary-500/10 to-primary-500/10 text-secondary-600 dark:text-secondary-400 border border-secondary-500/20 mb-6"
             whileHover={{ scale: 1.05 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -169,11 +167,11 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             Professional Journey
           </motion.span>
 
-          <h2 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 mb-6">
+          <h2 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary-600 via-primary-600 to-gradient-pink dark:from-secondary-400 dark:via-primary-400 dark:to-gradient-pink mb-6">
             Career Highlights
           </h2>
 
-          <p className="text-xl leading-relaxed max-w-3xl mx-auto text-gray-600 dark:text-gray-400">
+          <p className="text-xl leading-relaxed max-w-3xl mx-auto text-text-light-secondary dark:text-text-dark-tertiary">
             Explore my professional journey through interactive experience cards
             showcasing key achievements and growth.
           </p>
@@ -188,7 +186,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           {/* Navigation Buttons */}
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-20 w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 hover:scale-110 transition-all duration-300 shadow-lg"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-20 w-12 h-12 rounded-full bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary flex items-center justify-center text-text-light-secondary dark:text-text-dark-secondary hover:bg-surface-light-elevated dark:hover:bg-surface-dark-elevated hover:scale-110 transition-all duration-300 shadow-soft"
             aria-label="Previous experience"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -196,7 +194,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-20 w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 hover:scale-110 transition-all duration-300 shadow-lg"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-20 w-12 h-12 rounded-full bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary flex items-center justify-center text-text-light-secondary dark:text-text-dark-secondary hover:bg-surface-light-elevated dark:hover:bg-surface-dark-elevated hover:scale-110 transition-all duration-300 shadow-soft"
             aria-label="Next experience"
           >
             <ChevronRight className="w-6 h-6" />
@@ -219,7 +217,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                 />
 
                 {/* Glass Card */}
-                <div className="relative p-6 md:p-8 lg:p-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 rounded-3xl shadow-2xl">
+                <div className="relative p-6 md:p-8 lg:p-10 bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary rounded-3xl shadow-hard">
                   {/* Company Logo and Header */}
                   <div className="flex flex-col md:flex-row items-start justify-between mb-6 gap-4">
                     <div className="flex items-center space-x-4 md:space-x-6">
@@ -233,10 +231,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
+                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-text-light-primary dark:text-text-dark-primary mb-2 leading-tight">
                           {currentExperience.role}
                         </h3>
-                        <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center space-x-2 text-text-light-secondary dark:text-text-dark-tertiary">
                           <Building className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
                           <span className="text-lg md:text-xl font-semibold truncate">
                             {currentExperience.company}
@@ -250,7 +248,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg md:text-xl shadow-lg">
                         {currentIndex + 1}
                       </div>
-                      <span className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2">
+                      <span className="text-xs md:text-sm text-text-light-tertiary dark:text-text-dark-tertiary mt-2">
                         of {displayExperiences.length}
                       </span>
                     </div>
@@ -258,20 +256,20 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
                   {/* Meta Information */}
                   <div className="flex flex-wrap items-center gap-4 md:gap-6 mb-6">
-                    <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center space-x-2 text-text-light-secondary dark:text-text-dark-tertiary">
                       <Calendar className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
                       <span className="font-medium text-sm md:text-base">
                         {currentExperience.startDate} -{" "}
                         {currentExperience.endDate}
                       </span>
                     </div>
-                    <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center space-x-2 text-text-light-secondary dark:text-text-dark-tertiary">
                       <MapPin className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
                       <span className="font-medium text-sm md:text-base">
                         {currentExperience.location}
                       </span>
                     </div>
-                    <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center space-x-2 text-text-light-secondary dark:text-text-dark-tertiary">
                       <Star className="w-4 h-4 md:w-5 md:h-5 text-yellow-500 flex-shrink-0" />
                       <span className="font-medium text-sm md:text-base">
                         {currentExperience.period}
@@ -284,11 +282,11 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                     {/* Description */}
                     <div className="lg:col-span-2 space-y-6">
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                        <h4 className="text-lg font-semibold text-text-light-primary dark:text-text-dark-primary mb-4 flex items-center">
                           <Award className="w-5 h-5 mr-2 text-blue-500 flex-shrink-0" />
                           Key Achievements
                         </h4>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 text-sm md:text-base">
+                        <p className="text-text-light-secondary dark:text-text-dark-secondary leading-relaxed mb-6 text-sm md:text-base">
                           {currentExperience.description}
                         </p>
 
@@ -304,7 +302,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                                 className="flex items-start space-x-3"
                               >
                                 <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mt-2 flex-shrink-0" />
-                                <span className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                <span className="text-text-light-secondary dark:text-text-dark-tertiary text-sm leading-relaxed">
                                   {highlight}
                                 </span>
                               </motion.div>
@@ -315,7 +313,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
                       {/* Technologies */}
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                        <h4 className="text-lg font-semibold text-text-light-primary dark:text-text-dark-primary mb-4 flex items-center">
                           <Zap className="w-5 h-5 mr-2 text-yellow-500 flex-shrink-0" />
                           Technologies Used
                         </h4>
@@ -338,7 +336,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                     {/* Stats Panel */}
                     <div className="space-y-6">
                       <div className="bg-gradient-to-br from-white/50 to-gray-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-2xl p-6 backdrop-blur-sm border border-white/20 dark:border-gray-700/50">
-                        <h4 className="w-full text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center justify-center">
+                        <h4 className="w-full text-lg font-semibold text-text-light-primary dark:text-text-dark-primary mb-4 flex items-center justify-center">
                           Impact
                           <TrendingUp className="w-5 h-5 ml-2 text-green-500 flex-shrink-0" />
                         </h4>
@@ -347,7 +345,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                             <div className="text-2xl md:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
                               {currentExperience.highlights.length}+
                             </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-400">
+                            <div className="text-sm text-text-light-secondary dark:text-text-dark-tertiary">
                               Key Achievements
                             </div>
                           </div>
@@ -355,7 +353,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                             <div className="text-2xl md:text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">
                               {currentExperience.technologies.length}+
                             </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-400">
+                            <div className="text-sm text-text-light-secondary dark:text-text-dark-tertiary">
                               Technologies
                             </div>
                           </div>
@@ -396,7 +394,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
           {/* Auto-play Indicator */}
           <div className="flex justify-center mt-4">
-            <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex items-center space-x-2 text-sm text-text-light-tertiary dark:text-text-dark-tertiary">
               <div
                 className={`w-2 h-2 rounded-full ${isAutoPlaying ? "bg-green-500 animate-pulse" : "bg-gray-400"}`}
               />
@@ -407,38 +405,38 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
         {/* Summary Statistics */}
         <div className="mt-20 grid md:grid-cols-4 gap-6">
-          <div className="stat-item text-center p-6 rounded-2xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-lg">
+          <div className="stat-item text-center p-6 rounded-2xl bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary shadow-soft">
             <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
               {displayExperiences.length}
             </div>
-            <div className="text-gray-600 dark:text-gray-400">
+            <div className="text-text-light-secondary dark:text-text-dark-tertiary">
               Career Positions
             </div>
           </div>
 
-          <div className="stat-item text-center p-6 rounded-2xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-lg">
+          <div className="stat-item text-center p-6 rounded-2xl bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary shadow-soft">
             <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
               5+
             </div>
-            <div className="text-gray-600 dark:text-gray-400">
+            <div className="text-text-light-secondary dark:text-text-dark-tertiary">
               Years Experience
             </div>
           </div>
 
-          <div className="stat-item text-center p-6 rounded-2xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-lg">
+          <div className="stat-item text-center p-6 rounded-2xl bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary shadow-soft">
             <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">
               8+
             </div>
-            <div className="text-gray-600 dark:text-gray-400">
+            <div className="text-text-light-secondary dark:text-text-dark-tertiary">
               Projects Delivered
             </div>
           </div>
 
-          <div className="stat-item text-center p-6 rounded-2xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-lg">
+          <div className="stat-item text-center p-6 rounded-2xl bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary shadow-soft">
             <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">
               20+
             </div>
-            <div className="text-gray-600 dark:text-gray-400">Technologies</div>
+            <div className="text-text-light-secondary dark:text-text-dark-tertiary">Technologies</div>
           </div>
         </div>
       </div>

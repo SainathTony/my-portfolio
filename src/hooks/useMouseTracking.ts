@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, MutableRefObject } from "react";
 
 interface MouseState {
   x: number;
@@ -32,8 +32,8 @@ interface MouseTrackingConfig {
 
 interface UseMouseTrackingReturn {
   cursorTrail: CursorPoint[];
-  mouseState: React.MutableRefObject<MouseState>;
-  aiAssistantRef: React.MutableRefObject<AIAssistantPosition>;
+  mouseState: MutableRefObject<MouseState>;
+  aiAssistantRef: MutableRefObject<AIAssistantPosition>;
 }
 
 export const useMouseTracking = (
@@ -52,7 +52,7 @@ export const useMouseTracking = (
   const aiAssistantRef = useRef<AIAssistantPosition>({ x: 0, y: 0 });
   const lastMousePos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const lastMouseTime = useRef<number>(Date.now());
-  const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const idleTimeoutRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
 
   const mouseState = useRef<MouseState>({
