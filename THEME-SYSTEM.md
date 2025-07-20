@@ -7,6 +7,7 @@ This portfolio uses a comprehensive theme system built on Tailwind CSS v4 with f
 ## Theme Configuration
 
 ### Dark Mode Setup
+
 - **Strategy**: `selector` (class-based)
 - **Toggle**: Managed by `useTheme` hook
 - **Persistence**: localStorage + system preference detection
@@ -15,6 +16,7 @@ This portfolio uses a comprehensive theme system built on Tailwind CSS v4 with f
 ### Color Palette
 
 #### Primary Colors
+
 - **Primary**: Blue scale (50-950) - Main brand color
 - **Secondary**: Purple scale (50-950) - Accent color
 - **Success**: Green scale (50-950) - Success states
@@ -22,6 +24,7 @@ This portfolio uses a comprehensive theme system built on Tailwind CSS v4 with f
 - **Error**: Red scale (50-950) - Error states
 
 #### Semantic Colors
+
 ```css
 /* Surface Colors */
 surface-primary    /* Main backgrounds */
@@ -48,6 +51,7 @@ border-accent      /* Highlighted borders */
 ### Component Classes
 
 #### Cards
+
 ```css
 .card              /* Basic card */
 .card-hover        /* Card with hover effects */
@@ -55,6 +59,7 @@ border-accent      /* Highlighted borders */
 ```
 
 #### Buttons
+
 ```css
 .btn-primary       /* Primary action button */
 .btn-secondary     /* Secondary action button */
@@ -62,12 +67,14 @@ border-accent      /* Highlighted borders */
 ```
 
 #### Navigation
+
 ```css
 .nav-link          /* Navigation link */
 .nav-link-active   /* Active navigation link */
 ```
 
 #### Forms
+
 ```css
 .form-input        /* Text input */
 .form-textarea     /* Textarea */
@@ -75,6 +82,7 @@ border-accent      /* Highlighted borders */
 ```
 
 ### Animation Classes
+
 ```css
 .animate-fade-in-up    /* Slide up animation */
 .animate-fade-in-down  /* Slide down animation */
@@ -85,6 +93,7 @@ border-accent      /* Highlighted borders */
 ```
 
 ### Layout Utilities
+
 ```css
 .container-responsive  /* Responsive container */
 .grid-responsive      /* Responsive grid */
@@ -96,6 +105,7 @@ border-accent      /* Highlighted borders */
 ## Usage Examples
 
 ### Basic Card Component
+
 ```jsx
 <div className="card-hover">
   <h3 className="text-primary">Card Title</h3>
@@ -105,13 +115,15 @@ border-accent      /* Highlighted borders */
 ```
 
 ### Navigation Item
+
 ```jsx
-<a className={`nav-link ${isActive ? 'nav-link-active' : ''}`}>
+<a className={`nav-link ${isActive ? "nav-link-active" : ""}`}>
   Navigation Item
 </a>
 ```
 
 ### Form Input
+
 ```jsx
 <div>
   <label className="form-label">Input Label</label>
@@ -120,15 +132,15 @@ border-accent      /* Highlighted borders */
 ```
 
 ### Responsive Text
+
 ```jsx
-<h1 className="text-responsive-2xl text-primary">
-  Responsive Heading
-</h1>
+<h1 className="text-responsive-2xl text-primary">Responsive Heading</h1>
 ```
 
 ## Custom Gradients
 
 ### Background Gradients
+
 ```css
 .gradient-primary     /* Blue to purple */
 .gradient-secondary   /* Purple to pink */
@@ -137,6 +149,7 @@ border-accent      /* Highlighted borders */
 ```
 
 ### Using in Components
+
 ```jsx
 <div className="bg-gradient-primary text-white p-6 rounded-xl">
   Gradient Background
@@ -146,22 +159,23 @@ border-accent      /* Highlighted borders */
 ## Theme Hook Usage
 
 ```tsx
-import { useTheme } from './hooks/useTheme'
+import { useTheme } from "./hooks/useTheme";
 
 function Component() {
-  const { theme, isDarkMode, toggleDarkMode, setThemeMode } = useTheme()
-  
+  const { theme, isDarkMode, toggleDarkMode, setThemeMode } = useTheme();
+
   return (
     <button onClick={toggleDarkMode}>
-      {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+      {isDarkMode ? "Light Mode" : "Dark Mode"}
     </button>
-  )
+  );
 }
 ```
 
 ## Animation System
 
 ### Available Animations
+
 - `fade-in` / `fade-out`
 - `slide-up` / `slide-down` / `slide-left` / `slide-right`
 - `scale-in` / `scale-out`
@@ -172,6 +186,7 @@ function Component() {
 - `glow`
 
 ### Custom Durations
+
 - `duration-400` (400ms)
 - `duration-600` (600ms)
 - `duration-800` (800ms)
@@ -181,11 +196,13 @@ function Component() {
 ## Responsive Design
 
 ### Breakpoint Strategy
+
 - Mobile-first approach
 - Standard Tailwind breakpoints (sm, md, lg, xl, 2xl)
 - Responsive text utilities for consistent scaling
 
 ### Custom Spacing
+
 - `18` (4.5rem) - Between standard sizes
 - `88` (22rem) - Large component spacing
 - `128` (32rem) - Section spacing
@@ -193,16 +210,19 @@ function Component() {
 ## Box Shadows
 
 ### Light Theme
+
 - `shadow-soft` - Subtle elevation
 - `shadow-medium` - Card elevation
 - `shadow-hard` - Modal/popover elevation
 
 ### Dark Theme
+
 - `shadow-dark-soft` - Subtle elevation
 - `shadow-dark-medium` - Card elevation
 - `shadow-dark-hard` - Modal/popover elevation
 
 ### Glow Effects
+
 - `shadow-glow` - Primary glow
 - `shadow-glow-lg` - Large primary glow
 
@@ -216,24 +236,21 @@ function Component() {
 ## Migration Guide
 
 ### From Manual Dark Classes
+
 ```css
 /* Before */
-.bg-white.dark:bg-gray-900
-
-/* After */
-.surface-primary
+.bg-white.dark: bg-gray-900 /* After */ .surface-primary;
 ```
 
 ### From Hardcoded Colors
+
 ```css
 /* Before */
-.text-gray-900.dark:text-white
-
-/* After */
-.text-primary
+.text-gray-900.dark: text-white /* After */ .text-primary;
 ```
 
 ### From Custom Animations
+
 ```css
 /* Before */
 @keyframes fadeIn { ... }
@@ -253,16 +270,19 @@ function Component() {
 ## Troubleshooting
 
 ### Dark Mode Not Working
+
 - Ensure `dark` class is on `html` element
 - Check `useTheme` hook implementation
 - Verify Tailwind config has `darkMode: 'selector'`
 
 ### Colors Not Switching
+
 - Use semantic color classes instead of hardcoded ones
 - Check if custom CSS is overriding Tailwind classes
 - Ensure components are receiving theme props correctly
 
 ### Performance Issues
+
 - Check if unused CSS is being purged
 - Minimize custom CSS in favor of utility classes
 - Use `transition-colors` for smooth theme switching

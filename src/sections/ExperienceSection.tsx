@@ -436,7 +436,9 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">
               20+
             </div>
-            <div className="text-text-light-secondary dark:text-text-dark-tertiary">Technologies</div>
+            <div className="text-text-light-secondary dark:text-text-dark-tertiary">
+              Technologies
+            </div>
           </div>
         </div>
       </div>

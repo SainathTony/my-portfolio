@@ -1,4 +1,10 @@
-import { useState, useRef, useEffect, useCallback, MutableRefObject } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  MutableRefObject,
+} from "react";
 
 interface MouseState {
   x: number;

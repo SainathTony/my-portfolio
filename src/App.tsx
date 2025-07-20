@@ -34,7 +34,7 @@ import "./App.css";
 function App() {
   // Theme management
   const { isDarkMode, toggleDarkMode } = useTheme();
-  
+
   const [activeSection, setActiveSection] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -194,7 +194,10 @@ function App() {
             </div>
           }
         >
-          <AboutSection darkMode={isDarkMode} visibleElements={visibleElements} />
+          <AboutSection
+            darkMode={isDarkMode}
+            visibleElements={visibleElements}
+          />
         </Suspense>
 
         <Suspense

@@ -26,10 +26,12 @@ interface ContactSectionProps {
   visibleElements: VisibleElements;
 }
 
-const ContactSection: React.FC<ContactSectionProps> = ({
-  // darkMode,
-  // visibleElements,
-}) => {
+const ContactSection: React.FC<ContactSectionProps> = (
+  {
+    // darkMode,
+    // visibleElements,
+  },
+) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   // const [formData, setFormData] = useState({
   //   name: "",

@@ -1,4 +1,12 @@
-import { useState, useRef, useEffect, useCallback, type Dispatch, type SetStateAction, type MutableRefObject } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  type Dispatch,
+  type SetStateAction,
+  type MutableRefObject,
+} from "react";
 
 interface ScrollHandlerConfig {
   parallaxBaseSpeed?: number;

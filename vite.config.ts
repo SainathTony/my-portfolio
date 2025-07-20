@@ -6,6 +6,6 @@ export default defineConfig({
   base: "/my-portfolio/",
   plugins: [react()],
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion'],
+    include: ["react", "react-dom", "framer-motion"],
   },
 });
