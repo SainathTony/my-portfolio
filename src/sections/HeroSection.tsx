@@ -195,9 +195,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
       <div className="hero-content relative z-10">
         <div className="hero-container">
           {/* Greeting Badge */}
-          <div className="mb-4">
+          <div className="mb-4 w-full flex justify-center">
             <motion.span
-              className="inline-flex items-center px-6 py-3 rounded-full text-base font-medium bg-gradient-to-r from-hero-success/20 to-hero-gradient-start/20 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary text-success-700 dark:text-success-300 hover:shadow-hero-button dark:hover:shadow-hero-button-dark transition-all duration-300"
+              className="inline-flex items-center px-6 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-hero-success/20 to-hero-gradient-start/20 backdrop-blur-sm border border-border-light-primary dark:border-border-dark-primary text-success-700 dark:text-success-300 hover:shadow-hero-button dark:hover:shadow-hero-button-dark transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -322,7 +322,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
             </motion.button>
 
             <motion.button
-              onClick={handleContactClick}
+              onClick={() =>
+                window.open(
+                  "https://drive.google.com/file/d/16d3sVUelsEUdOzIqtfQZ8A9ukRbmh8rK/view?usp=sharing",
+                  "_blank",
+                )
+              }
               className="group px-12 py-5 text-lg font-semibold rounded-2xl bg-surface-light-primary/10 dark:bg-surface-dark-primary/10 backdrop-blur-sm border-2 border-border-light-secondary dark:border-border-dark-secondary text-text-light-primary dark:text-text-dark-primary hover:bg-surface-light-primary/20 dark:hover:bg-surface-dark-primary/20 hover:border-hero-gradient-start dark:hover:border-hero-accent transition-all duration-300 transform hover:shadow-hero-card dark:hover:shadow-hero-card-dark"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
@@ -358,10 +363,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                     Phone
                   </p>
                   <a
-                    href="tel:+918978666892"
+                    href="tel:+918096149910"
                     className="text-base font-medium text-text-light-primary dark:text-text-dark-primary hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
-                    +91 89786 66892
+                    +91 8096149910
                   </a>
                 </div>
               </motion.div>
@@ -389,7 +394,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                     Email
                   </p>
                   <a
-                    href="mailto:sainath.bottupally@gmail.com"
+                    href="mailto:bottupallysainath@gmail.com"
                     className="text-base font-medium text-text-light-primary dark:text-text-dark-primary hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors"
                   >
                     bottupallysainath@gmail.com

@@ -23,11 +23,12 @@ import type { VisibleElements } from "../types/common";
 gsap.registerPlugin(ScrollTrigger);
 
 interface AboutSectionProps {
+  scrollToSection: (index: number) => void;
   darkMode: boolean;
   visibleElements: VisibleElements;
 }
 
-const AboutSection: React.FC<AboutSectionProps> = () => {
+const AboutSection: React.FC<AboutSectionProps> = ({ scrollToSection }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLDivElement>(null);
 
@@ -567,6 +568,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                     className="group px-12 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:shadow-xl"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => scrollToSection(5)}
                   >
                     <span className="flex items-center">
                       Get In Touch
@@ -578,6 +580,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
                     className="px-12 py-5 bg-white/30 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 font-semibold rounded-2xl text-lg hover:bg-white/40 transition-all duration-300"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => scrollToSection(4)}
                   >
                     View My Work
                   </motion.button>

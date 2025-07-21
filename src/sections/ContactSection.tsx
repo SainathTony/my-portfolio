@@ -414,7 +414,7 @@ const ContactSection: React.FC<ContactSectionProps> = (
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`social-link group relative p-6 rounded-2xl bg-white/90 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 ${social.bgColor} transition-all duration-300 hover:shadow-xl`}
+                  className={`social-link group relative p-6 rounded-2xl bg-white/90 dark:bg-black/40 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 ${social.bgColor} transition-all duration-300 hover:shadow-xl`}
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
                 >

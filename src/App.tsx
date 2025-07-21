@@ -150,10 +150,69 @@ function App() {
       {/* Dark Mode Toggle */}
       <button
         onClick={toggleDarkMode}
-        className="dark-mode-toggle"
+        className={`
+          fixed top-6 right-6 z-50 
+          w-14 h-14 
+          flex items-center justify-center 
+          rounded-2xl 
+          backdrop-blur-lg 
+          border border-white/20 dark:border-white/10
+          bg-white/80 dark:bg-gray-900/80 
+          text-gray-700 dark:text-yellow-400 
+          shadow-lg dark:shadow-xl 
+          hover:shadow-xl dark:hover:shadow-2xl 
+          hover:scale-110 
+          transition-all duration-300 ease-out
+          group
+          before:absolute before:inset-0 before:rounded-2xl 
+          before:bg-gradient-to-r before:from-blue-500/20 before:to-purple-500/20 
+          dark:before:from-yellow-400/20 dark:before:to-orange-500/20
+          before:opacity-0 hover:before:opacity-100 
+          before:transition-opacity before:duration-300
+          active:scale-95
+        `}
         aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
-        {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+        <div className="relative z-10 transition-transform duration-300 group-hover:rotate-12">
+          {isDarkMode ? (
+            <Sun
+              size={22}
+              className="text-yellow-500 drop-shadow-lg animate-pulse-slow"
+            />
+          ) : (
+            <Moon size={22} className="text-gray-600 drop-shadow-lg" />
+          )}
+        </div>
+
+        {/* Glow effect */}
+        <div
+          className={`
+          absolute inset-0 rounded-2xl 
+          ${
+            isDarkMode
+              ? "bg-gradient-to-r from-yellow-400/30 to-orange-500/30"
+              : "bg-gradient-to-r from-blue-500/30 to-purple-500/30"
+          }
+          opacity-0 group-hover:opacity-70 
+          transition-opacity duration-300 
+          blur-xl
+        `}
+        />
+
+        {/* Floating particles effect (only in dark mode) */}
+        {isDarkMode && (
+          <>
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-ping opacity-60" />
+            <div
+              className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-orange-400 rounded-full animate-ping opacity-60"
+              style={{ animationDelay: "300ms" }}
+            />
+            <div
+              className="absolute top-1 -left-2 w-1 h-1 bg-yellow-300 rounded-full animate-ping opacity-60"
+              style={{ animationDelay: "700ms" }}
+            />
+          </>
+        )}
       </button>
 
       {/* Scroll to Top Button */}
@@ -195,6 +254,7 @@ function App() {
           }
         >
           <AboutSection
+            scrollToSection={scrollToSection}
             darkMode={isDarkMode}
             visibleElements={visibleElements}
           />

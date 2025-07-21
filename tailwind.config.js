@@ -333,6 +333,17 @@ module.exports = {
         1200: "1200ms",
         1500: "1500ms",
       },
+      // Animation delays
+      animationDelay: {
+        75: "75ms",
+        100: "100ms",
+        150: "150ms",
+        200: "200ms",
+        300: "300ms",
+        500: "500ms",
+        700: "700ms",
+        1000: "1000ms",
+      },
       // Scale
       scale: {
         102: "1.02",

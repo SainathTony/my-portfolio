@@ -81,7 +81,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
         id={id}
         ref={ref}
         className={`relative ${fullHeight ? "min-h-screen" : ""} ${
-          withPadding ? "py-20 md:py-28 lg:py-36" : ""
+          withPadding ? "py-10 md:py-18 lg:py-26" : ""
         } ${className}`}
         {...props}
       >

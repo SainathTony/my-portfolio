@@ -124,9 +124,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
                   <div className="relative p-8 rounded-3xl bg-gradient-to-br from-white/95 to-gray-50/95 dark:from-gray-800/95 dark:to-gray-900/95 backdrop-blur-lg border-2 border-white/30 dark:border-gray-700/30 shadow-2xl hover:shadow-3xl transition-all duration-700 overflow-hidden transform group-hover:scale-[1.02] group-hover:-rotate-1 z-10">
                     {/* Featured Badge */}
                     <div className="absolute top-4 right-4 z-30">
-                      <div className="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-md">
-                        ⭐
-                      </div>
+                      <div className="">⭐</div>
                     </div>
 
                     {/* Project Header */}

@@ -16,14 +16,13 @@ const LoadingScreen: React.FC<LoadingScreenProps> = React.memo(
     useEffect(() => {
       if (!isLoading || !loadingTextRef.current) return;
 
-      const text = loadingTextRef.current.textContent || "";
       loadingTextRef.current.textContent = "";
 
       let charIndex = 0;
       const typeWriter = () => {
-        if (charIndex < text.length) {
+        if (charIndex < title.length) {
           if (loadingTextRef.current) {
-            loadingTextRef.current.textContent += text.charAt(charIndex);
+            loadingTextRef.current.textContent += title.charAt(charIndex);
             charIndex++;
             setTimeout(typeWriter, 50);
           }
@@ -32,15 +31,13 @@ const LoadingScreen: React.FC<LoadingScreenProps> = React.memo(
 
       const timer = setTimeout(typeWriter, 500);
       return () => clearTimeout(timer);
-    }, [isLoading]);
+    }, [isLoading, title]);
 
     return (
       <AnimatePresence>
         {isLoading && (
           <motion.div
-            className={`fixed inset-0 z-50 flex items-center justify-center ${
-              darkMode ? "bg-surface-dark-primary" : "bg-surface-light-primary"
-            }`}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-surface-light-primary dark:bg-surface-dark-primary"
             initial={{ opacity: 1 }}
             exit={{
               opacity: 0,
@@ -106,24 +103,14 @@ const LoadingScreen: React.FC<LoadingScreenProps> = React.memo(
                 </h1>
                 <p
                   ref={loadingTextRef}
-                  className={`text-lg md:text-xl font-light ${
-                    darkMode
-                      ? "text-text-dark-secondary"
-                      : "text-text-light-secondary"
-                  }`}
+                  className="text-lg md:text-xl font-light text-slate-600 dark:text-slate-300"
                   aria-label="Loading portfolio"
-                >
-                  {title}
-                </p>
+                ></p>
               </motion.div>
 
               {/* Progress Bar */}
               <motion.div
-                className={`mt-8 h-1 ${
-                  darkMode
-                    ? "bg-surface-dark-tertiary"
-                    : "bg-surface-light-tertiary"
-                } rounded-full overflow-hidden w-48 mx-auto`}
+                className="mt-8 h-1 bg-surface-light-tertiary dark:bg-surface-dark-tertiary rounded-full overflow-hidden w-48 mx-auto"
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: 1,
