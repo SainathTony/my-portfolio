@@ -183,7 +183,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
       <div className="max-w-6xl mx-auto px-4">
         {/* Category Filter */}
         <motion.div
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -192,7 +192,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
             <motion.button
               key={category.key}
               onClick={() => setActiveCategory(category.key)}
-              className={`category-btn px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+              className={`category-btn px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base rounded-full font-medium transition-all duration-300 touch-manipulation ${
                 activeCategory === category.key
                   ? "bg-primary-500 text-white shadow-soft shadow-primary-500/25"
                   : "bg-surface-light-tertiary dark:bg-surface-dark-elevated text-text-light-secondary dark:text-text-dark-secondary hover:bg-surface-light-secondary dark:hover:bg-surface-dark-tertiary"
@@ -213,7 +213,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
-            className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-9 gap-6"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-6"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -222,7 +222,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
             {filteredSkills.map((skill) => (
               <motion.div
                 key={skill.name}
-                className="skill-card group relative bg-surface-light-elevated dark:bg-surface-dark-elevated rounded-xl p-6 shadow-soft hover:shadow-medium transition-all duration-300 border border-border-light-primary dark:border-border-dark-primary cursor-pointer"
+                className="skill-card group relative bg-surface-light-elevated dark:bg-surface-dark-elevated rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 shadow-soft hover:shadow-medium transition-all duration-300 border border-border-light-primary dark:border-border-dark-primary cursor-pointer"
                 variants={skillCardVariants}
                 whileHover="hover"
                 layout
@@ -233,13 +233,13 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-secondary-500/5 to-gradient-pink/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Icon */}
-                <div className="relative flex items-center justify-center mb-4">
-                  <div className="w-12 h-12 bg-surface-light-tertiary dark:bg-surface-dark-tertiary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="relative flex items-center justify-center mb-2 sm:mb-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-surface-light-tertiary dark:bg-surface-dark-tertiary rounded-md sm:rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {skill.icon ? (
                       <img
                         src={skill.icon}
                         alt={skill.name}
-                        className="w-8 h-8 object-contain"
+                        className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 object-contain"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = "none";
@@ -248,7 +248,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                       />
                     ) : null}
                     <div
-                      className={`w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white font-bold text-sm ${skill.icon ? "hidden" : ""}`}
+                      className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 rounded-md sm:rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white font-bold text-xs sm:text-sm ${skill.icon ? "hidden" : ""}`}
                     >
                       {skill.name.charAt(0).toUpperCase()}
                     </div>
@@ -259,13 +259,13 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                 </div>
 
                 {/* Skill Name */}
-                <h3 className="text-sm font-semibold text-text-light-primary dark:text-text-dark-primary text-center group-hover:text-primary-500 transition-colors duration-300">
+                <h3 className="text-xs sm:text-sm font-semibold text-text-light-primary dark:text-text-dark-primary text-center group-hover:text-primary-500 transition-colors duration-300 line-clamp-2">
                   {skill.name}
                 </h3>
 
                 {/* Category Badge */}
                 <div className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-500 text-white">
+                  <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-primary-500 text-white">
                     {skill.category}
                   </span>
                 </div>

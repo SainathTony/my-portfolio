@@ -142,7 +142,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app-container relative min-h-screen bg-surface-light-primary dark:bg-surface-dark-primary transition-colors duration-300">
+    <div className="relative min-h-screen bg-surface-light-primary dark:bg-surface-dark-primary transition-colors duration-300">
       <PerformanceMonitor />
       <LoadingScreen isLoading={isLoading} />
 
@@ -156,7 +156,7 @@ function App() {
           >
             {/* <ThreeJSBackground
               darkMode={darkMode}
-              scrollProgress={scrollMetrics?.scrollProgress || 0}
+              scrollProgress={scrollMetrics?.scrollProgress || 0} 
             /> */}
           </Suspense>
         </div>
@@ -174,11 +174,11 @@ function App() {
       {/* Dark Mode Toggle */}
       <button
         onClick={toggleDarkMode}
-        className={`
-          fixed top-6 right-6 z-50 
-          w-14 h-14 
+        className="
+          fixed top-4 right-4 sm:top-6 sm:right-6 z-50 
+          w-12 h-12 sm:w-14 sm:h-14 
           flex items-center justify-center 
-          rounded-2xl 
+          rounded-xl sm:rounded-2xl 
           backdrop-blur-lg 
           border border-white/20 dark:border-white/10
           bg-white/80 dark:bg-gray-900/80 
@@ -188,28 +188,29 @@ function App() {
           hover:scale-110 
           transition-all duration-300 ease-out
           group
-          before:absolute before:inset-0 before:rounded-2xl 
+          before:absolute before:inset-0 before:rounded-xl sm:before:rounded-2xl 
           before:bg-gradient-to-r before:from-blue-500/20 before:to-purple-500/20 
           dark:before:from-yellow-400/20 dark:before:to-orange-500/20
           before:opacity-0 hover:before:opacity-100 
           before:transition-opacity before:duration-300
           active:scale-95
-        `}
+          touch-manipulation
+        "
         aria-label="Toggle dark mode"
       >
         <div className="relative z-10 transition-transform duration-300 group-hover:rotate-12">
           <Sun
-            size={22}
-            className="text-yellow-500 drop-shadow-lg animate-pulse-slow hidden dark:block"
+            size={20}
+            className="sm:w-[22px] sm:h-[22px] text-yellow-500 drop-shadow-lg animate-pulse-slow hidden dark:block"
           />
           <Moon
-            size={22}
-            className="text-gray-600 drop-shadow-lg block dark:hidden"
+            size={20}
+            className="sm:w-[22px] sm:h-[22px] text-gray-600 drop-shadow-lg block dark:hidden"
           />
         </div>
 
         {/* Glow effect */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/30 to-purple-500/30 dark:from-yellow-400/30 dark:to-orange-500/30 opacity-0 group-hover:opacity-70 transition-opacity duration-300 blur-xl" />
+        <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-500/30 to-purple-500/30 dark:from-yellow-400/30 dark:to-orange-500/30 opacity-0 group-hover:opacity-70 transition-opacity duration-300 blur-xl" />
 
         {/* Floating particles effect (only in dark mode) */}
         <div className="hidden dark:block">
@@ -229,13 +230,14 @@ function App() {
       {showScrollToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition-all duration-300 hover:scale-110"
+          className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-40 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition-all duration-300 hover:scale-110 touch-manipulation"
           aria-label="Scroll to top"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
+            className="sm:w-6 sm:h-6"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

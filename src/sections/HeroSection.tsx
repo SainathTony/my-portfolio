@@ -172,7 +172,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
     <section
       ref={heroRef}
       id="home"
-      className="section relative flex items-center justify-center min-h-screen bg-gradient-to-br from-surface-light-primary via-surface-light-secondary to-surface-light-tertiary dark:from-surface-dark-primary dark:via-surface-dark-secondary dark:to-surface-dark-tertiary overflow-hidden transition-colors duration-500"
+      className="section pt-10 relative flex items-center justify-center min-h-screen bg-gradient-to-br from-surface-light-primary via-surface-light-secondary to-surface-light-tertiary dark:from-surface-dark-primary dark:via-surface-dark-secondary dark:to-surface-dark-tertiary overflow-hidden transition-colors duration-500"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -192,8 +192,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
       </div>
 
       {/* Main Content */}
-      <div className="hero-content relative z-10">
-        <div className="hero-container">
+      <div className="hero-content relative z-10 px-4 sm:px-6 lg:px-8">
+        <div className="hero-container max-w-7xl mx-auto">
           {/* Greeting Badge */}
           <div className="mb-4 w-full flex justify-center">
             <motion.span
@@ -213,7 +213,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-4">
             <h1
               ref={titleRef}
-              className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-text-light-primary dark:text-text-dark-primary leading-tight opacity-0"
+              className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-text-light-primary dark:text-text-dark-primary leading-tight opacity-0"
             >
               Hi, I'm{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-hero-gradient-start via-hero-accent to-hero-success animate-gradient-x">
@@ -240,7 +240,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-4">
             <h2
               ref={subtitleRef}
-              className="text-2xl md:text-3xl lg:text-4xl text-text-light-secondary dark:text-text-dark-secondary font-light opacity-0"
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-text-light-secondary dark:text-text-dark-secondary font-light opacity-0"
             >
               Senior{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-hero-gradient-start to-hero-accent font-semibold">
@@ -260,7 +260,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
             appearOnMount={true}
             className="mb-4"
           >
-            <div className="flex flex-wrap justify-center gap-4 py-6">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-4 py-4 sm:py-6">
               {techStack.map((tech, index) => (
                 <motion.div
                   key={tech.name}
@@ -285,7 +285,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-6">
             <p
               ref={descriptionRef}
-              className="text-md text-center md:text-xl text-text-light-secondary dark:text-text-dark-tertiary max-w-4xl mx-auto leading-relaxed opacity-0"
+              className="text-base sm:text-lg md:text-xl text-center text-text-light-secondary dark:text-text-dark-tertiary max-w-4xl mx-auto leading-relaxed opacity-0"
             >
               Crafting exceptional digital experiences through the intersection
               of
@@ -306,11 +306,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           {/* CTA Buttons */}
           <div
             ref={ctaRef}
-            className="flex flex-col sm:flex-row justify-center gap-6 mb-4 opacity-0"
+            className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-4 opacity-0"
           >
             <motion.button
               onClick={() => scrollToSection(1)}
-              className="group relative px-12 py-5 text-lg font-semibold rounded-2xl bg-gradient-to-r from-hero-gradient-start to-hero-gradient-end text-white shadow-hero-button hover:shadow-hero-card transition-all duration-500 transform hover:scale-105"
+              className="group relative px-8 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-xl sm:rounded-2xl bg-gradient-to-r from-hero-gradient-start to-hero-gradient-end text-white shadow-hero-button hover:shadow-hero-card transition-all duration-500 transform hover:scale-105 w-full sm:w-auto min-h-[48px]"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -328,7 +328,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                   "_blank",
                 )
               }
-              className="group px-12 py-5 text-lg font-semibold rounded-2xl bg-surface-light-primary/10 dark:bg-surface-dark-primary/10 backdrop-blur-sm border-2 border-border-light-secondary dark:border-border-dark-secondary text-text-light-primary dark:text-text-dark-primary hover:bg-surface-light-primary/20 dark:hover:bg-surface-dark-primary/20 hover:border-hero-gradient-start dark:hover:border-hero-accent transition-all duration-300 transform hover:shadow-hero-card dark:hover:shadow-hero-card-dark"
+              className="group px-8 sm:px-12 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-xl sm:rounded-2xl bg-surface-light-primary/10 dark:bg-surface-dark-primary/10 backdrop-blur-sm border-2 border-border-light-secondary dark:border-border-dark-secondary text-text-light-primary dark:text-text-dark-primary hover:bg-surface-light-primary/20 dark:hover:bg-surface-dark-primary/20 hover:border-hero-gradient-start dark:hover:border-hero-accent transition-all duration-300 transform hover:shadow-hero-card dark:hover:shadow-hero-card-dark w-full sm:w-auto min-h-[48px]"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -340,7 +340,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Info Section */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-center items-center max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 justify-center items-center max-w-6xl mx-auto">
             {/* Phone */}
             <RevealAnimation
               delay={825}
@@ -440,7 +440,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
 
           {/* Social Links */}
           <div ref={socialRef} className="mt-8 opacity-0">
-            <div className="flex justify-center space-x-6">
+            <div className="flex justify-center space-x-4 sm:space-x-6">
               {socialLinks.map((link, index) => (
                 <motion.a
                   key={index}

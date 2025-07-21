@@ -38,7 +38,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
       id="projects"
       className="section section-4 bg-gradient-to-br from-indigo-50/30 via-white to-pink-50/20 dark:from-indigo-900/10 dark:via-gray-900 dark:to-pink-900/10"
     >
-      <div className="grid-container">
+      <div className="grid-container px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">

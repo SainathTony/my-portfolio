@@ -341,7 +341,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                         <div className="space-y-4">
                           <div className="text-center">
                             <div className="text-2xl md:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-                              {currentExperience.highlights.length}+
+                              {currentExperience.achievements.length}+
                             </div>
                             <div className="text-sm text-text-light-secondary dark:text-text-dark-tertiary">
                               Key Achievements

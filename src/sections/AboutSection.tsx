@@ -180,7 +180,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ scrollToSection }) => {
       id="about"
       className="section section-1 bg-gradient-to-br from-surface-light-secondary via-surface-light-tertiary to-surface-light-primary dark:from-surface-dark-primary dark:via-surface-dark-secondary dark:to-surface-dark-tertiary overflow-hidden"
     >
-      <div className="content-container relative">
+      <div className="content-container relative px-4 sm:px-6 lg:px-8">
         {/* Background Elements */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-primary-500/5 to-secondary-500/5 rounded-full blur-3xl animate-pulse"></div>

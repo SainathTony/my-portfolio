@@ -137,34 +137,6 @@ export const useScrollAnimations = () => {
           },
         );
       });
-
-      // Contact form animations
-      const contactForm = document.querySelector(".contact-form");
-      if (contactForm) {
-        const formElements = safeQueryAll(
-          "input, textarea, button",
-          contactForm,
-        );
-        if (formElements.length > 0) {
-          gsap.fromTo(
-            formElements,
-            { y: 30, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: contactForm,
-                start: "top 85%",
-                toggleActions: "play none none none",
-                invalidateOnRefresh: true,
-              },
-            },
-          );
-        }
-      }
     });
 
     // Timeline items animation

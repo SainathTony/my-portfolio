@@ -143,26 +143,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ visibleElements }) => {
         );
       });
 
-      // Form animation
-      gsap.fromTo(
-        ".contact-form",
-        {
-          x: 100,
-          opacity: 0,
-        },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".contact-form",
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        },
-      );
-
       // Social links animation
       const links = gsap.utils.toArray<HTMLDivElement>(".social-link");
       links.forEach((link, index) => {
@@ -256,7 +236,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ visibleElements }) => {
       id="contact"
       className="section section-5 bg-gradient-to-br from-rose-50/30 via-white to-indigo-50/20 dark:from-rose-900/10 dark:via-gray-900 dark:to-indigo-900/10"
     >
-      <div className="form-container">
+      <div className="form-container px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-5xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-4">
