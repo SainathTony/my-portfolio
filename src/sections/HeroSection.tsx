@@ -285,7 +285,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-6">
             <p
               ref={descriptionRef}
-              className="text-md md:text-xl text-text-light-secondary dark:text-text-dark-tertiary max-w-4xl mx-auto leading-relaxed opacity-0"
+              className="text-md text-center md:text-xl text-text-light-secondary dark:text-text-dark-tertiary max-w-4xl mx-auto leading-relaxed opacity-0"
             >
               Crafting exceptional digital experiences through the intersection
               of

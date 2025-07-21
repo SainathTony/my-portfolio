@@ -17,7 +17,6 @@ import type { Project } from "portfolio-data";
 gsap.registerPlugin(ScrollTrigger);
 
 interface ProjectsSectionProps {
-  darkMode: boolean;
   projects: Project[];
   visibleElements: VisibleElements;
 }

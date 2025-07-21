@@ -24,7 +24,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface AboutSectionProps {
   scrollToSection: (index: number) => void;
-  darkMode: boolean;
   visibleElements: VisibleElements;
 }
 

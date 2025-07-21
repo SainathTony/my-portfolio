@@ -22,16 +22,10 @@ import type { VisibleElements } from "../types/common";
 gsap.registerPlugin(ScrollTrigger);
 
 interface ContactSectionProps {
-  darkMode: boolean;
   visibleElements: VisibleElements;
 }
 
-const ContactSection: React.FC<ContactSectionProps> = (
-  {
-    // darkMode,
-    // visibleElements,
-  },
-) => {
+const ContactSection: React.FC<ContactSectionProps> = ({ visibleElements }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   // const [formData, setFormData] = useState({
   //   name: "",

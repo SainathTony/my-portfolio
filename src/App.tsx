@@ -23,7 +23,6 @@ import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { useScrollAnimations } from "./hooks/useScrollAnimations";
 import { useResponsive } from "./hooks/useResponsive";
 import { usePerformance, getAnimationConfig } from "./hooks/usePerformance";
-import { useTheme } from "./hooks/useTheme";
 
 // Data
 import { skills, projects, experiences } from "./data/portfolioData";
@@ -33,7 +32,32 @@ import "./App.css";
 
 function App() {
   // Theme management
-  const { isDarkMode, toggleDarkMode } = useTheme();
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("portfolio-theme");
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else if (savedTheme === "light") {
+      document.documentElement.classList.remove("dark");
+    } else {
+      // Default to system preference
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (isDark) {
+        document.documentElement.classList.add("dark");
+      }
+    }
+  }, []);
+
+  const toggleDarkMode = useCallback(() => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    if (isDark) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("portfolio-theme", "light");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("portfolio-theme", "dark");
+    }
+  }, []);
 
   const [activeSection, setActiveSection] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -120,7 +144,7 @@ function App() {
   return (
     <div className="app-container relative min-h-screen bg-surface-light-primary dark:bg-surface-dark-primary transition-colors duration-300">
       <PerformanceMonitor />
-      <LoadingScreen isLoading={isLoading} darkMode={isDarkMode} />
+      <LoadingScreen isLoading={isLoading} />
 
       {/* Background Elements - Conditionally render based on performance */}
       {enableAdvancedFeatures && (
@@ -171,48 +195,34 @@ function App() {
           before:transition-opacity before:duration-300
           active:scale-95
         `}
-        aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+        aria-label="Toggle dark mode"
       >
         <div className="relative z-10 transition-transform duration-300 group-hover:rotate-12">
-          {isDarkMode ? (
-            <Sun
-              size={22}
-              className="text-yellow-500 drop-shadow-lg animate-pulse-slow"
-            />
-          ) : (
-            <Moon size={22} className="text-gray-600 drop-shadow-lg" />
-          )}
+          <Sun
+            size={22}
+            className="text-yellow-500 drop-shadow-lg animate-pulse-slow hidden dark:block"
+          />
+          <Moon
+            size={22}
+            className="text-gray-600 drop-shadow-lg block dark:hidden"
+          />
         </div>
 
         {/* Glow effect */}
-        <div
-          className={`
-          absolute inset-0 rounded-2xl 
-          ${
-            isDarkMode
-              ? "bg-gradient-to-r from-yellow-400/30 to-orange-500/30"
-              : "bg-gradient-to-r from-blue-500/30 to-purple-500/30"
-          }
-          opacity-0 group-hover:opacity-70 
-          transition-opacity duration-300 
-          blur-xl
-        `}
-        />
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/30 to-purple-500/30 dark:from-yellow-400/30 dark:to-orange-500/30 opacity-0 group-hover:opacity-70 transition-opacity duration-300 blur-xl" />
 
         {/* Floating particles effect (only in dark mode) */}
-        {isDarkMode && (
-          <>
-            <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-ping opacity-60" />
-            <div
-              className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-orange-400 rounded-full animate-ping opacity-60"
-              style={{ animationDelay: "300ms" }}
-            />
-            <div
-              className="absolute top-1 -left-2 w-1 h-1 bg-yellow-300 rounded-full animate-ping opacity-60"
-              style={{ animationDelay: "700ms" }}
-            />
-          </>
-        )}
+        <div className="hidden dark:block">
+          <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-ping opacity-60" />
+          <div
+            className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-orange-400 rounded-full animate-ping opacity-60"
+            style={{ animationDelay: "300ms" }}
+          />
+          <div
+            className="absolute top-1 -left-2 w-1 h-1 bg-yellow-300 rounded-full animate-ping opacity-60"
+            style={{ animationDelay: "700ms" }}
+          />
+        </div>
       </button>
 
       {/* Scroll to Top Button */}
@@ -255,7 +265,6 @@ function App() {
         >
           <AboutSection
             scrollToSection={scrollToSection}
-            darkMode={isDarkMode}
             visibleElements={visibleElements}
           />
         </Suspense>
@@ -278,7 +287,6 @@ function App() {
           }
         >
           <ExperienceSection
-            darkMode={isDarkMode}
             experiences={experiences}
             visibleElements={visibleElements}
           />
@@ -292,7 +300,6 @@ function App() {
           }
         >
           <ProjectsSection
-            darkMode={isDarkMode}
             projects={projects}
             visibleElements={visibleElements}
           />
@@ -305,10 +312,7 @@ function App() {
             </div>
           }
         >
-          <ContactSection
-            darkMode={isDarkMode}
-            visibleElements={visibleElements}
-          />
+          <ContactSection visibleElements={visibleElements} />
         </Suspense>
       </main>
     </div>

@@ -3,11 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface LoadingScreenProps {
   isLoading: boolean;
-  darkMode: boolean;
 }
 
 const LoadingScreen: React.FC<LoadingScreenProps> = React.memo(
-  ({ isLoading, darkMode }) => {
+  ({ isLoading }) => {
     const loadingTextRef = useRef<HTMLParagraphElement>(null);
     const name = "Sainath Bottupally";
     const title = "Crafting Digital Experiences...";
@@ -92,13 +91,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = React.memo(
                 }}
                 className="space-y-3"
               >
-                <h1
-                  className={`text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${
-                    darkMode
-                      ? "from-blue-400 to-purple-400"
-                      : "from-blue-600 to-purple-600"
-                  }`}
-                >
+                <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
                   {name}
                 </h1>
                 <p

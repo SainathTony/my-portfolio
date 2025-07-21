@@ -19,15 +19,13 @@ import type { Experience } from "portfolio-data";
 gsap.registerPlugin(ScrollTrigger);
 
 interface ExperienceSectionProps {
-  darkMode?: boolean;
   experiences?: Experience[];
   visibleElements?: VisibleElements;
 }
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
-  // darkMode = false,
   experiences = [],
-  // visibleElements = {},
+  visibleElements = {},
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
