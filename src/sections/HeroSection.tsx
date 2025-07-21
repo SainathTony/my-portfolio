@@ -18,6 +18,7 @@ import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import FloatingIcon from "../components/common/FloatingIcon";
 import RevealAnimation from "../components/common/RevealAnimation";
+import MyPic from '../assets/images/My_pic.png';
 
 gsap.registerPlugin(TextPlugin);
 
@@ -215,6 +216,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               ref={titleRef}
               className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-text-light-primary dark:text-text-dark-primary leading-tight opacity-0"
             >
+              {/* <img src={MyPic} className="w-10 h-10 rounded-md inline-block"/> */}
               Hi, I'm{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-hero-gradient-start via-hero-accent to-hero-success animate-gradient-x">
                 Sainath Bottupally
@@ -468,7 +470,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Scroll Indicator */}
-          <div className="mt-4">
+          <div className="mt-4 flex justify-center">
             <motion.button
               onClick={() => scrollToSection(1)}
               className="group flex flex-col items-center text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 transition-colors duration-300"
