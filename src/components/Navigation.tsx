@@ -1,13 +1,11 @@
 import React, { memo, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Home,
-  User,
-  Code as CodeIcon,
-  BarChart2,
-  Rocket,
-  Mail,
-} from "lucide-react";
+import Home from "lucide-react/dist/esm/icons/home";
+import User from "lucide-react/dist/esm/icons/user";
+import CodeIcon from "lucide-react/dist/esm/icons/code";
+import BarChart2 from "lucide-react/dist/esm/icons/bar-chart-2";
+import Rocket from "lucide-react/dist/esm/icons/rocket";
+import Mail from "lucide-react/dist/esm/icons/mail";
 
 interface NavigationProps {
   activeSection: number;

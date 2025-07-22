@@ -1,13 +1,11 @@
 import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Star,
-  ArrowRight,
-  Github,
-  ExternalLink,
-  Code2,
-  Sparkles,
-} from "lucide-react";
+import Star from "lucide-react/dist/esm/icons/star";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import Github from "lucide-react/dist/esm/icons/github";
+import ExternalLink from "lucide-react/dist/esm/icons/external-link";
+import Code2 from "lucide-react/dist/esm/icons/code-2";
+import Sparkles from "lucide-react/dist/esm/icons/sparkles";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Section from "../components/Section";

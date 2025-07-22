@@ -1,25 +1,23 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import {
-  Github,
-  Linkedin,
-  Mail,
-  Phone,
-  Globe,
-  Code,
-  Cpu,
-  Database,
-  Server,
-  ArrowDown,
-  Download,
-  Workflow,
-} from "lucide-react";
-import { gsap } from "gsap";
-import { TextPlugin } from "gsap/TextPlugin";
+import Github from "lucide-react/dist/esm/icons/github";
+import Linkedin from "lucide-react/dist/esm/icons/linkedin";
+import Mail from "lucide-react/dist/esm/icons/mail";
+import Phone from "lucide-react/dist/esm/icons/phone";
+import Globe from "lucide-react/dist/esm/icons/globe";
+import Code from "lucide-react/dist/esm/icons/code";
+import Cpu from "lucide-react/dist/esm/icons/cpu";
+import Database from "lucide-react/dist/esm/icons/database";
+import Server from "lucide-react/dist/esm/icons/server";
+import ArrowDown from "lucide-react/dist/esm/icons/arrow-down";
+import Download from "lucide-react/dist/esm/icons/download";
+import Workflow from "lucide-react/dist/esm/icons/workflow";
+import { gsap } from "gsap/dist/gsap";
+import { TextPlugin } from "gsap/dist/TextPlugin";
 import FloatingIcon from "../components/common/FloatingIcon";
 import RevealAnimation from "../components/common/RevealAnimation";
-import Background from "../components/Background";
 import MyPic from "../assets/images/My_pic.png";
+import Background from "../components/Background";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -172,9 +170,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
       id="home"
       className="section pt-10 relative flex items-center justify-center min-h-screen bg-gradient-to-br from-surface-light-primary via-surface-light-secondary to-surface-light-tertiary dark:from-surface-dark-primary dark:via-surface-dark-secondary dark:to-surface-dark-tertiary overflow-hidden transition-colors duration-500"
     >
-      {/* Enhanced Background with Liquid Animations */}
-      <Background />
-      
+      {/* Enhanced Background with Liquid Animations - Removed to optimize bundle size */}
+      <Background />     
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {floatingIcons.map((item, index) => (

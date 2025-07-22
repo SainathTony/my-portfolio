@@ -1,19 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Mail,
-  Phone,
-  Github,
-  Linkedin,
-  MapPin,
-  Clock,
-  MessageCircle,
-  CheckCircle,
-  Copy,
-  Heart,
-  Coffee,
-  ExternalLink,
-} from "lucide-react";
+import Mail from "lucide-react/dist/esm/icons/mail";
+import Phone from "lucide-react/dist/esm/icons/phone";
+import Github from "lucide-react/dist/esm/icons/github";
+import Linkedin from "lucide-react/dist/esm/icons/linkedin";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import Clock from "lucide-react/dist/esm/icons/clock";
+import MessageCircle from "lucide-react/dist/esm/icons/message-circle";
+import CheckCircle from "lucide-react/dist/esm/icons/check-circle";
+import Copy from "lucide-react/dist/esm/icons/copy";
+import Heart from "lucide-react/dist/esm/icons/heart";
+import Coffee from "lucide-react/dist/esm/icons/coffee";
+import ExternalLink from "lucide-react/dist/esm/icons/external-link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Section from "../components/Section";

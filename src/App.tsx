@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, Suspense, lazy } from "react";
-import { Sun, Moon } from "lucide-react";
+import Sun from "lucide-react/dist/esm/icons/sun";
+import Moon from "lucide-react/dist/esm/icons/moon";
 
 // Components
 import LoadingScreen from "./components/LoadingScreen";

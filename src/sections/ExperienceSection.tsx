@@ -2,17 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  Calendar,
-  MapPin,
-  Star,
-  Building,
-  ChevronLeft,
-  ChevronRight,
-  Award,
-  TrendingUp,
-  Zap,
-} from "lucide-react";
+import Calendar from "lucide-react/dist/esm/icons/calendar";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import Star from "lucide-react/dist/esm/icons/star";
+import Building from "lucide-react/dist/esm/icons/building";
+import ChevronLeft from "lucide-react/dist/esm/icons/chevron-left";
+import ChevronRight from "lucide-react/dist/esm/icons/chevron-right";
+import Award from "lucide-react/dist/esm/icons/award";
+import TrendingUp from "lucide-react/dist/esm/icons/trending-up";
+import Zap from "lucide-react/dist/esm/icons/zap";
 import type { VisibleElements } from "../types/common";
 import type { Experience } from "portfolio-data";
 

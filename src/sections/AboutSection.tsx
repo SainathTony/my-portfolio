@@ -1,20 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import {
-  Award,
-  Users,
-  Rocket,
-  Brain,
-  BookOpen,
-  Coffee,
-  Heart,
-  ArrowRight,
-  Sparkles,
-  Star,
-  TrendingUp,
-  Puzzle,
-  Lightbulb,
-} from "lucide-react";
+import Award from "lucide-react/dist/esm/icons/award";
+import Users from "lucide-react/dist/esm/icons/users";
+import Rocket from "lucide-react/dist/esm/icons/rocket";
+import Brain from "lucide-react/dist/esm/icons/brain";
+import BookOpen from "lucide-react/dist/esm/icons/book-open";
+import Coffee from "lucide-react/dist/esm/icons/coffee";
+import Heart from "lucide-react/dist/esm/icons/heart";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import Sparkles from "lucide-react/dist/esm/icons/sparkles";
+import Star from "lucide-react/dist/esm/icons/star";
+import TrendingUp from "lucide-react/dist/esm/icons/trending-up";
+import Puzzle from "lucide-react/dist/esm/icons/puzzle";
+import Lightbulb from "lucide-react/dist/esm/icons/lightbulb";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Section from "../components/Section";
