@@ -466,7 +466,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           </div>
 
           {/* Scroll Indicator */}
-          <div className="mt-4 flex justify-center">
+          <div className="my-4 flex justify-center">
             <motion.button
               onClick={() => scrollToSection(1)}
               className="group flex flex-col items-center text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 transition-colors duration-300"
