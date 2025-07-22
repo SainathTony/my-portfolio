@@ -19,6 +19,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 import FloatingIcon from "../components/common/FloatingIcon";
 import RevealAnimation from "../components/common/RevealAnimation";
 import Background from "../components/Background";
+import MyPic from "../assets/images/My_pic.png";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -181,7 +182,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
             key={index}
             icon={item.icon}
             delay={item.delay}
-            className={`floating-icon ${item.className}`}
+            className={`floating-icon text-black/90 dark:text-white/90  ${item.className}`}
           />
         ))}
 
@@ -213,7 +214,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-4">
             <h1
               ref={titleRef}
-              className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-text-light-primary dark:text-text-dark-primary leading-tight opacity-0"
+              className="text-xl text-center sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-text-light-primary dark:text-text-dark-primary leading-tight opacity-0"
             >
               {/* <img src={MyPic} className="w-10 h-10 rounded-md inline-block"/> */}
               Hi, I'm{" "}
@@ -226,13 +227,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                   rotate: [0, 14, -8, 14, -4, 10, 0],
                 }}
                 transition={{
-                  duration: 2.5,
+                  duration: 5,
                   repeat: Infinity,
                   repeatType: "reverse",
                   delay: 2,
                 }}
               >
-                👋
+                <img src={MyPic} className="w-10 h-10 rounded-md inline-block" />
               </motion.span>
             </h1>
           </div>
@@ -241,10 +242,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div className="mb-4">
             <h2
               ref={subtitleRef}
-              className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-text-light-secondary dark:text-text-dark-secondary font-light opacity-0"
+              className="text-lg text-center sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-text-light-secondary dark:text-text-dark-secondary font-light opacity-0"
             >
-              Senior{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-hero-gradient-start to-hero-accent font-semibold">
+              <span className="text-transparent text-center bg-clip-text bg-gradient-to-r from-hero-gradient-start to-hero-accent font-semibold">
                 Full Stack Developer
               </span>{" "}
               &{" "}
@@ -265,7 +265,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               {techStack.map((tech, index) => (
                 <motion.div
                   key={tech.name}
-                  className="flex items-center px-6 py-3 rounded-full bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm shadow-soft text-base font-medium text-text-light-primary dark:text-text-dark-primary border border-border-light-primary dark:border-border-dark-primary"
+                  className="flex items-center px-3 py-1.5 rounded-full bg-surface-light-elevated/90 dark:bg-surface-dark-elevated/90 backdrop-blur-sm shadow-soft text-base font-medium text-text-light-primary dark:text-text-dark-primary border border-border-light-primary dark:border-border-dark-primary"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + index * 0.1 }}
