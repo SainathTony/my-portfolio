@@ -18,7 +18,7 @@ import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import FloatingIcon from "../components/common/FloatingIcon";
 import RevealAnimation from "../components/common/RevealAnimation";
-import MyPic from '../assets/images/My_pic.png';
+import Background from "../components/Background";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -165,18 +165,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
     },
   ];
 
-  const handleContactClick = () => {
-    scrollToSection(5); // Assuming contact section is at index 5
-  };
-
   return (
     <section
       ref={heroRef}
       id="home"
       className="section pt-10 relative flex items-center justify-center min-h-screen bg-gradient-to-br from-surface-light-primary via-surface-light-secondary to-surface-light-tertiary dark:from-surface-dark-primary dark:via-surface-dark-secondary dark:to-surface-dark-tertiary overflow-hidden transition-colors duration-500"
     >
+      {/* Enhanced Background with Liquid Animations */}
+      <Background />
+      
       {/* Background Elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
         {floatingIcons.map((item, index) => (
           <FloatingIcon
             key={index}
@@ -186,14 +185,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           />
         ))}
 
-        {/* Enhanced animated background shapes */}
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-hero-gradient-start/10 to-secondary-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-secondary-500/10 to-hero-accent/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-hero-gradient-start/5 via-hero-accent/5 to-hero-gradient-end/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+        {/* Additional gradient overlays for depth */}
+        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-500/15 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-emerald-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-emerald-500/15 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Main Content */}
-      <div className="hero-content relative z-10 px-4 sm:px-6 lg:px-8">
+      <div className="hero-content relative px-4 sm:px-6 lg:px-8">
         <div className="hero-container max-w-7xl mx-auto">
           {/* Greeting Badge */}
           <div className="mb-4 w-full flex justify-center">
@@ -316,7 +315,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="relative z-10 flex items-center">
+              <span className="relative flex items-center">
                 Explore My Journey
                 <ArrowDown className="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform" />
               </span>
