@@ -14,21 +14,16 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@gsap/react": "^2.1.2",
-    "@react-three/drei": "^10.5.1",
-    "@react-three/fiber": "^9.2.0",
-    "@studio-freight/react-lenis": "^0.0.47",
     "framer-motion": "^12.23.3",
-    "gsap": "^3.13.0",
-    "lucide-react": "^0.358.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "three": "^0.156.0"
+    "three": "0.178.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "@types/three": "0.178.1",
     "@typescript-eslint/eslint-plugin": "^7.3.0",
     "@typescript-eslint/parser": "^7.3.0",
     "@vitejs/plugin-react": "^4.2.1",

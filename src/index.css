@@ -1,19 +1,277 @@
-/* Essential reset and base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+/* ------------------------------------------------------------------
+   Lab Notebook — design tokens
+   Paper is the identity, so there is deliberately no dark mode.
+------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+  --paper: #f3eee3;
+  --paper-raised: #faf7f0;
+  --paper-shadow: #e2d9c6;
+  --paper-dot: #d8cfbd;
+  --rule: #cbd9e3;
+  --margin: #e3a497;
+  --ink: #1d1b18;
+  --ink-muted: #5f594f;
+  --vermilion: #c8402a;
+  --fountain: #2347a0;
+  --highlight: rgba(242, 222, 107, 0.6);
+  --ease-paper: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Generated paper grain: fine fibres + slow mottling. Static, never animated. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .29 0 0 0 0 .23 0 0 0 0 .13 1.6 0 0 0 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+  --mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .36 0 0 0 0 .2 1.4 0 0 0 -.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='.05'/%3E%3C/svg%3E");
 }
 
-#root {
-  min-height: 100vh;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply font-sans text-ink antialiased;
+    background-color: var(--paper);
+    background-image: var(--grain), var(--mottle);
+    font-size: 17px;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern", "liga";
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 18px;
+    }
+  }
+
+  ::selection {
+    background: var(--highlight);
+    color: var(--ink);
+  }
+
+  a {
+    text-underline-offset: 0.18em;
+  }
+
+  :focus-visible {
+    outline: 2px dashed var(--fountain);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    font-variation-settings:
+      "SOFT" 30,
+      "WONK" 1;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .page {
+    @apply mx-auto w-full max-w-page px-5 md:px-8;
+  }
+
+  /* Mono label used for eyebrows, dates, stacks and figure captions */
+  .label {
+    @apply font-mono text-[12.5px] uppercase tracking-[0.08em] text-ink-muted;
+  }
+
+  .hand {
+    @apply font-hand text-fountain;
+    line-height: 1.25;
+  }
+
+  /* A raised sheet of paper */
+  .sheet {
+    @apply relative rounded-[2px] shadow-sheet;
+    background-color: var(--paper-raised);
+    background-image: var(--grain);
+  }
+
+  /* Paper types */
+  .paper-dots {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      var(--paper-dot) 1.1px,
+      transparent 1.3px
+    );
+    background-size: 24px 24px;
+  }
+
+  .paper-graph {
+    background-color: var(--paper-raised);
+    background-image:
+      var(--grain),
+      linear-gradient(rgba(140, 170, 196, 0.42) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(140, 170, 196, 0.42) 1px, transparent 1px),
+      linear-gradient(rgba(140, 170, 196, 0.2) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(140, 170, 196, 0.2) 1px, transparent 1px);
+    background-size:
+      220px 220px,
+      40px 40px,
+      40px 40px,
+      8px 8px,
+      8px 8px;
+    background-position: 0 0, -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+  }
+
+  .paper-ruled {
+    background-color: var(--paper-raised);
+    background-image:
+      var(--grain),
+      linear-gradient(
+        90deg,
+        transparent var(--margin-x, 132px),
+        var(--margin) var(--margin-x, 132px),
+        var(--margin) calc(var(--margin-x, 132px) + 1px),
+        transparent calc(var(--margin-x, 132px) + 1px),
+        transparent calc(var(--margin-x, 132px) + 4px),
+        rgba(227, 164, 151, 0.55) calc(var(--margin-x, 132px) + 4px),
+        rgba(227, 164, 151, 0.55) calc(var(--margin-x, 132px) + 5px),
+        transparent calc(var(--margin-x, 132px) + 5px)
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 31px,
+        var(--rule) 31px,
+        var(--rule) 32px
+      );
+    background-size: 220px 220px, 100% 100%, 100% 32px;
+  }
+
+  /* nudge the rules so text baselines sit on them */
+  .ruled-offset {
+    background-position: 0 0, 0 0, 0 -6px;
+  }
+
+  /* Page corner that curls up on hover */
+  .curl::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    background: linear-gradient(
+      315deg,
+      var(--paper) 0 50%,
+      #e9e2d2 50%,
+      #fbf9f3 72%,
+      #e2d9c6 100%
+    );
+    box-shadow: -3px -3px 6px -2px rgba(74, 58, 34, 0.25);
+    border-top-left-radius: 2px;
+    transition:
+      width 260ms var(--ease-paper),
+      height 260ms var(--ease-paper);
+  }
+  .curl:hover::after {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Index card: ruled with a red header line */
+  .index-card {
+    @apply relative rounded-[2px] shadow-sheet;
+    background-color: var(--paper-raised);
+    background-image:
+      var(--grain),
+      linear-gradient(
+        to bottom,
+        transparent 76px,
+        rgba(200, 64, 42, 0.55) 76px,
+        rgba(200, 64, 42, 0.55) 77px,
+        transparent 77px
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 29px,
+        rgba(140, 170, 196, 0.38) 29px,
+        rgba(140, 170, 196, 0.38) 30px
+      );
+    background-size: 220px 220px, 100% 100%, 100% 30px;
+    background-position: 0 0, 0 0, 0 18px;
+  }
+
+  /* Washi tape strip */
+  .tape {
+    position: absolute;
+    width: 96px;
+    height: 26px;
+    background: rgba(239, 230, 200, 0.78);
+    background-image: var(--grain);
+    box-shadow: 0 1px 2px rgba(74, 58, 34, 0.12);
+    clip-path: polygon(
+      0 8%, 4% 0, 8% 10%, 12% 0, 88% 0, 92% 9%, 96% 0, 100% 10%,
+      100% 90%, 96% 100%, 92% 91%, 88% 100%, 12% 100%, 8% 92%, 4% 100%, 0 90%
+    );
+    z-index: 2;
+  }
+
+  /* Highlighter swipe — animated by toggling .is-on */
+  .hl {
+    background-image: linear-gradient(
+      100deg,
+      transparent 0.2em,
+      var(--highlight) 0.35em,
+      rgba(242, 222, 107, 0.5) 85%,
+      transparent 98%
+    );
+    background-repeat: no-repeat;
+    background-size: 0% 72%;
+    background-position: 0 70%;
+    transition: background-size 900ms var(--ease-paper);
+    padding: 0 0.12em;
+    margin: 0 -0.12em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .hl.is-on {
+    background-size: 100% 72%;
+  }
+
+  .link-ink {
+    @apply underline decoration-ink/30 decoration-1 transition-colors duration-200 hover:text-fountain hover:decoration-fountain;
+  }
+
+  .btn-ink {
+    @apply inline-flex min-h-[48px] items-center gap-2 rounded-[2px] bg-ink px-6 text-[16px] font-medium text-paper-raised shadow-sheet transition-[transform,box-shadow,background-color] duration-200 ease-paper hover:-translate-y-px hover:bg-[#2b2823] hover:shadow-lifted active:translate-y-0;
+  }
+
+  .btn-paper {
+    @apply inline-flex min-h-[44px] items-center gap-2 rounded-[2px] border border-ink/80 px-4 font-mono text-[12.5px] uppercase tracking-[0.08em] text-ink transition-colors duration-200 hover:bg-ink hover:text-paper-raised;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hl {
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

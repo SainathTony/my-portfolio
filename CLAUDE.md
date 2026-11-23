@@ -4,75 +4,40 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a modern React portfolio website built with TypeScript, Vite, and advanced animations. The project features 3D graphics (Three.js), interactive animations (Framer Motion, GSAP), and a sophisticated design system.
+Single-page portfolio for Sainath Bottupally (senior full-stack engineer, applied AI), built with React 19, TypeScript, Vite and Tailwind CSS 3, deployed to GitHub Pages under `/my-portfolio/`.
+
+The visual identity is **"Lab Notebook"**: warm paper, ink, vermilion and fountain-pen blue, with hand-drawn marks and one real 3D moment (an agent-spec page that folds itself into a paper plane). There is intentionally **no dark mode** — paper is the identity.
 
 ## Development Commands
 
 ```bash
-# Start development server
-yarn dev
-
-# Build for production
-yarn build
-
-# Preview production build
-yarn preview
-
-# Lint code
-yarn lint
-
-# Format code
-yarn format
+yarn dev       # dev server
+yarn build     # tsc + vite build
+yarn preview   # serve the production build
+yarn lint      # eslint --fix
+yarn format    # prettier
+yarn deploy    # build + publish dist/ to gh-pages
 ```
 
 ## Architecture
 
-### Core Structure
+- `src/App.tsx` — composes `Nav` and the sections in order (Hero, AIWork, Work, Experience, Toolbox, About, Contact, Footer) inside `MotionConfig reducedMotion="user"`.
+- `src/data/portfolioData.ts` — **all copy and facts**. Every claim must trace to the résumé; change numbers here only. Types live in `src/types/portfolio.ts`.
+- `src/sections/*` — one file per section.
+- `src/components/ink.tsx` — paper/ink primitives: `Reveal` (the single entrance animation), `Highlight` (highlighter, metrics only), `HandCircle`, `HandUnderline`, `DrawPath`, `Stamp`, `Tape`, `SectionHeader`. Hand marks measure their own box and draw in real pixels (framer's `pathLength` breaks with `vector-effect: non-scaling-stroke`, so don't use that on animated paths).
+- `src/lib/sketch.ts` — seeded generators for wobbly lines, boxes, ellipses, arrows and squiggles (deterministic per seed).
+- `src/components/plane/` — the hero 3D:
+  - `PaperPlane.tsx` shows a hand-drawn SVG poster, lazy-loads the scene after idle, crossfades to the canvas, and draws the dashed pencil trail to the tail position the scene reports.
+  - `paperPlaneScene.ts` is plain three.js (no R3F). A dense sheet mesh is folded by rigid rotations about crease axes; vertices near creases are snapped onto them so folded edges stay straight. The spec text on the page is painted to a CanvasTexture in `drawSpecTexture`. VSM soft shadows land on an invisible ShadowMaterial "page". Rendering pauses off-screen; reduced motion shows the folded plane static.
+- `src/components/TiltCard.tsx` — CSS-3D hover tilt for index cards.
 
-- **App.tsx**: Main application component managing global state (dark mode, active section, loading state) and rendering all sections
-- **src/sections/**: Individual portfolio sections (Hero, About, Skills, Experience, Projects, Contact)
-- **src/components/**: Reusable UI components including 3D background, navigation, and interactive elements
-- **src/data/portfolioData.ts**: Centralized data store for skills, projects, experiences, and personal information
-- **src/types/**: TypeScript type definitions for consistent data structures
+## Styling
 
-### Key Features
-
-- **3D Background**: Three.js integration via `ThreeJSBackground` component
-- **Interactive Animations**: Framer Motion for section animations, GSAP for advanced effects
-- **Custom Hooks**: Mouse tracking, scroll handling, and intersection observer utilities
-- **Responsive Design**: Tailwind CSS with custom styling in `src/styles/`
-- **Dark/Light Mode**: Toggle functionality with CSS custom properties
-
-### State Management
-
-The app uses React's built-in state management:
-
-- Global state in `App.tsx` for theme, active section, and loading states
-- Custom hooks for mouse tracking, scroll position, and element visibility
-- Props drilling for component communication
-
-### Data Flow
-
-All portfolio content is centralized in `src/data/portfolioData.ts` and follows strict TypeScript interfaces defined in `src/types/common.ts`. The data structure includes skills with levels and categories, projects with tech stacks, and detailed experience records.
-
-### Styling System
-
-- Tailwind CSS for utility-first styling
-- Custom CSS files in `src/styles/` for animations and component-specific styles
-- CSS custom properties for theme switching
-- Responsive design with mobile-first approach
+- Tokens are CSS variables in `src/index.css` mirrored in `tailwind.config.js` (`paper`, `ink`, `vermilion`, `fountain`, `highlight`, …).
+- Paper types are component classes: `.sheet`, `.paper-dots`, `.paper-graph`, `.paper-ruled` (+ `.ruled-offset`), `.index-card`, `.tape`, `.hl`, `.curl`.
+- Fonts (Google Fonts, linked in `index.html`): Fraunces (display), IBM Plex Sans (body), IBM Plex Mono (labels), Kalam (handwritten annotations only — at most one per viewport).
+- Don't rotate sheets that carry body text; get the hand-placed feel from tape, stamps and small offsets.
 
 ## Key Dependencies
 
-- **React 19**: Core framework with latest features
-- **TypeScript**: Type safety and development experience
-- **Vite**: Build tool and development server
-- **Three.js + React Three Fiber**: 3D graphics and animations
-- **Framer Motion**: Component animations and transitions
-- **GSAP**: Advanced animations and timeline control
-- **Tailwind CSS**: Utility-first CSS framework
-- **Lucide React**: Icon library
-
-## Development Notes
-
-The project structure follows a feature-based organization with clear separation between components, sections, hooks, and utilities. All interactive elements respect the dark/light theme system and maintain accessibility standards.
+React 19, framer-motion (all DOM animation), three (hero only, lazy chunk), Tailwind CSS 3.

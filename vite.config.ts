@@ -8,16 +8,16 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
+        // three.js is only reached through the lazy paper-plane chunk, so it stays off the critical path.
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          motion: ['framer-motion'],
-          gsap: ['gsap'],
+          vendor: ["react", "react-dom"],
+          motion: ["framer-motion"],
         },
       },
     },
-    chunkSizeWarningLimit: 500,
-    target: 'es2015',
-    minify: 'terser',
+    chunkSizeWarningLimit: 600,
+    target: "es2019",
+    minify: "terser",
     terserOptions: {
       compress: {
         drop_console: true,
@@ -26,6 +26,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "framer-motion", "gsap"],
+    include: ["react", "react-dom", "framer-motion", "three"],
   },
 });
