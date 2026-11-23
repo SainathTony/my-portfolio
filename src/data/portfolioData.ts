@@ -16,7 +16,7 @@ import type {
 export const person = {
   name: "Sainath Bottupally",
   shortName: "Sainath B.",
-  eyebrow: "Senior full-stack engineer · Applied AI · Hyderabad (IST)",
+  eyebrow: "Sainath Bottupally · Senior full-stack engineer · Applied AI · Hyderabad, India",
   email: "bottupallysainath@gmail.com",
   location: "Hyderabad, India · IST (UTC+5:30)",
 };

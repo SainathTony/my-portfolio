@@ -88,6 +88,7 @@ export default function Nav() {
       <nav className="page flex h-16 items-center justify-between" aria-label="Primary">
         <a
           href="#top"
+          aria-label="Sainath Bottupally — back to top"
           className="font-display text-[22px] italic tracking-[-0.01em] text-ink"
           style={{ fontVariationSettings: '"SOFT" 60, "WONK" 1' }}
           onClick={() => setOpen(false)}

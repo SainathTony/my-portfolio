@@ -3,35 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <title>Sainath Bottupally – Senior Full-Stack Engineer, Applied AI</title>
+
+    <!-- Name first: it's what people type. ~60 chars so Google shows it whole. -->
+    <title>Sainath Bottupally · Senior Full-Stack Developer (AI, LLMs)</title>
     <meta
       name="description"
-      content="Senior full-stack engineer building LLM agents and MCP integrations into production products. Six years at ThoughtWorks and Everest Engineering."
+      content="Sainath Bottupally is a senior full-stack developer in Hyderabad, India, building LLM agents and MCP servers into production apps with React, Node.js, Java and AWS."
     />
     <meta name="author" content="Sainath Bottupally" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="canonical" href="https://sainathtony.github.io/my-portfolio/" />
+    <!-- Search Console verification goes here, e.g.
+         <meta name="google-site-verification" content="…" />
+         <meta name="msvalidate.01" content="…" /> -->
+
     <meta name="theme-color" content="#F3EEE3" />
     <meta name="color-scheme" content="light" />
-    <link rel="canonical" href="https://sainathtony.github.io/my-portfolio/" />
+
+    <!-- Icons: Google search results need a square favicon in multiples of 48px -->
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Identity links (same person across profiles) -->
+    <link rel="me" href="https://github.com/SainathTony" />
+    <link rel="me" href="https://www.linkedin.com/in/sainath-bottupally-754636156/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Sainath Bottupally" />
     <meta property="og:url" content="https://sainathtony.github.io/my-portfolio/" />
     <meta property="og:title" content="Sainath Bottupally – I build AI agents into products that already have users" />
     <meta
       property="og:description"
-      content="Senior full-stack engineer building LLM agents and MCP integrations into production products. Six years at ThoughtWorks and Everest Engineering."
+      content="Senior full-stack developer in Hyderabad building LLM agents and MCP integrations into production products. Six years at ThoughtWorks and Everest Engineering."
     />
     <meta property="og:image" content="https://sainathtony.github.io/my-portfolio/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sainath Bottupally's portfolio: I build AI agents into products that already have users." />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="profile:first_name" content="Sainath" />
+    <meta property="profile:last_name" content="Bottupally" />
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sainath Bottupally – Senior Full-Stack Engineer, Applied AI" />
+    <meta name="twitter:title" content="Sainath Bottupally – Senior Full-Stack Developer, Applied AI" />
     <meta
       name="twitter:description"
-      content="Senior full-stack engineer building LLM agents and MCP integrations into production products."
+      content="Senior full-stack developer in Hyderabad building LLM agents and MCP integrations into production products."
     />
     <meta name="twitter:image" content="https://sainathtony.github.io/my-portfolio/og-image.jpg" />
 
@@ -43,32 +66,91 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Kalam:wght@400;700&display=swap"
     />
 
+    <!-- Without JS, show the prerendered page instead of leaving reveal-animated content hidden -->
+    <noscript>
+      <style>
+        [style*="opacity:0"] {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Sainath Bottupally",
-        "url": "https://sainathtony.github.io/my-portfolio/",
-        "jobTitle": "Senior Full-Stack Engineer, Applied AI",
-        "description": "Senior full-stack engineer building LLM agents and MCP integrations into production products.",
-        "address": { "@type": "PostalAddress", "addressLocality": "Hyderabad", "addressCountry": "IN" },
-        "alumniOf": { "@type": "CollegeOrUniversity", "name": "IIIT Basar" },
-        "knowsAbout": ["LLM agents", "Model Context Protocol", "Agentic workflows", "Node.js", "Spring Boot", "React", "TypeScript", "AWS"],
-        "sameAs": [
-          "https://www.linkedin.com/in/sainath-bottupally-754636156/",
-          "https://github.com/SainathTony"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://sainathtony.github.io/my-portfolio/#website",
+            "url": "https://sainathtony.github.io/my-portfolio/",
+            "name": "Sainath Bottupally",
+            "alternateName": ["Bottupally Sainath", "Sainath B."],
+            "inLanguage": "en",
+            "publisher": { "@id": "https://sainathtony.github.io/my-portfolio/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://sainathtony.github.io/my-portfolio/#profile",
+            "url": "https://sainathtony.github.io/my-portfolio/",
+            "name": "Sainath Bottupally – Senior Full-Stack Developer, Applied AI",
+            "isPartOf": { "@id": "https://sainathtony.github.io/my-portfolio/#website" },
+            "about": { "@id": "https://sainathtony.github.io/my-portfolio/#person" },
+            "mainEntity": { "@id": "https://sainathtony.github.io/my-portfolio/#person" },
+            "dateModified": "2026-11-23",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://sainathtony.github.io/my-portfolio/#person",
+            "name": "Sainath Bottupally",
+            "givenName": "Sainath",
+            "familyName": "Bottupally",
+            "alternateName": ["Bottupally Sainath", "Sainath B", "SainathTony"],
+            "url": "https://sainathtony.github.io/my-portfolio/",
+            "image": "https://sainathtony.github.io/my-portfolio/sainath-bottupally.jpg",
+            "email": "mailto:bottupallysainath@gmail.com",
+            "jobTitle": "Senior Full-Stack Engineer, Applied AI",
+            "description": "Senior full-stack developer in Hyderabad, India, building LLM agents and MCP servers into production apps with React, Node.js, TypeScript, Java / Spring Boot and AWS.",
+            "worksFor": { "@type": "Organization", "name": "Everest Engineering" },
+            "alumniOf": [
+              { "@type": "CollegeOrUniversity", "name": "IIIT Basar" },
+              { "@type": "Organization", "name": "ThoughtWorks" }
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Hyderabad",
+              "addressRegion": "Telangana",
+              "addressCountry": "IN"
+            },
+            "knowsLanguage": ["English", "Hindi", "Telugu", "Marathi"],
+            "knowsAbout": [
+              "Full-stack development",
+              "AI agents",
+              "Agentic AI",
+              "Large language models (LLMs)",
+              "Model Context Protocol (MCP)",
+              "Generative AI",
+              "React",
+              "Node.js",
+              "TypeScript",
+              "Java",
+              "Spring Boot",
+              "Microservices",
+              "AWS",
+              "Test-driven development"
+            ],
+            "sameAs": [
+              "https://www.linkedin.com/in/sainath-bottupally-754636156/",
+              "https://github.com/SainathTony"
+            ]
+          }
         ]
       }
     </script>
   </head>
   <body>
-    <noscript>
-      <p style="padding:24px;font-family:Georgia,serif">
-        Sainath Bottupally — senior full-stack engineer building LLM agents and MCP integrations into production products.
-        Email: <a href="mailto:bottupallysainath@gmail.com">bottupallysainath@gmail.com</a>
-      </p>
-    </noscript>
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,10 +1,9 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { lazy, Suspense } from "react";
 import { hero, links, person, proofPoints } from "../data/portfolioData";
 import { roughArrow } from "../lib/sketch";
-import { DrawPath, EASE, HandCircle, HandUnderline, Highlight } from "../components/ink";
-
-const PaperPlane = lazy(() => import("../components/plane/PaperPlane"));
+import { DrawPath, HandCircle, HandUnderline, Highlight } from "../components/ink";
+// Small wrapper (SVG poster + trail). three.js itself is dynamically imported inside it after idle.
+import PaperPlane from "../components/plane/PaperPlane";
 
 /** "not demos." — tucked under the right end of the marker circle, arrow pointing up at it. */
 function MarginNote() {
@@ -45,12 +44,9 @@ const RECEIPT_CLIP = receiptClip();
 
 function ProofStrip() {
   return (
-    <motion.div
-      className="relative mt-8 md:col-span-12 md:mt-4"
-      style={{ filter: "drop-shadow(0 6px 7px rgba(74,58,34,.16))" }}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: EASE, delay: 0.45 }}
+    <div
+      className="rise relative mt-8 md:col-span-12 md:mt-4"
+      style={{ filter: "drop-shadow(0 6px 7px rgba(74,58,34,.16))", animationDelay: "450ms" }}
     >
       <div
         className="bg-paper-raised px-5 pb-7 pt-6 sm:px-7"
@@ -79,17 +75,11 @@ function ProofStrip() {
           ))}
         </dl>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 export default function Hero() {
-  const reduce = useReducedMotion();
-  const enter = (delay: number) => ({
-    initial: reduce ? { opacity: 0 } : { opacity: 0, y: 14 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, ease: EASE, delay },
-  });
 
   return (
     <section id="top" aria-labelledby="hero-title" className="relative overflow-x-clip pb-14 pt-24 md:pb-16 md:pt-28">
@@ -105,14 +95,14 @@ export default function Hero() {
       <div className="page relative">
         <div className="grid items-center gap-y-6 md:grid-cols-12 md:gap-x-6">
           <div className="relative z-10 md:col-span-7">
-            <motion.p className="label" {...enter(0.05)}>
+            <p className="rise label" style={{ animationDelay: "50ms" }}>
               {person.eyebrow}
-            </motion.p>
+            </p>
 
-            <motion.h1
+            <h1
               id="hero-title"
-              className="mt-5 text-[clamp(38px,5.3vw,76px)] font-[560] leading-[1.04] tracking-[-0.025em]"
-              {...enter(0.12)}
+              className="rise mt-5 text-[clamp(38px,5.3vw,76px)] font-[560] leading-[1.04] tracking-[-0.025em]"
+              style={{ animationDelay: "120ms" }}
             >
               {hero.headlineStart}{" "}
               <span className="relative inline-block whitespace-nowrap">
@@ -122,16 +112,16 @@ export default function Hero() {
                 .
                 <MarginNote />
               </span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              className="mt-11 max-w-[54ch] text-[18px] leading-relaxed text-ink-muted md:mt-12 md:text-[19.5px]"
-              {...enter(0.22)}
+            <p
+              className="rise mt-11 max-w-[54ch] text-[18px] leading-relaxed text-ink-muted md:mt-12 md:text-[19.5px]"
+              style={{ animationDelay: "220ms" }}
             >
               {hero.sub}
-            </motion.p>
+            </p>
 
-            <motion.div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4" {...enter(0.3)}>
+            <div className="rise mt-8 flex flex-wrap items-center gap-x-7 gap-y-4" style={{ animationDelay: "300ms" }}>
               <a href="#ai" className="btn-ink">
                 See the AI work <span aria-hidden>↓</span>
               </a>
@@ -155,16 +145,14 @@ export default function Hero() {
                   GitHub ↗
                 </a>
               </span>
-            </motion.div>
+            </div>
           </div>
 
           {/* on phones the receipts come before the plane, so the evidence is on the first screen */}
           <div className="relative order-last mt-2 h-[250px] sm:h-[380px] md:order-none md:col-span-5 md:mt-0 md:h-[540px]">
             {/* the canvas bleeds past the column so wings and shadow never hit an edge */}
             <div className="absolute -inset-x-5 -bottom-2 -top-4 md:-left-10 md:-right-[max(32px,calc((100vw-1200px)/2))]">
-              <Suspense fallback={null}>
-                <PaperPlane />
-              </Suspense>
+              <PaperPlane />
             </div>
             <p className="label absolute -bottom-5 right-0 text-[11px] normal-case tracking-[0.04em] text-ink-faint md:-bottom-3">
               fig. 1 — an agent spec, folded for flight (click it)

@@ -64,7 +64,9 @@ export default function PaperPlane() {
   const reduce = useReducedMotion() ?? false;
   const [ready, setReady] = useState(false);
   const [tail, setTail] = useState<Tail | null>(null);
-  const [webgl] = useState(() => (typeof window === "undefined" ? false : hasWebGL()));
+  // Detected after mount so the prerendered HTML (poster only) and first client render match.
+  const [webgl, setWebgl] = useState(false);
+  useEffect(() => setWebgl(hasWebGL()), []);
 
   useEffect(() => {
     if (!webgl || !host.current) return;

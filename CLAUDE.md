@@ -12,7 +12,7 @@ The visual identity is **"Lab Notebook"**: warm paper, ink, vermilion and founta
 
 ```bash
 yarn dev       # dev server
-yarn build     # tsc + vite build
+yarn build     # tsc + client build + SSR build + prerender (scripts/prerender.mjs)
 yarn preview   # serve the production build
 yarn lint      # eslint --fix
 yarn format    # prettier
@@ -21,6 +21,7 @@ yarn deploy    # build + publish dist/ to gh-pages
 
 ## Architecture
 
+- **Prerendering (SEO):** `src/entry-server.tsx` is rendered at build time and injected into `dist/index.html` (`<!--app-html-->`); `src/main.tsx` hydrates it. Keep components SSR-safe: no `window`/`document` during render (use effects), and render the same markup on the server and the first client pass (e.g. detect WebGL in an effect, not in `useState` init). SEO metadata and JSON-LD live in `index.html`.
 - `src/App.tsx` — composes `Nav` and the sections in order (Hero, AIWork, Work, Experience, Toolbox, About, Contact, Footer) inside `MotionConfig reducedMotion="user"`.
 - `src/data/portfolioData.ts` — **all copy and facts**. Every claim must trace to the résumé; change numbers here only. Types live in `src/types/portfolio.ts`.
 - `src/sections/*` — one file per section.

@@ -1,0 +1,13 @@
+{
+  "name": "Sainath Bottupally – Senior Full-Stack Engineer, Applied AI",
+  "short_name": "Sainath B.",
+  "start_url": "/my-portfolio/",
+  "scope": "/my-portfolio/",
+  "display": "browser",
+  "background_color": "#F3EEE3",
+  "theme_color": "#F3EEE3",
+  "icons": [
+    { "src": "favicon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "favicon-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,8 +1,9 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { about } from "../data/portfolioData";
 import { Reveal, SectionHeader, Tape } from "../components/ink";
-// 640px web copy of My_pic.png (the 1254px original stays as the source)
-import MyPic from "../assets/images/my-portrait-640.jpg";
+// 640px web copy of src/assets/images/My_pic.png, served from public/ at a stable,
+// descriptive URL so image search and the Person schema can reference it.
+const PORTRAIT = `${import.meta.env.BASE_URL}sainath-bottupally.jpg`;
 
 function StickyNote() {
   const reduce = useReducedMotion();
@@ -36,8 +37,8 @@ export default function About() {
               <Tape className="-top-3 left-6" rotate={-8} width={84} />
               <Tape className="-top-3 right-4" rotate={10} width={70} />
               <img
-                src={MyPic}
-                alt="Sainath Bottupally"
+                src={PORTRAIT}
+                alt="Sainath Bottupally, senior full-stack engineer, in Hyderabad"
                 width={640}
                 height={640}
                 loading="lazy"
@@ -51,7 +52,7 @@ export default function About() {
           </Reveal>
 
           <div>
-            <SectionHeader id="about-title" index="05" label="About" title="Hi, I'm Sainath." />
+            <SectionHeader id="about-title" index="05" label="About" title="Hi, I'm Sainath Bottupally." />
             <Reveal>
               <div className="max-w-prose space-y-5 text-[18px] leading-relaxed md:text-[19px]">
                 {about.paragraphs.map((p) => (
