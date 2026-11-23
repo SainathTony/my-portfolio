@@ -23,7 +23,7 @@ export const person = {
 
 export const links = {
   resume:
-    "https://drive.google.com/file/d/16d3sVUelsEUdOzIqtfQZ8A9ukRbmh8rK/view?usp=sharing",
+    "https://drive.google.com/file/d/1eZ0X_i9QIbf9XBKVugUZiW33elsk08fI/view?usp=share_link",
   linkedin: "https://www.linkedin.com/in/sainath-bottupally-754636156/",
   github: "https://github.com/SainathTony",
 } satisfies Record<string, string>;
